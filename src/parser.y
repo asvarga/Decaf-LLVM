@@ -62,7 +62,7 @@ extern "C" int yywrap(void){return 1;};
 %token COMMA
 %token PERIOD
 %token IDENTIFIER
-%token NULL
+%token NILL
 %token BOOLEAN
 %token INTEGER
 %token STRING
@@ -242,7 +242,7 @@ array_expr : IDENTIFIER dimension
     |   non_new_array_expr dimension
     ;
 
-litteral :   NULL
+litteral :   NILL
     |   BOOLEAN
     |   INTEGER
     |   CHAR

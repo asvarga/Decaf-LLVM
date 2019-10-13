@@ -6,14 +6,11 @@
 
 #define YY_DECL extern "C" int yylex()
 
-extern union node yylval;
-int lineno = 0;
-
 %}
 
 
 
-/* Macros */
+    /* Macros */
 WHITESPACE          ([ \t]+)
 NEWLINE             (\r|\n|\r\n)
 SINGLE_COMMENT      ("//"[^\r\n]*)
@@ -36,7 +33,7 @@ CHAR_SLASH          "'"\\[^nt]"'"
 "extends"   { return EXTENDS; }
 "if"        { return IF; }
 "new"       { return NEW; }
-"null"      { return NULL; }
+"null"      { return NILL; }
 "private"   { return PRIVATE; }
 "protected" { return PROTECTED;}
 "public"    { return PUBLIC; }
