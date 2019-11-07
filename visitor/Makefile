@@ -5,3 +5,6 @@ ast: ast.cpp
 ast_run: ast
 	./ast
 
+classes:
+	python3 makeClasses.py
+
