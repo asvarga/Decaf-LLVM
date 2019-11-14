@@ -69,14 +69,27 @@ extern "C" int yywrap(void){return 1;};
 %token STRING
 %token CHAR
 %token UNRECOG_ERROR
+%token TYPER_INT
+%token VOID
 
-%precedence NOT
-%left ADD SUBS TIMES DIV MOD
-%right EQ
-%left LOR LAND
-%left LESS GREATER LEQ GEQ
-%left EQEQ NEQ
-%precedence UMINUS
+// %precedence NOT
+// %left ADD SUBS TIMES DIV MOD
+// %right EQ
+// %left LOR LAND
+// %left LESS GREATER LEQ GEQ
+// %left EQEQ NEQ
+// %precedence UMINUS
+
+%precedence NOT UMINUS UPLUS
+%left       TIMES DIV MOD
+%left       ADD SUBS
+%nonassoc   LESS GREATER LEQ GEQ
+%left       EQEQ NEQ
+%left       LAND
+%left       LOR
+%right      EQ
+%right      IF
+%right      LOWER_THAN_IF
 
 %%
 class_list
@@ -170,7 +183,7 @@ formal_arg
                maybe offload to type checker *)
             | VoIDENTIFIERType ->
                 {name = declName; t = ArrayType(VoIDENTIFIERType, declCnt)}
-            (* TODO these aren't really parse errors but semantic errors *)
+            (* TODO these arent really parse errors but semantic errors *)
             | MethodType (_, _, _) -> raise Parsing.Parse_error
         else
             {name = declName; t = $1}
@@ -230,8 +243,8 @@ statement_list
 statement
     : SEMICOLON                                 { $$ =new EmptyStatement() }
     | type_decl var_decl_list SEMICOLON         { $$ = new DeclStatement($1, $2) }
-    | IF OP expr CP statement
-        %prec LOWER_THAN_ELSE                   { $$ = new If($3, $5, NULL); }
+    | IF OP expr CP statement                   // { $$ = new If($3, $5, NULL); }
+        %prec LOWER_THAN_IF                   { $$ = new If($3, $5, NULL); }
     | IF OP expr CP statement ELSE
         statement                               { $$ = new If($3, $5, $7); }
     | expr SEMICOLON                            { $$ = new ExprStatement($1); }

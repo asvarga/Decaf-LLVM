@@ -80,11 +80,7 @@ CHAR_SLASH          "'"\\[^nt]"'"
 "outer"         { return FORBIDDEN; }
 "rest"          { return FORBIDDEN; }
 "var"           { return FORBIDDEN; }
-"byte"          { return FORBIDDEN; }
-"double"        { return FORBIDDEN; }
 "float"         { return FORBIDDEN; }
-"long"          { return FORBIDDEN; }
-"short"         { return FORBIDDEN; }
 "~"             { return FORBIDDEN; }
 "?"             { return FORBIDDEN; }
 ":"             { return FORBIDDEN; }
@@ -133,18 +129,18 @@ CHAR_SLASH          "'"\\[^nt]"'"
 "}"                { return CC; }
 ","                { return COMMA; }
 "."                { return PERIOD; }
-{IDENTIFIER}       { return IDENTIFIER; }
-
 
     /*Primitive Types*/
-"void"          { yylval.value = strdup(yytext);return TYPE_VOID; }
+"void"          { yylval.value = strdup(yytext); return TYPE_VOID; }
 "int"           { yylval.value = strdup(yytext); return TYPE_INT; }
 "boolean"       { yylval.value = strdup(yytext); return TYPE_BOOL; }
 "char"          { yylval.value = strdup(yytext); return TYPE_CHAR; }
 
+
     /* Literal Types */
 
-"true"|"false"      { yylval.boolConstant = strdup(yytext);return BOOLEAN; }
+"true|false"      { yylval.boolConstant = strdup(yytext);return BOOLEAN; }
+{IDENTIFIER}       { return IDENTIFIER; }
 {INTEGER}           { yylval.integerConstant = strdup(yytext);return INTEGER;}
 {STRING}            { yylval.stringConstant = strdup(yytext);return STRING; }
 {BEG_STRING}        { return INCOMPL_STR;}

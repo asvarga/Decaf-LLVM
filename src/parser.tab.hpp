@@ -1,8 +1,9 @@
-/* A Bison parser, made by GNU Bison 3.0.4.  */
+/* A Bison parser, made by GNU Bison 3.3.2.  */
 
 /* Bison interface for Yacc-like parsers in C
 
-   Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+   Copyright (C) 1984, 1989-1990, 2000-2015, 2018-2019 Free Software Foundation,
+   Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -29,6 +30,9 @@
 
    This special exception was added by the Free Software Foundation in
    version 2.2 of Bison.  */
+
+/* Undocumented macros, especially those whose name start with YY_,
+   are private implementation details.  Do not rely on them.  */
 
 #ifndef YY_YY_PARSER_TAB_HPP_INCLUDED
 # define YY_YY_PARSER_TAB_HPP_INCLUDED
@@ -75,12 +79,12 @@ extern int yydebug;
     NEQ = 285,
     LAND = 286,
     LOR = 287,
-    ADD = 288,
-    SUBS = 289,
-    MULT = 290,
+    PLUS = 288,
+    MINUS = 289,
+    TIMES = 290,
     DIV = 291,
     MOD = 292,
-    NEG = 293,
+    NOT = 293,
     OP = 294,
     CP = 295,
     OB = 296,
@@ -88,15 +92,22 @@ extern int yydebug;
     OC = 298,
     CC = 299,
     COMMA = 300,
-    PERIOD = 301,
-    IDENTIFIER = 302,
-    NILL = 303,
-    BOOLEAN = 304,
-    INTEGER = 305,
-    STRING = 306,
-    CHAR = 307,
-    UNRECOG_ERROR = 308,
-    UMINUS = 309
+    DOT = 301,
+    SEMICOLON = 302,
+    IDENTIFIER = 303,
+    NILL = 304,
+    BOOLEAN = 305,
+    INTEGER = 306,
+    STRING = 307,
+    CHAR = 308,
+    UNRECOG_ERROR = 309,
+    TYPER_INT = 310,
+    VOID = 311,
+    UMINUS = 312,
+    UPLUS = 313,
+    ADD = 314,
+    SUBS = 315,
+    LOWER_THAN_IF = 316
   };
 #endif
 
