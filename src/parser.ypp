@@ -12,8 +12,10 @@ extern "C" int yyparse();
 // extern "C" voIDENTIFIER yyerror(char *s); // lol
 extern "C" void yyerror(string s);
 extern "C" int yywrap(void){return 1;};
+
 extern "C" void yydebug(string s);
 
+extern FILE *yyin;
 
 
 %}
@@ -356,9 +358,20 @@ expr_list
 
 void yyerror(string s)
 {
-	fprintf(stderr, "error: %s\n", s);
+	// fprintf(stderr, "error: %s\n", s);
+    cout << "error: " << s << "\n";
 }
 
 void yydebug(string s) {
-    printf("%s", s);
+    // printf("%s", s);
+    cout << "\t" << s << "\n";
 }
+
+int main(int argc, char **argv) {
+    cout << "\n===[PARSING]===\n";
+
+    yyin = fopen(argv[1], "r");
+	yyparse();
+
+	return 0; 
+} 

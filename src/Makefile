@@ -4,4 +4,12 @@ parser: parser.ypp lexer.l ast.h ast.cpp
 
 
 compiler: parser
-	g++ -std=c++11 -o parser parser.tab.cpp lex.yy.c ast.cpp -ll -g -ldl -lfl `llvm-config --cppflags --libs --libfiles core --ldflags --system-libs`
+	# g++ -std=c++11 -o parser parser.tab.cpp lex.yy.c ast.cpp -ll -g -ldl -lfl `llvm-config --cppflags --libs --libfiles core --ldflags --system-libs`
+	g++ -std=c++11 -o parser parser.tab.cpp lex.yy.c
+
+
+# TESTS #
+adder: compiler
+	./parser test/adder.decaf
+empty: compiler
+	./parser test2/emptyClasses.decaf
