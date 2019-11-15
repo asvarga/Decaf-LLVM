@@ -1,6 +1,6 @@
 
 class Adder {
-  static public void main(String[] argv)
+  static public void main (String[] argv)
   {
     IO.putString ("enter two integers: ");
     int x = IO.getInt ();

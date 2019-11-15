@@ -105,15 +105,27 @@ extern int yydebug;
     VOID = 311,
     UMINUS = 312,
     UPLUS = 313,
-    ADD = 314,
-    SUBS = 315,
-    LOWER_THAN_IF = 316
+    LOWER_THAN_IF = 314
   };
 #endif
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+
+union YYSTYPE
+{
+#line 98 "parser.ypp" /* yacc.c:1921  */
+
+    char *s;
+    int i;
+    double d;
+    bool b;
+    char c;
+
+#line 126 "parser.tab.hpp" /* yacc.c:1921  */
+};
+
+typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1
 #endif
