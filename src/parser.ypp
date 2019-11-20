@@ -32,16 +32,16 @@ StartA* start;
 %token EXTENDS
 %token IF
 %token NEW
-%token PRIVATE
-%token PROTECTED
-%token PUBLIC
-%token RETURN
-%token STATIC
-%token SUPER
-%token TYPE_VOID
-%token TYPE_INT
-%token TYPE_BOOL
-%token TYPE_CHAR
+%token<s> PRIVATE
+%token<s> PROTECTED
+%token<s> PUBLIC
+%token<s> RETURN
+%token<s> STATIC
+%token<s> SUPER
+%token<s> TYPE_VOID
+%token<s> TYPE_INT
+%token<s> TYPE_BOOL
+%token<s> TYPE_CHAR
 %token THIS
 %token WHILE
 %token FORBIDDEN
@@ -70,7 +70,7 @@ StartA* start;
 %token COMMA
 %token DOT
 %token SEMICOLON
-%token IDENTIFIER
+%token<s> IDENTIFIER
 %token NILL
 %token BOOLEAN
 %token INTEGER
@@ -119,7 +119,7 @@ StartA* start;
     class BlockA*       blockA;
 }
 
-%type<s> IDENTIFIER STATIC PUBLIC PRIVATE PROTECTED TYPE_BOOL TYPE_CHAR TYPE_INT TYPE_VOID
+// %type<s> IDENTIFIER STATIC PUBLIC PRIVATE PROTECTED TYPE_BOOL TYPE_CHAR TYPE_INT TYPE_VOID
 %type<ast>              member
 %type<classA>           single_class super
 %type<listA>            member_list modifier_list formal_args formal_arg_list
@@ -212,7 +212,6 @@ modifier_list
 method_decl
     : modifier_list type_decl IDENTIFIER formal_args block { 
         yydebug(" $$ = new MethodA($1, $2, $3, $4, new MethodBodyA($4, $5->getStatementList())); "); 
-        yydebug($3);
         $$ = new MethodA($1, $2, $3, $4, new MethodBodyA($4, $5->getStatementList()));
     }
     | type_decl IDENTIFIER formal_args block { 
@@ -227,9 +226,9 @@ ctor
     ;
 
 modifier
-    : STATIC { yydebug(" $$ = new StrLitA($1); "); $$ = new StrLitA($1); }
-    | PUBLIC { yydebug(" $$ = new StrLitA($1); "); $$ = new StrLitA($1); }
-    | PRIVATE { yydebug(" $$ = new StrLitA($1); "); $$ = new StrLitA($1); }
+    : STATIC    { yydebug(" $$ = new StrLitA($1); "); $$ = new StrLitA($1); }
+    | PUBLIC    { yydebug(" $$ = new StrLitA($1); "); $$ = new StrLitA($1); }
+    | PRIVATE   { yydebug(" $$ = new StrLitA($1); "); $$ = new StrLitA($1); }
     | PROTECTED { yydebug(" $$ = new StrLitA($1); "); $$ = new StrLitA($1); }
     ;
 

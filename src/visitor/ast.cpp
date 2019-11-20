@@ -232,7 +232,7 @@ void PrinterV::visit(ArrayRefA* a) {
 }
 
 void PrinterV::visit(PrimTypeA* a) { 
-    cout << "Visiting PrimTypeA\n"; 
+    cout << "Visiting PrimTypeA: " << a->getName() << "\n"; 
 }
 void PrinterV::visit(ExpressionA* a) { 
     cout << "Visiting ExpressionA\n"; 

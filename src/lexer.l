@@ -28,22 +28,38 @@ CHAR_SLASH          "'"\\[^nt]"'"
 
 %%
     /* Key Words*/
-"break"     { std::cout << "BREAK: " << yytext << "\n"; return BREAK; }
-"class"     { std::cout << "CLASS: " << yytext << "\n"; return CLASS; }
-"continue"  { std::cout << "CONTINUE: " << yytext << "\n"; return CONTINUE; }
-"else"      { std::cout << "ELSE: " << yytext << "\n"; return ELSE; }
-"extends"   { std::cout << "EXTENDS: " << yytext << "\n"; return EXTENDS; }
-"if"        { std::cout << "IF: " << yytext << "\n"; return IF; }
-"new"       { std::cout << "NEW: " << yytext << "\n"; return NEW; }
-"null"      { std::cout << "NILL: " << yytext << "\n"; return NILL; }
-"private"   { std::cout << "PRIVATE: " << yytext << "\n"; return PRIVATE; }
-"protected" { std::cout << "PROTECTED: " << yytext << "\n"; return PROTECTED; }
-"public"    { std::cout << "PUBLIC: " << yytext << "\n"; return PUBLIC; }
-"return"    { std::cout << "RETURN: " << yytext << "\n"; return RETURN; }
-"static"    { std::cout << "STATIC: " << yytext << "\n"; return STATIC; }
-"super"     { std::cout << "SUPER: " << yytext << "\n"; return SUPER; }
-"this"      { std::cout << "THIS: " << yytext << "\n"; return THIS; }
-"while"     { std::cout << "WHILE: " << yytext << "\n"; return WHILE; }
+"break"     { std::cout << "BREAK: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return BREAK; }
+"class"     { std::cout << "CLASS: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return CLASS; }
+"continue"  { std::cout << "CONTINUE: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return CONTINUE; }
+"else"      { std::cout << "ELSE: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return ELSE; }
+"extends"   { std::cout << "EXTENDS: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return EXTENDS; }
+"if"        { std::cout << "IF: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return IF; }
+"new"       { std::cout << "NEW: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return NEW; }
+"null"      { std::cout << "NILL: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return NILL; }
+"private"   { std::cout << "PRIVATE: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return PRIVATE; }
+"protected" { std::cout << "PROTECTED: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return PROTECTED; }
+"public"    { std::cout << "PUBLIC: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return PUBLIC; }
+"return"    { std::cout << "RETURN: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return RETURN; }
+"static"    { std::cout << "STATIC: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return STATIC; }
+"super"     { std::cout << "SUPER: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return SUPER; }
+"this"      { std::cout << "THIS: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return THIS; }
+"while"     { std::cout << "WHILE: " << yytext << "\n"; 
+                yylval.s = strdup(yytext); return WHILE; }
 
     /* Forbidden Words*/
 "abstract"      { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
@@ -109,30 +125,54 @@ CHAR_SLASH          "'"\\[^nt]"'"
 
 
     /* Operator and Separator */
-"<="               { std::cout << "LEQ: " << yytext << "\n"; return LEQ; }
-"<"                { std::cout << "LESS: " << yytext << "\n"; return LESS; }
-">="               { std::cout << "GEQ: " << yytext << "\n"; return GEQ; }
-">"                { std::cout << "GREATER: " << yytext << "\n"; return GREATER; }
-"=="               { std::cout << "EQEQ: " << yytext << "\n"; return EQEQ; }
-"="                { std::cout << "EQ: " << yytext << "\n"; return EQ; }
-"!="               { std::cout << "NEQ: " << yytext << "\n"; return NEQ; }
-"&&"               { std::cout << "LAND: " << yytext << "\n"; return LAND; }
-"||"               { std::cout << "LOR: " << yytext << "\n"; return LOR; }
-"+"                { std::cout << "PLUS: " << yytext << "\n"; return PLUS; }
-"-"                { std::cout << "MINUS: " << yytext << "\n"; return MINUS; }
-"*"                { std::cout << "TIMES: " << yytext << "\n"; return TIMES; }
-"/"                { std::cout << "DIV: " << yytext << "\n"; return DIV; }
-"%"                { std::cout << "MOD: " << yytext << "\n"; return MOD; }
-"!"                { std::cout << "NOT: " << yytext << "\n"; return NOT; }
-"("                { std::cout << "OP: " << yytext << "\n"; return OP; }
-")"                { std::cout << "CP: " << yytext << "\n"; return CP; }
-"["                { std::cout << "OB: " << yytext << "\n"; return OB; }
-"]"                { std::cout << "CB: " << yytext << "\n"; return CB; }
-"{"                { std::cout << "OC: " << yytext << "\n"; return OC; }
-"}"                { std::cout << "CC: " << yytext << "\n"; return CC; }
-","                { std::cout << "COMMA: " << yytext << "\n"; return COMMA; }
-"."                { std::cout << "DOT: " << yytext << "\n"; return DOT; }
-";"                { std::cout << "SEMICOLON: " << yytext << "\n"; return SEMICOLON; }
+"<="               { std::cout << "LEQ: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return LEQ; }
+"<"                { std::cout << "LESS: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return LESS; }
+">="               { std::cout << "GEQ: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return GEQ; }
+">"                { std::cout << "GREATER: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return GREATER; }
+"=="               { std::cout << "EQEQ: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return EQEQ; }
+"="                { std::cout << "EQ: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return EQ; }
+"!="               { std::cout << "NEQ: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return NEQ; }
+"&&"               { std::cout << "LAND: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return LAND; }
+"||"               { std::cout << "LOR: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return LOR; }
+"+"                { std::cout << "PLUS: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return PLUS; }
+"-"                { std::cout << "MINUS: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return MINUS; }
+"*"                { std::cout << "TIMES: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return TIMES; }
+"/"                { std::cout << "DIV: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return DIV; }
+"%"                { std::cout << "MOD: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return MOD; }
+"!"                { std::cout << "NOT: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return NOT; }
+"("                { std::cout << "OP: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return OP; }
+")"                { std::cout << "CP: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return CP; }
+"["                { std::cout << "OB: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return OB; }
+"]"                { std::cout << "CB: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return CB; }
+"{"                { std::cout << "OC: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return OC; }
+"}"                { std::cout << "CC: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return CC; }
+","                { std::cout << "COMMA: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return COMMA; }
+"."                { std::cout << "DOT: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return DOT; }
+";"                { std::cout << "SEMICOLON: " << yytext << "\n"; 
+                        yylval.s = strdup(yytext);return SEMICOLON; }
 
 
     /*Primitive Types*/
@@ -142,10 +182,14 @@ CHAR_SLASH          "'"\\[^nt]"'"
     "boolean"       { yylval.value = strdup(yytext); std::cout << "TYPE_BOOL: " << yytext << "\n"; return TYPE_BOOL; }
     "char"          { yylval.value = strdup(yytext); std::cout << "TYPE_CHAR: " << yytext << "\n"; return TYPE_CHAR; } 
     */
-"void"          { std::cout << "TYPE_VOID: " << yytext << "\n"; return TYPE_VOID; }
-"int"           { std::cout << "TYPE_INT: " << yytext << "\n"; return TYPE_INT; }
-"boolean"       { std::cout << "TYPE_BOOL: " << yytext << "\n"; return TYPE_BOOL; }
-"char"          { std::cout << "TYPE_CHAR: " << yytext << "\n"; return TYPE_CHAR; }
+"void"          { std::cout << "TYPE_VOID: " << yytext << "\n"; 
+                    yylval.s = strdup(yytext); return TYPE_VOID; }
+"int"           { std::cout << "TYPE_INT: " << yytext << "\n"; 
+                    yylval.s = strdup(yytext); return TYPE_INT; }
+"boolean"       { std::cout << "TYPE_BOOL: " << yytext << "\n"; 
+                    yylval.s = strdup(yytext); return TYPE_BOOL; }
+"char"          { std::cout << "TYPE_CHAR: " << yytext << "\n"; 
+                    yylval.s = strdup(yytext); return TYPE_CHAR; }
 
     /* Literal Types */
     /*
