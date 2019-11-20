@@ -7,19 +7,19 @@ using namespace std;
 
 /// Main ///
 
-int main() {
-    vector<AST*> asts{
-        new ClassA("Aaa"), 
-        new ClassA("Bbb"), 
-        new ClassA("Ccc")
-    };
-    ListA *list = new ListA(asts);
-    StartA *start = new StartA(list);
+// int main() {
+//     vector<AST*> asts{
+//         new ClassA("Aaa"), 
+//         new ClassA("Bbb"), 
+//         new ClassA("Ccc")
+//     };
+//     ListA *list = new ListA(asts);
+//     StartA *start = new StartA(list);
 
-    start->accept(*(new CounterV()));
-    start->accept(*(new PrinterV()));
-	return 0; 
-} 
+//     start->accept(*(new CounterV()));
+//     start->accept(*(new PrinterV()));
+// 	return 0; 
+// } 
 
 /// ASTs ///
 

@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 
+#include "visitor/ast.cpp"
+
 
 using namespace std;
 
@@ -16,6 +18,8 @@ extern "C" int yywrap(void){return 1;};
 extern "C" void yydebug(string s);
 
 extern FILE *yyin;
+
+StartA* start;
 
 
 %}
@@ -93,30 +97,57 @@ extern FILE *yyin;
 %left       LOR
 %right      EQ
 %right      IF
-%right      LOWER_THAN_IF
+%right      LOWEST
 
 %union{
-    char *s;
-    int i;
-    double d;
-    bool b;
-    char c;
+    char*       s;
+    int         i;
+    double      d;
+    bool        b;
+    char        c;
+
+    class ClassA*   classA;
+    class StartA*   startA;
+    class ListA*    listA;
 }
+
+%type<s> IDENTIFIER
+%type<classA>   single_class super
+%type<listA>    member_list //class_list
+%type<startA>   class_list
+
 
 %%
 class_list
-    : single_class class_list { yydebug(" $$->push_back($1); "); }
-    | single_class { yydebug(" $$->push_back($1); "); }
+    : single_class class_list { 
+        yydebug(" $$ = $2; $$->add($1); "); 
+        $$ = $2; $$->add($1);
+    }
+    | single_class { 
+        yydebug(" $$ = new ListA(); $$->add($1); "); 
+        $$ = new StartA(); $$->add($1);
+
+        start = $$;
+    }
     ;
 
 single_class
-    : CLASS IDENTIFIER OC CC { yydebug(" $$ = new Class($2, object_class, []); "); }
-
-    | CLASS IDENTIFIER super OC CC { yydebug(" $$ = new Class($2, $3, []); "); }
-
-    | CLASS IDENTIFIER OC member_list CC { yydebug(" $$ = new Class($2, object_class, $4); "); }
-
-    | CLASS IDENTIFIER super OC member_list CC { yydebug(" $$ = new Class($2, $3, $5); "); }
+    : CLASS IDENTIFIER OC CC { 
+        yydebug(" $$ = new ClassA($2); ");
+        $$ = new ClassA($2);
+    }
+    | CLASS IDENTIFIER super OC CC { 
+        yydebug(" $$ = new ClassA($2, $3); "); 
+        $$ = new ClassA($2, $3);
+    }
+    | CLASS IDENTIFIER OC member_list CC { 
+        yydebug(" $$ = new ClassA($2, $4); "); 
+        $$ = new ClassA($2, $4);
+    }
+    | CLASS IDENTIFIER super OC member_list CC { 
+        yydebug(" $$ = new ClassA($2, $3, $5); "); 
+        $$ = new ClassA($2, $3, $5);
+    }
     ;
 
 super
@@ -252,7 +283,7 @@ statement
     : SEMICOLON { yydebug(" $$ =new EmptyStatement() "); }
     | type_decl var_decl_list SEMICOLON { yydebug(" $$ = new DeclStatement($1, $2) "); }
     | IF OP expr CP statement // { yydebug(" $$ = new If($3, $5, NULL); "); }
-            %prec LOWER_THAN_IF { yydebug(" $$ = new If($3, $5, NULL); "); }
+            %prec LOWEST { yydebug(" $$ = new If($3, $5, NULL); "); }
     | IF OP expr CP statement ELSE statement { yydebug(" $$ = new If($3, $5, $7); "); }
     | expr SEMICOLON { yydebug(" $$ = new ExprStatement($1); "); }
     | WHILE OP expr CP statement { yydebug(" $$ = new WhileStatement(new symbolTable(), $3, $5); "); }
@@ -363,6 +394,12 @@ int main(int argc, char **argv) {
 
     yyin = fopen(argv[1], "r");
 	yyparse();
+
+    cout << "\n===[PRINTING]===\n";
+
+    cout << "\n";
+    start->accept(*(new PrinterV()));
+    cout << "\n";
 
 	return 0; 
 } 

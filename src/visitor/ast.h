@@ -1,6 +1,7 @@
 
 #include <string>
-#include <vector>
+#include <deque>
+
 
 using namespace std;
 
@@ -51,24 +52,33 @@ public:
     virtual void accept(Visitor& v) = 0;
 };
 
+class ListA : public AST {
+    deque<AST*> asts;
+public: 
+    ListA() {};
+    ListA(deque<AST*> as): asts(as) {};
+    deque<AST*> getASTs() { return asts; }
+    void add(AST *a) { asts.push_front(a); }
+    virtual void accept(Visitor& v);
+};
 class StartA : public AST {
     ListA *list;
 public: 
+    StartA() { list = new ListA(); }
     StartA(ListA *l): list(l) {};
     ListA *getList() { return list; }
-    virtual void accept(Visitor& v);
-};
-class ListA : public AST {
-    vector<AST*> asts;
-public: 
-    ListA() {};
-    ListA(vector<AST*> as) { asts = as; };
+    void add(AST *a) { list->add(a); }
     virtual void accept(Visitor& v);
 };
 class ClassA : public AST {
     string name; 
+    ClassA *superClass;
+    ListA *members;
 public: 
-    ClassA(string n = ""): name(n) {};
+    ClassA(string n): name(n) {};
+    ClassA(string n, ClassA *sc): name(n), superClass(sc) {};
+    ClassA(string n, ListA *ms): name(n), members(ms) {};
+    ClassA(string n, ClassA *sc, ListA *ms): name(n), superClass(sc), members(ms) {};
     string getName() { return name; }
     virtual void accept(Visitor& v);
 };

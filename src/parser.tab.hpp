@@ -105,7 +105,7 @@ extern int yydebug;
     VOID = 311,
     UMINUS = 312,
     UPLUS = 313,
-    LOWER_THAN_IF = 314
+    LOWEST = 314
   };
 #endif
 
@@ -114,15 +114,19 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 98 "parser.ypp" /* yacc.c:1921  */
+#line 102 "parser.ypp" /* yacc.c:1921  */
 
-    char *s;
-    int i;
-    double d;
-    bool b;
-    char c;
+    char*       s;
+    int         i;
+    double      d;
+    bool        b;
+    char        c;
 
-#line 126 "parser.tab.hpp" /* yacc.c:1921  */
+    class ClassA*   classA;
+    class StartA*   startA;
+    class ListA*    listA;
+
+#line 130 "parser.tab.hpp" /* yacc.c:1921  */
 };
 
 typedef union YYSTYPE YYSTYPE;
