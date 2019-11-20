@@ -29,10 +29,13 @@ void StartA::accept(Visitor& v) {
 }
 void ListA::accept(Visitor& v) { 
     v.visit(this); 
-    for (AST *a : this->asts) { a->accept(v); }
+    for (AST *a : this->asts) { 
+        a->accept(v); 
+    }
 }
 void ClassA::accept(Visitor& v) { 
     v.visit(this); 
+    this->members->accept(v);
 }
 void SuperA::accept(Visitor& v) { 
     v.visit(this);
@@ -131,7 +134,7 @@ void ArrayRefA::accept(Visitor& v) {
     this->expression2->accept(v);
 }
 
-void TypeA::accept(Visitor& v) { 
+void PrimTypeA::accept(Visitor& v) { 
     v.visit(this);
 }
 void ExpressionA::accept(Visitor& v) { 
@@ -146,6 +149,9 @@ void StatementA::accept(Visitor& v) {
 void NameA::accept(Visitor& v) { 
     v.visit(this);
 }
+void StrLitA::accept(Visitor& v) { 
+    v.visit(this);
+}
 
 /// Visitors ///
 
@@ -156,7 +162,7 @@ void PrinterV::visit(ListA* a) {
     cout << "Visiting ListA\n"; 
 }
 void PrinterV::visit(ClassA* a) { 
-    cout << "Visiting ClassA : " << a->getName() << "\n"; 
+    cout << "Visiting ClassA: " << a->getName() << "\n"; 
 }
 void PrinterV::visit(SuperA* a) { 
     cout << "Visiting SuperA\n"; 
@@ -171,7 +177,7 @@ void PrinterV::visit(FieldA* a) {
     cout << "Visiting FieldA\n"; 
 }
 void PrinterV::visit(MethodA* a) { 
-    cout << "Visiting MethodA\n"; 
+    cout << "Visiting MethodA: " << a->getName() << "\n"; 
 }
 void PrinterV::visit(ConstructorA* a) { 
     cout << "Visiting ConstructorA\n"; 
@@ -225,8 +231,8 @@ void PrinterV::visit(ArrayRefA* a) {
     cout << "Visiting ArrayRefA\n"; 
 }
 
-void PrinterV::visit(TypeA* a) { 
-    cout << "Visiting TypeA\n"; 
+void PrinterV::visit(PrimTypeA* a) { 
+    cout << "Visiting PrimTypeA\n"; 
 }
 void PrinterV::visit(ExpressionA* a) { 
     cout << "Visiting ExpressionA\n"; 
@@ -240,6 +246,10 @@ void PrinterV::visit(StatementA* a) {
 void PrinterV::visit(NameA* a) { 
     cout << "Visiting NameA\n"; 
 }
+void PrinterV::visit(StrLitA* a) { 
+    cout << "Visiting StrLitA: " << a->getValue() << "\n"; 
+}
+
 
 
 
@@ -269,11 +279,12 @@ void CounterV::visit(OpExpressionA* a) { cout << this->c++ << "\n"; }
 void CounterV::visit(NewArrayA* a) { cout << this->c++ << "\n"; }
 void CounterV::visit(ArrayRefA* a) { cout << this->c++ << "\n"; }
 
-void CounterV::visit(TypeA* a) { cout << this->c++ << "\n"; }
+void CounterV::visit(PrimTypeA* a) { cout << this->c++ << "\n"; }
 void CounterV::visit(ExpressionA* a) { cout << this->c++ << "\n"; }
 void CounterV::visit(InitializerA* a) { cout << this->c++ << "\n"; }
 void CounterV::visit(StatementA* a) { cout << this->c++ << "\n"; }
 void CounterV::visit(NameA* a) { cout << this->c++ << "\n"; }
+void CounterV::visit(StrLitA* a) { cout << this->c++ << "\n"; }
 
 
 

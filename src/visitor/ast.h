@@ -5,6 +5,15 @@
 
 using namespace std;
 
+struct Null{};
+union Value {
+    int i;
+    char c;
+    string s;   // TODO: use char*?
+    bool b;
+    Null n;
+};
+
 /// Forward Declaration ///
 
 class AST;
@@ -34,11 +43,12 @@ class OpExpressionA;
 class NewArrayA;
 class ArrayRefA;
 
-class TypeA;
+class PrimTypeA;
 class ExpressionA;
 class InitializerA;
 class StatementA;
 class NameA;
+class StrLitA;
 
 
 class Visitor;
@@ -50,6 +60,21 @@ class CounterV;
 class AST {
 public:
     virtual void accept(Visitor& v) = 0;
+};
+
+class StrLitA : public AST {
+    string value;
+public: 
+    StrLitA(string v): value(v) {};
+    string getValue() { return value; }
+    virtual void accept(Visitor& v);
+};
+class PrimTypeA : public AST {
+    string name;
+public: 
+    PrimTypeA(string n): name(n) {};
+    string getName() { return name; }
+    virtual void accept(Visitor& v);
 };
 
 class ListA : public AST {
@@ -64,7 +89,7 @@ public:
 class StartA : public AST {
     ListA *list;
 public: 
-    StartA() { list = new ListA(); }
+    StartA(): list(new ListA()) {}
     StartA(ListA *l): list(l) {};
     ListA *getList() { return list; }
     void add(AST *a) { list->add(a); }
@@ -72,21 +97,21 @@ public:
 };
 class ClassA : public AST {
     string name; 
-    ClassA *superClass;
+    ClassA *superClass; // TODO: provide default
     ListA *members;
 public: 
-    ClassA(string n): name(n) {};
-    ClassA(string n, ClassA *sc): name(n), superClass(sc) {};
+    ClassA(string n): name(n), members(new ListA()) {};
+    ClassA(string n, ClassA *sc): name(n), superClass(sc), members(new ListA()) {};
     ClassA(string n, ListA *ms): name(n), members(ms) {};
     ClassA(string n, ClassA *sc, ListA *ms): name(n), superClass(sc), members(ms) {};
     string getName() { return name; }
     virtual void accept(Visitor& v);
 };
 class SuperA : public AST {
-    TypeA *type; 
+    PrimTypeA *type; 
 public: 
-    SuperA(TypeA *t): type(t) {};
-    TypeA *getType() { return type; };
+    SuperA(PrimTypeA *t): type(t) {};
+    PrimTypeA *getType() { return type; };
     virtual void accept(Visitor& v);
 };
 class MethodBodyA : public AST {
@@ -113,28 +138,41 @@ public:
     virtual void accept(Visitor& v);
 };
 class MethodA : public AST {
-    TypeA *type;
+    ListA *modifiers;
+    PrimTypeA *type;
+    string name; 
+    ListA *args;
     MethodBodyA *methodbody; 
 public: 
-    MethodA(TypeA *t, MethodBodyA *m): type(t), methodbody(m) {};
-    TypeA *getType() { return type; };
+    MethodA(ListA* ms, PrimTypeA *t, string n, ListA *as, MethodBodyA *m): 
+        modifiers(ms), type(t), name(n), args(as), methodbody(m) {};
+    MethodA(PrimTypeA *t, string n, ListA *as, MethodBodyA *m): 
+        modifiers(new ListA()), type(t), name(n), args(as), methodbody(m) {
+            // modifiers->add(new StrLitA("public"));
+        };
+    ListA *getModifiers() { return modifiers; }
+    PrimTypeA *getType() { return type; };
+    string getName() { return name; }
+    ListA *getArgs() { return args; }
     MethodBodyA *getMethodBody() { return methodbody; };
     virtual void accept(Visitor& v);
 };
 class ConstructorA : public AST {
-    TypeA *type;
+    PrimTypeA *type;
     MethodBodyA *methodbody; 
 public: 
-    ConstructorA(TypeA *t, MethodBodyA *m): type(t), methodbody(m) {};
-    TypeA *getType() { return type; };
+    ConstructorA(PrimTypeA *t, MethodBodyA *m): type(t), methodbody(m) {};
+    PrimTypeA *getType() { return type; };
     MethodBodyA *getMethodBody() { return methodbody; };
     virtual void accept(Visitor& v);
 };
 class FormalA : public AST {
-    TypeA *type; 
+    PrimTypeA *type; 
+    string name;
 public: 
-    FormalA(TypeA *t): type(t) {};
-    TypeA *getType() { return type; };
+    FormalA(PrimTypeA *t, string n): type(t), name(n) {};
+    PrimTypeA *getType() { return type; };
+    string getName() { return name; }
     virtual void accept(Visitor& v);
 };
 class DeclStatementA : public AST {
@@ -207,6 +245,7 @@ public:
 class BlockA : public AST {
     ListA *statementList; 
 public: 
+    BlockA(): statementList(new ListA()) {};
     BlockA(ListA *ss): statementList(ss) {};
     ListA *getStatementList() { return statementList; };
     virtual void accept(Visitor& v);
@@ -237,11 +276,11 @@ public:
     virtual void accept(Visitor& v);
 };
 class NewArrayA : public AST {
-    TypeA *type;
+    PrimTypeA *type;
     ListA *expressionList; 
 public: 
-    NewArrayA(TypeA *t, ListA *es): type(t), expressionList(es) {};
-    TypeA *getType() { return type; };
+    NewArrayA(PrimTypeA *t, ListA *es): type(t), expressionList(es) {};
+    PrimTypeA *getType() { return type; };
     ListA *getExpressionList() { return expressionList; };
     virtual void accept(Visitor& v);
 };
@@ -255,11 +294,7 @@ public:
     virtual void accept(Visitor& v);
 };
 
-class TypeA : public AST {
-public: 
-    TypeA() {};
-    virtual void accept(Visitor& v);
-};
+
 class ExpressionA : public AST {
 public: 
     ExpressionA() {};
@@ -311,11 +346,12 @@ public:
     virtual void visit(NewArrayA* a) = 0;
     virtual void visit(ArrayRefA* a) = 0;
 
-    virtual void visit(TypeA* a) = 0;
+    virtual void visit(PrimTypeA* a) = 0;
     virtual void visit(ExpressionA* a) = 0;
     virtual void visit(InitializerA* a) = 0;
     virtual void visit(StatementA* a) = 0;
     virtual void visit(NameA* a) = 0;
+    virtual void visit(StrLitA* a) = 0;
 };
 
 class PrinterV : public Visitor {
@@ -346,11 +382,12 @@ public:
     virtual void visit(NewArrayA* a);
     virtual void visit(ArrayRefA* a);
 
-    virtual void visit(TypeA* a);
+    virtual void visit(PrimTypeA* a);
     virtual void visit(ExpressionA* a);
     virtual void visit(InitializerA* a);
     virtual void visit(StatementA* a);
     virtual void visit(NameA* a);
+    virtual void visit(StrLitA* a);
 };
 
 class CounterV : public Visitor {
@@ -382,11 +419,12 @@ public:
     virtual void visit(NewArrayA* a);
     virtual void visit(ArrayRefA* a);
 
-    virtual void visit(TypeA* a);
+    virtual void visit(PrimTypeA* a);
     virtual void visit(ExpressionA* a);
     virtual void visit(InitializerA* a);
     virtual void visit(StatementA* a);
     virtual void visit(NameA* a);
+    virtual void visit(StrLitA* a);
 };
 
 

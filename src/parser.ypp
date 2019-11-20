@@ -106,15 +106,31 @@ StartA* start;
     bool        b;
     char        c;
 
-    class ClassA*   classA;
-    class StartA*   startA;
-    class ListA*    listA;
+    class AST*          ast;
+    class ClassA*       classA;
+    class StartA*       startA;
+    class ListA*        listA;
+    class FieldA*       fieldA;
+    class MethodA*      methodA;
+    class ConstructorA* constructorA;
+    class StrLitA*      strLitA;
+    class PrimTypeA*    primTypeA;
+    class FormalA*      formalA;
+    class BlockA*       blockA;
 }
 
-%type<s> IDENTIFIER
-%type<classA>   single_class super
-%type<listA>    member_list //class_list
-%type<startA>   class_list
+%type<s> IDENTIFIER STATIC PUBLIC PRIVATE PROTECTED TYPE_BOOL TYPE_CHAR TYPE_INT TYPE_VOID
+%type<ast>              member
+%type<classA>           single_class super
+%type<listA>            member_list modifier_list formal_args formal_arg_list
+%type<startA>           class_list
+%type<fieldA>           field
+%type<methodA>          method_decl
+%type<constructorA>     ctor
+%type<strLitA>          modifier 
+%type<primTypeA>        primitive_type type_decl // TODO: change type_decl
+%type<formalA>          formal_arg
+%type<blockA>           block
 
 
 %%
@@ -124,7 +140,7 @@ class_list
         $$ = $2; $$->add($1);
     }
     | single_class { 
-        yydebug(" $$ = new ListA(); $$->add($1); "); 
+        yydebug(" $$ = new StartA(); $$->add($1); "); 
         $$ = new StartA(); $$->add($1);
 
         start = $$;
@@ -155,14 +171,20 @@ super
     ;
 
 member_list
-    : member member_list { yydebug(" $$->push_back($1); "); }
-    | member { yydebug(" $$->push_back($1); "); }
+    : member member_list { 
+        yydebug(" $$ = $2; $$->add($1); "); 
+        $$ = $2; $$->add($1);
+    }
+    | member { 
+        yydebug(" $$ = new ListA(); $$->add($1); "); 
+        $$ = new ListA(); $$->add($1);
+    }
     ;
 
 member
-    : field { yydebug(" $$ = $1; "); }
-    | method_decl { yydebug(" $$ = $1; "); }
-    | ctor { yydebug(" $$ = $1; "); }
+    : field { yydebug(" $$ = $1; "); $$ = $1; }
+    | method_decl { yydebug(" $$ = $1; "); $$ = $1; }
+    | ctor { yydebug(" $$ = $1; "); $$ = $1; }
     ;
 
 field
@@ -177,13 +199,26 @@ field
     ;
 
 modifier_list
-    : modifier modifier_list { yydebug(" $$->push_back($1); "); }
-    | modifier { yydebug(" $$->push_back($1); "); }
+    : modifier modifier_list { 
+        yydebug(" $$ = $2; $$->add($1); "); 
+        $$ = $2; $$->add($1);
+    }
+    | modifier { 
+        yydebug(" $$ = new ListA(); $$->add($1); "); 
+        $$ = new ListA(); $$->add($1);
+    }
     ;
 
 method_decl
-    : modifier_list type_decl IDENTIFIER formal_args block    { yydebug(" $$->push_back(new Method($3, $2, $1, $4, $5); "); }
-    | type_decl IDENTIFIER formal_args block    { yydebug(" $$->push_back(new Method($2, $1, \"public\", $3, $4)); "); }
+    : modifier_list type_decl IDENTIFIER formal_args block { 
+        yydebug(" $$ = new MethodA($1, $2, $3, $4, new MethodBodyA($4, $5->getStatementList())); "); 
+        yydebug($3);
+        $$ = new MethodA($1, $2, $3, $4, new MethodBodyA($4, $5->getStatementList()));
+    }
+    | type_decl IDENTIFIER formal_args block { 
+        yydebug(" $$ = new MethodA($1, $2, $3, new MethodBodyA($3, $4->getStatementList())); "); 
+        $$ = new MethodA($1, $2, $3, new MethodBodyA($3, $4->getStatementList()));
+    }
     ;
 
 ctor
@@ -192,47 +227,32 @@ ctor
     ;
 
 modifier
-    : STATIC { yydebug(" $$ = \"static\" "); }
-    | PUBLIC { yydebug(" $$ = \"public\" "); }
-    | PRIVATE { yydebug(" $$ = \"private\" "); }
-    | PROTECTED { yydebug(" $$ = \"protected\" "); }
+    : STATIC { yydebug(" $$ = new StrLitA($1); "); $$ = new StrLitA($1); }
+    | PUBLIC { yydebug(" $$ = new StrLitA($1); "); $$ = new StrLitA($1); }
+    | PRIVATE { yydebug(" $$ = new StrLitA($1); "); $$ = new StrLitA($1); }
+    | PROTECTED { yydebug(" $$ = new StrLitA($1); "); $$ = new StrLitA($1); }
     ;
 
 formal_args
-    : OP formal_arg_list CP { yydebug(" $$ = $2 "); }
-    | OP CP { yydebug(" $$ = {} "); }
+    : OP formal_arg_list CP { yydebug(" $$ = $2; "); $$ = $2; }
+    | OP CP { yydebug(" $$ = new ListA(); "); $$ = new ListA(); }
     ;
 
 formal_arg_list
-    : formal_arg COMMA formal_arg_list { yydebug(" $$->push_back($1); "); }
-    | formal_arg { yydebug(" $$->push_back($1); "); }
+    : formal_arg COMMA formal_arg_list { 
+        yydebug(" $$ = $3; $$->add($1); "); 
+        $$ = $3; $$->add($1);
+    }
+    | formal_arg { 
+        yydebug(" $$ = new ListA(); $$->add($1); "); 
+        $$ = new ListA(); // $$->add($1); // TODO:
+    }
     ;
 
 formal_arg
-    : type_decl var_decl_id { yydebug(" <BLAH> "); }
-    // {
-    //     let declName, declCnt = $2 in
-    //     if declCnt != 0 then
-    //         match $1 with
-    //         | ClassType s ->
-    //             { name = declName; t = ArrayType(ClassType(s), declCnt) }
-    //         | ArrayType (arrayT, c) ->
-    //             { name = declName; t = ArrayType(arrayT, c + declCnt) }
-    //         | BoolType ->
-    //             { name = declName; t = ArrayType(BoolType, declCnt) }
-    //         | CharType ->
-    //             { name = declName; t = ArrayType(CharType, declCnt) }
-    //         | IntType ->
-    //             { name = declName; t = ArrayType(IntType, declCnt) }
-    //         (* TODO should a void type in a formal arg be a parse error? Or
-    //            maybe offload to type checker *)
-    //         | VoIDENTIFIERType ->
-    //             { name = declName; t = ArrayType(VoIDENTIFIERType, declCnt) }
-    //         (* TODO these arent really parse errors but semantic errors *)
-    //         | MethodType (_, _, _) -> raise Parsing.Parse_error
-    //     else
-    //         { name = declName; t = $1 }
-    // }
+    : type_decl var_decl_id { 
+        yydebug(" $$ = new FormalA($1, $2); ?? "); // TODO:
+    }
     ;
 
 type_decl
@@ -248,10 +268,10 @@ bracket_list
     ;
 
 primitive_type
-    : TYPE_BOOL { yydebug(" new BoolType() "); }
-    | TYPE_CHAR { yydebug(" new CharType() "); }
-    | TYPE_INT { yydebug(" new IntType() "); }
-    | TYPE_VOID { yydebug(" new Void() "); }
+    : TYPE_BOOL { yydebug(" $$ = new PrimTypeA($1); "); $$ = new PrimTypeA($1); }
+    | TYPE_CHAR { yydebug(" $$ = new PrimTypeA($1); "); $$ = new PrimTypeA($1); }
+    | TYPE_INT  { yydebug(" $$ = new PrimTypeA($1); "); $$ = new PrimTypeA($1); }
+    | TYPE_VOID { yydebug(" $$ = new PrimTypeA($1); "); $$ = new PrimTypeA($1); }
     ;
 
 var_decl_list
@@ -271,7 +291,7 @@ var_decl_id
 
 block
     : OC statement_list CC { yydebug(" $$ = $2; "); }
-    | OC CC { yydebug(" $$ = {} "); }
+    | OC CC { yydebug(" $$ = new BlockA(); "); $$ = new BlockA(); }
     ;
 
 statement_list
@@ -396,10 +416,14 @@ int main(int argc, char **argv) {
 	yyparse();
 
     cout << "\n===[PRINTING]===\n";
-
     cout << "\n";
     start->accept(*(new PrinterV()));
     cout << "\n";
+
+    // cout << "\n===[COUNTING]===\n";
+    // cout << "\n";
+    // start->accept(*(new CounterV()));
+    // cout << "\n";
 
 	return 0; 
 } 

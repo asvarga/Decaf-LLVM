@@ -122,11 +122,19 @@ union YYSTYPE
     bool        b;
     char        c;
 
-    class ClassA*   classA;
-    class StartA*   startA;
-    class ListA*    listA;
+    class AST*          ast;
+    class ClassA*       classA;
+    class StartA*       startA;
+    class ListA*        listA;
+    class FieldA*       fieldA;
+    class MethodA*      methodA;
+    class ConstructorA* constructorA;
+    class StrLitA*      strLitA;
+    class PrimTypeA*    primTypeA;
+    class FormalA*      formalA;
+    class BlockA*       blockA;
 
-#line 130 "parser.tab.hpp" /* yacc.c:1921  */
+#line 138 "parser.tab.hpp" /* yacc.c:1921  */
 };
 
 typedef union YYSTYPE YYSTYPE;
