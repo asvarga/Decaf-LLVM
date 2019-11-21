@@ -45,6 +45,7 @@ class CallA;
 class OpExpressionA;
 class NewArrayA;
 class ArrayRefA;
+class VarDeclA;
 
 class PrimTypeA;
 class ArrayTypeA;
@@ -67,7 +68,12 @@ class AST {
 public:
     virtual void accept(Visitor& v) = 0;
 };
-class LitA : public AST {};
+class ExpressionA : public AST {
+public: 
+    ExpressionA() {};
+    virtual void accept(Visitor& v);
+};
+class LitA : public ExpressionA {};
 class TypeA : public AST {};
 
 
@@ -79,6 +85,14 @@ public:
     string getValue() { return value; }
     virtual void accept(Visitor& v);
 };
+class IntLitA : public LitA {
+    int value;
+public: 
+    IntLitA(int v): value(v) {};
+    int getValue() { return value; }
+    virtual void accept(Visitor& v);
+};
+
 class PrimTypeA : public TypeA {
     string name;
 public: 
@@ -103,8 +117,11 @@ public:
     string getName() { return name; }
     virtual void accept(Visitor& v);
 };
-
-
+class StatementA : public AST {
+public: 
+    StatementA() {};
+    virtual void accept(Visitor& v);
+};
 
 
 
@@ -116,7 +133,8 @@ public:
     ListA() {};
     ListA(deque<AST*> as): asts(as) {};
     deque<AST*> getASTs() { return asts; }
-    void add(AST *a) { asts.push_front(a); }
+    void addb(AST *a) { asts.push_back(a); }
+    void addf(AST *a) { asts.push_front(a); }
     virtual void accept(Visitor& v);
 };
 class StartA : public AST {
@@ -125,7 +143,8 @@ public:
     StartA(): list(new ListA()) {}
     StartA(ListA *l): list(l) {};
     ListA *getList() { return list; }
-    void add(AST *a) { list->add(a); }
+    void addb(AST *a) { list->addb(a); }
+    void addf(AST *a) { list->addf(a); }
     virtual void accept(Visitor& v);
 };
 class ClassA : public AST {
@@ -210,10 +229,12 @@ public:
     string getName() { return name; }
     virtual void accept(Visitor& v);
 };
-class DeclStatementA : public AST {
+class DeclStatementA : public StatementA {
+    TypeA *type;
     ListA *localList; 
 public: 
-    DeclStatementA(ListA *ls): localList(ls) {};
+    DeclStatementA(TypeA *t, ListA *ls): type(t), localList(ls) {};
+    TypeA *getType() { return type; };
     ListA *getLocalList() { return localList; };
     virtual void accept(Visitor& v);
 };
@@ -235,7 +256,7 @@ public:
     StatementA *getStatement2() { return statement2; };
     virtual void accept(Visitor& v);
 };
-class ExpressionStatementA : public AST {
+class ExpressionStatementA : public StatementA {
     ExpressionA *expression; 
 public: 
     ExpressionStatementA(ExpressionA *e): expression(e) {};
@@ -301,11 +322,18 @@ public:
     ListA *getExpressionList() { return expressionList; };
     virtual void accept(Visitor& v);
 };
-class OpExpressionA : public AST {
+class OpExpressionA : public ExpressionA {
+    string op;
+    int arity;
     ExpressionA *expression1;
     ExpressionA *expression2; 
 public: 
-    OpExpressionA(ExpressionA *e1, ExpressionA *e2): expression1(e1), expression2(e2) {};
+    OpExpressionA(string o, ExpressionA *e1, ExpressionA *e2): 
+        op(o), arity(2), expression1(e1), expression2(e2) {};
+    OpExpressionA(string o, ExpressionA *e1): 
+        op(o), arity(1), expression1(e1) {};
+    string getOp() { return op; }
+    int getArity() { return arity; }
     ExpressionA *getExpression1() { return expression1; };
     ExpressionA *getExpression2() { return expression2; };
     virtual void accept(Visitor& v);
@@ -328,21 +356,21 @@ public:
     ExpressionA *getExpression2() { return expression2; };
     virtual void accept(Visitor& v);
 };
-
-
-class ExpressionA : public AST {
+class VarDeclA : public AST {
+    string name;
+    ExpressionA *expression;
 public: 
-    ExpressionA() {};
+    VarDeclA(string n): name(n) {};
+    VarDeclA(string n, ExpressionA *e): name(n), expression(e) {};
+    string getName() { return name; }
+    ExpressionA *getExpression() { return expression; };
     virtual void accept(Visitor& v);
 };
+
+
 class InitializerA : public AST {
 public: 
     InitializerA() {};
-    virtual void accept(Visitor& v);
-};
-class StatementA : public AST {
-public: 
-    StatementA() {};
     virtual void accept(Visitor& v);
 };
 class NameA : public AST {
@@ -380,6 +408,7 @@ public:
     virtual void visit(OpExpressionA* a) = 0;
     virtual void visit(NewArrayA* a) = 0;
     virtual void visit(ArrayRefA* a) = 0;
+    virtual void visit(VarDeclA* a) = 0;
 
     virtual void visit(PrimTypeA* a) = 0;
     virtual void visit(ArrayTypeA* a) = 0;
@@ -390,11 +419,15 @@ public:
     virtual void visit(StatementA* a) = 0;
     virtual void visit(NameA* a) = 0;
     virtual void visit(StrLitA* a) = 0;
+    virtual void visit(IntLitA* a) = 0;
 };
 
 class PrinterV : public Visitor {
     int d = 0;
 public: 
+    void indent() {
+        for (int i=0; i<d; i++) { cout << "| "; }
+    }
     virtual void visit(StartA* a);
     virtual void visit(ListA* a);
     virtual void visit(ClassA* a);
@@ -420,6 +453,7 @@ public:
     virtual void visit(OpExpressionA* a);
     virtual void visit(NewArrayA* a);
     virtual void visit(ArrayRefA* a);
+    virtual void visit(VarDeclA* a);
 
     virtual void visit(PrimTypeA* a);
     virtual void visit(ArrayTypeA* a);
@@ -430,6 +464,7 @@ public:
     virtual void visit(StatementA* a);
     virtual void visit(NameA* a);
     virtual void visit(StrLitA* a);
+    virtual void visit(IntLitA* a);
 };
 
 // class CounterV : public Visitor {

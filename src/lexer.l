@@ -62,59 +62,112 @@ CHAR_SLASH          "'"\\[^nt]"'"
                 yylval.s = strdup(yytext); return WHILE; }
 
     /* Forbidden Words*/
-"abstract"      { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"byte"          { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"case"          { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"catch"         { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"const"         { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"default"       { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"do"            { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"double"        { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"final"         { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"finally"       { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"for"           { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"implements"    { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"import"        { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"instanceof"    { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"interface"     { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"long"          { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"native"        { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"goto"          { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"package"       { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"short"         { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"switch"        { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"synchronized"  { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"throw"         { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"throws"        { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"transient"     { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"try"           { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"volatile"      { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"byvalue"       { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"cast"          { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"generic"       { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"inner"         { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"none"          { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"operator"      { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"outer"         { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"rest"          { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"var"           { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"float"         { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"~"             { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"?"             { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-":"             { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"++"            { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"--"            { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"&"             { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"|"             { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"^"             { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"<<"            { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-">>"            { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-">>>"           { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"^=="           { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"%="            { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-"<<="           { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-">>="           { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
-">>>="          { std::cout << "FORBIDDEN: " << yytext << "\n"; return FORBIDDEN; }
+"abstract"      { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"byte"          { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"case"          { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"catch"         { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"const"         { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"default"       { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"do"            { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"double"        { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"final"         { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"finally"       { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"for"           { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"implements"    { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"import"        { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"instanceof"    { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"interface"     { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"long"          { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"native"        { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"goto"          { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"package"       { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"short"         { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"switch"        { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"synchronized"  { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"throw"         { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"throws"        { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"transient"     { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"try"           { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"volatile"      { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"byvalue"       { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"cast"          { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"generic"       { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"inner"         { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"none"          { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"operator"      { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"outer"         { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"rest"          { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"var"           { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"float"         { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"~"             { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"?"             { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+":"             { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"++"            { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"--"            { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"&"             { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"|"             { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"^"             { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"<<"            { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+">>"            { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+">>>"           { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"^=="           { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"%="            { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+"<<="           { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+">>="           { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
+">>>="          { std::cout << "FORBIDDEN: " << yytext << "\n"; 
+                    return FORBIDDEN; }
 
 
 
@@ -176,12 +229,6 @@ CHAR_SLASH          "'"\\[^nt]"'"
 
 
     /*Primitive Types*/
-    /* 
-    "void"          { yylval.value = strdup(yytext); std::cout << "TYPE_VOID: " << yytext << "\n"; return TYPE_VOID; }
-    "int"           { yylval.value = strdup(yytext); std::cout << "TYPE_INT: " << yytext << "\n"; return TYPE_INT; }
-    "boolean"       { yylval.value = strdup(yytext); std::cout << "TYPE_BOOL: " << yytext << "\n"; return TYPE_BOOL; }
-    "char"          { yylval.value = strdup(yytext); std::cout << "TYPE_CHAR: " << yytext << "\n"; return TYPE_CHAR; } 
-    */
 "void"          { std::cout << "TYPE_VOID: " << yytext << "\n"; 
                     yylval.s = strdup(yytext); return TYPE_VOID; }
 "int"           { std::cout << "TYPE_INT: " << yytext << "\n"; 
@@ -192,15 +239,6 @@ CHAR_SLASH          "'"\\[^nt]"'"
                     yylval.s = strdup(yytext); return TYPE_CHAR; }
 
     /* Literal Types */
-    /*
-    "true|false"        { yylval.boolConstant = strdup(yytext);std::cout << "BOOLEAN: " << yytext << "\n"; return BOOLEAN; }
-    {IDENTIFIER}        { std::cout << "IDENTIFIER: " << yytext << "\n"; return IDENTIFIER; }
-    {INTEGER}           { yylval.integerConstant = strdup(yytext);std::cout << "INTEGER: " << yytext << "\n"; return INTEGER; }
-    {STRING}            { yylval.stringConstant = strdup(yytext);std::cout << "STRING: " << yytext << "\n"; return STRING; }
-    {BEG_STRING}        { std::cout << "INCOMPL_STR: " << yytext << "\n"; return INCOMPL_STR; }
-    {CHAR}              { yylval.charConstant = strdup(yytext); std::cout << "CHAR: " << yytext << "\n"; return CHAR; }
-    {CHAR_SLASH}        { yylval.charConstant = yytext[1]; std::cout << "CHAR: " << yytext << "\n"; return CHAR; }
-    */
 "true|false"        { std::cout << "BOOLEAN: " << yytext << "\n"; 
                         yylval.b = (strcmp(yytext, "true")==0); return BOOLEAN; }
 {IDENTIFIER}        { std::cout << "IDENTIFIER: " << yytext << "\n"; 
@@ -218,6 +256,7 @@ CHAR_SLASH          "'"\\[^nt]"'"
 
 
     /* Default rule (error) */
-.                   { std::cout << "UNRECOG_ERROR: " << yytext << "\n"; return UNRECOG_ERROR; }
+.                   { std::cout << "UNRECOG_ERROR: " << yytext << "\n"; 
+                        return UNRECOG_ERROR; }
 
 %%

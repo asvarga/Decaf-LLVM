@@ -1,0 +1,11 @@
+
+class Aaa {
+    public static void main (String[] argv) {
+        int x = 123;
+        int y = x+x;
+    }
+}
+
+class Bbb {
+    public void foo () {}
+}

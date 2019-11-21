@@ -129,13 +129,16 @@ union YYSTYPE
     class FieldA*       fieldA;
     class MethodA*      methodA;
     class ConstructorA* constructorA;
-    class StrLitA*      strLitA;
+    class LitA*         litA;
     class TypeA*        typeA;
     class PrimTypeA*    primTypeA;
     class FormalA*      formalA;
     class BlockA*       blockA;
+    class StatementA*   statementA;
+    class ExpressionA*  expressionA;
+    class VarDeclA*     varDeclA;
 
-#line 139 "parser.tab.hpp" /* yacc.c:1921  */
+#line 142 "parser.tab.hpp" /* yacc.c:1921  */
 };
 
 typedef union YYSTYPE YYSTYPE;
