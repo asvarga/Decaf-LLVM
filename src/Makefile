@@ -15,3 +15,5 @@ empty: compiler
 	./parser test2/emptyClasses.decaf
 test0: compiler
 	./parser test2/test0.decaf
+test1: compiler
+	./parser test/adder.decaf

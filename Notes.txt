@@ -1,2 +1,20 @@
-# To-do
-- might need to check to fix precedence so that longest lexeme is matched
+# Classes added
+- field
+- public
+- EmptyStatement
+- ContinueStatement
+- ReturnStatement
+- WhileStatement
+- ExpressionStatementA
+- If (check)
+- DeclStatementA
+- EmptyStatement
+- BreakStatement
+- block
+- SuperStatement
+- array
+- Dimension
+- dimenstionList
+- check array/list declaration situation
+- NullLiteral
+- ThisExpr
