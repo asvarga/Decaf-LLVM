@@ -1,4 +1,4 @@
-/* A Bison parser, made by GNU Bison 3.3.2.  */
+/* A Bison parser, made by GNU Bison 3.4.2.  */
 
 /* Bison interface for Yacc-like parsers in C
 
@@ -111,10 +111,9 @@ extern int yydebug;
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-
 union YYSTYPE
 {
-#line 102 "parser.ypp" /* yacc.c:1921  */
+#line 102 "parser.ypp"
 
     char*       s;
     int         i;
@@ -137,10 +136,14 @@ union YYSTYPE
     class StatementA*   statementA;
     class ExpressionA*  expressionA;
     class VarDeclA*     varDeclA;
+    class SuperA*       superA;
+    class NewArrayA*    newArrayA;
+    class ArrayRefA*    arrayRefA;
+    class FieldExprA*   fieldExprA;
 
-#line 142 "parser.tab.hpp" /* yacc.c:1921  */
+#line 145 "parser.tab.hpp"
+
 };
-
 typedef union YYSTYPE YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define YYSTYPE_IS_DECLARED 1

@@ -218,6 +218,7 @@ public:
     FieldA(ListA *ms, TypeA *t, ListA *vs): modifiers(ms), type(t), vars(vs) {};
     ListA *getModifers() { return modifiers; };
     TypeA *getType() { return type; };
+    ListA *getVars() { return vars; };
     virtual void accept(Visitor& v);
 };
 
@@ -468,11 +469,13 @@ class FieldExprA: public AST {
     NameA *name;
 public:
     FieldExprA(TypeA *t, NameA *n): type(t), name(n) {};
+    TypeA *getType() { return type; }
+    NameA *getName() { return name; }
     virtual void accept(Visitor& v);
 };
 
-class SuperFieldExprA: public AST {
-    NameA *name;
+class SuperFieldExprA: public FieldExprA {
+    // NameA *name;
 public:
     SuperFieldExprA(NameA *n): name(n) {};
     virtual void accept(Visitor& v);

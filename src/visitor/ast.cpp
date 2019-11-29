@@ -113,7 +113,9 @@ void PrinterV::visit(FieldA* a) {
     indent();
     cout << "FieldA\n"; 
     ++d;
-    a->getInitializer()->accept(*this);
+    a->getModifers()->accept(*this);
+    a->getType()->accept(*this);
+    a->getVars()->accept(*this);
     --d;
 }
 void PrinterV::visit(MethodA* a) { 
@@ -240,7 +242,7 @@ void PrinterV::visit(NewArrayA* a) {
     cout << "NewArrayA\n"; 
     ++d;
     a->getType()->accept(*this);
-    a->getExpressionList()->accept(*this);
+    a->getExpressions()->accept(*this);
     --d;
 }
 void PrinterV::visit(ArrayRefA* a) { 
