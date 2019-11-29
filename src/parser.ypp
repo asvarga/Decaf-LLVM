@@ -156,22 +156,20 @@ class_list
     | single_class {
         yydebug(" $$ = new StartA(); $$->addf($1); ");
         $$ = new StartA(); $$->addf($1);
-
-        start = $$;
     }
 
 
 single_class
     : CLASS IDENTIFIER OC CC {
         yydebug(" $$ = new ClassA($2); ");
-        $$ = new ClassA($2);
+        $$ = new ClassA($2, new Super("Object"));
     }
     | CLASS IDENTIFIER super OC CC {
         yydebug(" $$ = new ClassA($2, $3); ");
         $$ = new ClassA($2, $3);
     }
     | CLASS IDENTIFIER OC member_list CC {
-        yydebug(" $$ = new ClassA($2, $4); ");
+        yydebug(" $$ = new ClassA($2, new Super("Object"), $4); ");
         $$ = new ClassA($2, $4);
     }
     | CLASS IDENTIFIER super OC member_list CC {
@@ -181,8 +179,8 @@ single_class
 
 super
     : EXTENDS IDENTIFIER {
-        yydebug(" $$ = new Super($2) ");
-        $$ = new Super($2)
+        yydebug(" $$ = new Super($2); ");
+        $$ = new SuperA($2);
      }
 
 member_list
@@ -211,28 +209,33 @@ member
 
 field
     : modifier_list type_decl var_decl_list SEMICOLON  {
-        yydebug(" for(auto const field : $3)
+        yydebug("
+        $$ = new ListA();
+        for(auto const field : $3.getASTs())
         {
-            $$->addf(new Field($1, $2, field));
+            $$->addb(new FieldA($1, $2, field));
         }");
 
-        for(auto const field : $3)
+        $$ = new ListA();
+        for(auto const field : $3.getASTs())
         {
-            $$->addf(new Field($1, $2, field));
+            $$->addb(new FieldA($1, $2, field));
         }
 
 
     }
     | type_decl var_decl_list SEMICOLON {
         yydebug("
+        $$ = new ListA();
         for(auto const field : $2)
         {
-            $$->addf(new Field(new Public(), $2, field));
+            $$->addb(new FieldA("public", $1, field));
         }");
 
+        $$ = new ListA();
         for(auto const field : $2)
         {
-            $$->addf(new Field(new Public(), $2, field));
+            $$->addb(new FieldA("public", $1, field));
         }
     }
 
@@ -258,28 +261,30 @@ method_decl
 
 ctor
     : modifier_list IDENTIFIER formal_args block {
-        yydebug(" $$ = new Constructor(new ClassType($2), $1, $3, $4) ");
+        yydebug(" $$ = new ConstructorA(new TypeA($2), $1, new MethodBodyA($3, $4)); ");
+        $$ = new ConstructorA(new ClassTypeA($2), $1, new MethodBodyA($3, $4));
     }
     | IDENTIFIER formal_args block {
-        yydebug(" $$ = new Constructor(new ClassType($1), \"public\", $2, $3); ");
+        yydebug(" $$ = new Constructor(new TypeA($1), new MethodBodyA($2, $3)); ");
+        $$ = new Constructor(new ClassTypeA($1), new MethodBodyA($2, $3));
     }
 
 modifier
     : STATIC    {
-        yydebug(" $$ = new StrLitA($1); ");
-        $$ = new StrLitA($1);
+        yydebug(" $$ = new modifierA("static"); ");
+        $$ = new modifierA("static");
     }
     | PUBLIC    {
-        yydebug(" $$ = new StrLitA($1); ");
-        $$ = new StrLitA($1);
+        yydebug(" $$ = new modifierA("public"); ");
+        $$ = new modifierA("public");
     }
     | PRIVATE   {
-        yydebug(" $$ = new StrLitA($1); ");
-        $$ = new StrLitA($1);
+        yydebug(" $$ = new modifierA("private"); ");
+        $$ = new modifierA("private");
     }
     | PROTECTED {
-        yydebug(" $$ = new StrLitA($1); ");
-        $$ = new StrLitA($1);
+        yydebug(" $$ = new modifierA("protected"); ");
+        $$ = new modifierA("protected");
     }
 
 formal_args
@@ -304,7 +309,8 @@ formal_arg_list
 
 formal_arg
     : type_decl var_decl_id {
-        yydebug(" $$ = new FormalA($1, $2); ?? "); // TODO:
+        yydebug(" $$ = new FormalA($1, $2);"); //
+        $$ = new FormalA($1, $2); ";
     }
 
 type_decl
@@ -333,20 +339,20 @@ bracket_list
 
 primitive_type
     : TYPE_BOOL {
-        yydebug(" $$ = new PrimTypeA($1); ");
-        $$ = new PrimTypeA($1);
+        yydebug(" $$ = new PrimTypeA(new NameA($1)); ");
+        $$ = new PrimTypeA(new NameA($1));
     }
     | TYPE_CHAR {
-        yydebug(" $$ = new PrimTypeA($1); ");
-        $$ = new PrimTypeA($1);
+        yydebug(" $$ = new PrimTypeA(new NameA($1)); ");
+        $$ = new PrimTypeA(new NameA($1));
     }
     | TYPE_INT  {
-        yydebug(" $$ = new PrimTypeA($1); ");
-        $$ = new PrimTypeA($1);
+        yydebug(" $$ = new PrimTypeA(new NameA($1)); ");
+        $$ = new PrimTypeA(new NameA($1));
     }
     | TYPE_VOID {
-        yydebug(" $$ = new PrimTypeA($1); ");
-        $$ = new PrimTypeA($1);
+        yydebug(" $$ = new PrimTypeA(new NameA($1)); ");
+        $$ = new PrimTypeA(new NameA($1));
     }
 
 var_decl_list
@@ -402,18 +408,20 @@ statement_list
 statement
     : SEMICOLON {
         yyerror(" $$ =new EmptyStatement() ");
-        new EmptyStatement()}
+        new EmptyStatement()
+    }
     | type_decl var_decl_list SEMICOLON {
         yydebug(" $$ = new DeclStatementA($1, $2); ");
         $$ = new DeclStatementA($1, $2);
     }
     | IF OP expr CP statement
             %prec LOWEST {
-            yyerror(" $$ = new If($3, $5, NULL); ");
+            yyerror(" $$ = new IfStatementA($3, $5, NULL); ");
+            $$ = new IfStatementA($3, $5, NULL);
     }
     | IF OP expr CP statement ELSE statement {
-        yyerror(" $$ = new If($3, $5, $7); ");
-        $$ = new If($3, $5, $7);
+        yyerror(" $$ = new IfStatementA($3, $5, $7); ");
+        $$ = new IfStatementA($3, $5, $7);
     }
     | expr SEMICOLON {
         yydebug(" $$ = new ExpressionStatementA($1); ");
@@ -421,7 +429,7 @@ statement
     }
     | WHILE OP expr CP statement {
         yyerror(" $$ = new WhileStatement(new symbolTable(), $3, $5); ");
-        $$ = new WhileStatement(new symbolTable(), $3, $5);
+        $$ = new WhileStatement($3, $5);
     }
     | RETURN SEMICOLON {
         yyerror(" $$ = new ReturnStatement(NULL); ");
@@ -441,7 +449,7 @@ statement
     }
     | block {
         yyerror(" $$ = new Block($1); ");
-        $$ = new Block($1);
+        $$ = new BlockStatementA($1);
     }
     | SUPER actual_args SEMICOLON {
         yyerror(" $$ = new SuperStatement($2); ");
@@ -524,7 +532,7 @@ expr
 
 primary
     : new_array_expr {
-        yyerror(" $$ = new array($1) ");
+        yyerror(" $$ = $1 ");
         $$ = $1;
     }
     | non_new_array_expr {
@@ -533,30 +541,30 @@ primary
     }
     | IDENTIFIER {
         yydebug(" $$ = $1; ");
-        $$ = new StrLitA($1);
+        $$ = new NameA($1);
     }
 
 new_array_expr
     : NEW IDENTIFIER dimension_list {
-        yydebug("new array( ClassType($2), $3)");
-        new array( ClassType($2), $3);
+        yydebug(" new NewArrayA( new NameA($2), $3) ");
+        new NewArrayA( new ClassTypeA(new NameA($2)), $3);
     }
     | NEW primitive_type dimension_list {
-        yydebug("new newArray($2, $3)");
-        new array($2, $3)
+        yydebug("new newArrayA($2, $3);");
+        new newArrayA($2, $3);
     }
 
 dimension_list
     : dimension dimension_list {
-        yydebug(" $$->push_back($1); ");
-        $1->addf($1);
+        yydebug(" $1->addf($1); $$ = $2; ");
+        $1->addf(new DimensionA($1));
         $$ = $2;
 
     }
     | dimension {
-        yydebug(" $$->push_back($1); ");
-        $$ = new dimensionlist();
-        $$->addf(new Dimension($1));
+        yydebug("$$ = new ListA(); $$->addf($1); ");
+        $$ = new ListA();
+        $$->addf(new DimensionA($1));
     }
 
 dimension
@@ -575,62 +583,62 @@ non_new_array_expr
         $$ = new ThisExpr();
     }
     | OP expr CP {
-        yydebug(" $$ = new ParenExpr($2); ");
-
+        yydebug(" $$ = $2; ");
+        $$ = $2;
     }
     | NEW IDENTIFIER actual_args {
-        yydebug(" $$ = new NewObjExpr($2, $3); ");
-
+        yydebug(" $$ = new NewObjExpr(new NameA($2), $3); ");
+        $$ = new NewObjExpr(new Name($2), $3);
     }
     | IDENTIFIER actual_args {
         yydebug(" $$ = new ThisCallExpr($1, $2); ");
-
+        $$ = new ThisCallExpr(new NameA($1), $2);
     }
     | primary DOT IDENTIFIER actual_args {
         yydebug(" $$ = new MethodCallExpr($1, $3, $4); ");
-
+        $$ = new MethodCallExpr($1, new NameA($3), $4);
     }
     | SUPER DOT IDENTIFIER actual_args {
         yydebug(" $$ = new SuperCallExpr($3, $4); ");
-
+        $$ = new SuperCallExpr(new NameA($3), $4);
     }
     | array_expr {
         yydebug(" $$ = $1; ");
-
+        $$ = $1;
     }
     | field_expr {
         yydebug(" $$ = $1; ");
-
+        $$ = $1;
     }
 
 field_expr
     : primary DOT IDENTIFIER {
         yydebug(" $$ = new fieldExpr($1, $3);");
-
+        $$ = new FieldExpr($1, new NameA($3));
     }
     | SUPER DOT IDENTIFIER {
         yydebug(" $$ = new SuperfieldExpr($3); ");
-
+        $$ = new SuperfieldExpr(new NameA($3));
     }
 
 array_expr
     : IDENTIFIER dimension {
-        yydebug(" $$ = new ArrayExpr(new IdPrimary( new DefaultTypebox(), $1), $2;) ");
-
+        yydebug(" $$ = new ArrayRefA(new NameA($1), $2); ");
+        $$ = new ArrayRefA(new NameA($1), $2);
     }
     | non_new_array_expr dimension {
-        yydebug(" $$ = new ArrayExpr(new NonNewArrayPrimary( new DefaultTypebox(), $1), $2); ");
-
+        yydebug(" $$ = new ArrayRefA($1, $2); ");
+        $$ = new ArrayRefA($1, $2);
     }
 
 literal
     : NILL {
         yyerror(" $$ = new NullLiteral(); ");
-        $$ = new NullLiteral();
+        $$ = new NullLitA();
     }
     | BOOLEAN {
         yyerror(" $$ = new BoolLiteral($1); ");
-        $$ = new BoolLiteral($1);
+        $$ = new BoolLitA($1);
     }
     | INTEGER {
         yydebug(" $$ = new IntLitA($1); ");
@@ -658,11 +666,13 @@ actual_args
 expr_list
     : expr COMMA expr_list {
         yydebug(" $$->push_back($1); ");
-
+        $$ = $2;
+        $$->addf($1);
     }
     | expr {
         yydebug(" $$->push_back($1); ");
-        
+        $$ = new ListA();
+        $$->addf($1);
     }
 
 %%
