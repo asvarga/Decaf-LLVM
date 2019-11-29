@@ -1535,8 +1535,8 @@ yyreduce:
   case 4:
 #line 170 "parser.ypp"
     {
-        yydebug(" $$ = new ClassA($2); ");
-        (yyval.classA) = new ClassA((yyvsp[-2].s), new Super("Object"));
+        yydebug(" $$ = new ClassA($2, new SuperA(new ClassTypeA(\"Object\"))); ");
+        (yyval.classA) = new ClassA((yyvsp[-2].s), new SuperA(new ClassTypeA("Object")));
     }
 #line 1542 "parser.tab.cpp"
     break;
@@ -1553,8 +1553,8 @@ yyreduce:
   case 6:
 #line 178 "parser.ypp"
     {
-        yydebug(" $$ = new ClassA($2, new Super("Object"), $4); ");
-        (yyval.classA) = new ClassA((yyvsp[-3].s), (yyvsp[-1].listA));
+        yydebug(" $$ = new ClassA($2, new SuperA(new ClassTypeA(\"Object\")), $4); ");
+        (yyval.classA) = new ClassA((yyvsp[-3].s), new SuperA(new ClassTypeA("Object")), (yyvsp[-1].listA));
     }
 #line 1560 "parser.tab.cpp"
     break;
@@ -1571,8 +1571,8 @@ yyreduce:
   case 8:
 #line 188 "parser.ypp"
     {
-        yydebug(" $$ = new Super($2); ");
-        (yyval.superA) = new SuperA((yyvsp[0].s));
+        yydebug(" $$ = new SuperA($2); ");
+        (yyval.superA) = new SuperA(new ClassTypeA((yyvsp[0].s)));
      }
 #line 1578 "parser.tab.cpp"
     break;
@@ -1606,7 +1606,7 @@ yyreduce:
 
   case 12:
 #line 208 "parser.ypp"
-    { y
+    {
         ydebug(" $$ = $1; ");
         (yyval.ast) = (yyvsp[0].methodA);
     }

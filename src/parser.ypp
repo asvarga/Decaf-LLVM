@@ -168,16 +168,16 @@ class_list
 
 single_class
     : CLASS IDENTIFIER OC CC {
-        yydebug(" $$ = new ClassA($2); ");
-        $$ = new ClassA($2, new Super("Object"));
+        yydebug(" $$ = new ClassA($2, new SuperA(new ClassTypeA(\"Object\"))); ");
+        $$ = new ClassA($2, new SuperA(new ClassTypeA("Object")));
     }
     | CLASS IDENTIFIER super OC CC {
         yydebug(" $$ = new ClassA($2, $3); ");
         $$ = new ClassA($2, $3);
     }
     | CLASS IDENTIFIER OC member_list CC {
-        yydebug(" $$ = new ClassA($2, new Super("Object"), $4); ");
-        $$ = new ClassA($2, $4);
+        yydebug(" $$ = new ClassA($2, new SuperA(new ClassTypeA(\"Object\")), $4); ");
+        $$ = new ClassA($2, new SuperA(new ClassTypeA("Object")), $4);
     }
     | CLASS IDENTIFIER super OC member_list CC {
         yydebug(" $$ = new ClassA($2, $3, $5); ");
@@ -186,8 +186,8 @@ single_class
 
 super
     : EXTENDS IDENTIFIER {
-        yydebug(" $$ = new Super($2); ");
-        $$ = new SuperA($2);
+        yydebug(" $$ = new SuperA($2); ");
+        $$ = new SuperA(new ClassTypeA($2));
      }
 
 member_list
@@ -205,7 +205,7 @@ member
         yydebug(" $$ = $1; ");
         $$ = $1;
     }
-    | method_decl { y
+    | method_decl {
         ydebug(" $$ = $1; ");
         $$ = $1;
     }

@@ -468,6 +468,7 @@ class FieldExprA: public AST {
     TypeA *type;
     NameA *name;
 public:
+    FieldExprA(NameA *n): name(n) {};
     FieldExprA(TypeA *t, NameA *n): type(t), name(n) {};
     TypeA *getType() { return type; }
     NameA *getName() { return name; }
@@ -475,9 +476,8 @@ public:
 };
 
 class SuperFieldExprA: public FieldExprA {
-    // NameA *name;
 public:
-    SuperFieldExprA(NameA *n): name(n) {};
+    SuperFieldExprA(NameA *n): FieldExprA(n) {};
     virtual void accept(Visitor& v);
 };
 
