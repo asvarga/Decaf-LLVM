@@ -1,16 +1,16 @@
 
 #include "ast.h"
-#include <iostream> 
+#include <iostream>
 #include <vector>
 
-using namespace std; 
+using namespace std;
 
 /// Main ///
 
 // int main() {
 //     vector<AST*> asts{
-//         new ClassA("Aaa"), 
-//         new ClassA("Bbb"), 
+//         new ClassA("Aaa"),
+//         new ClassA("Bbb"),
 //         new ClassA("Ccc")
 //     };
 //     ListA *list = new ListA(asts);
@@ -18,8 +18,8 @@ using namespace std;
 
 //     start->accept(*(new CounterV()));
 //     start->accept(*(new PrinterV()));
-// 	return 0; 
-// } 
+// 	return 0;
+// }
 
 /// ASTs ///
 
@@ -63,64 +63,64 @@ void IntLitA::accept(Visitor& v) { v.visit(this); }
 
 /// Visitors ///
 
-void PrinterV::visit(StartA* a) { 
+void PrinterV::visit(StartA* a) {
     indent();
-    cout << "StartA\n"; 
+    cout << "StartA\n";
     ++d;
     a->getList()->accept(*this);
     --d;
 }
-void PrinterV::visit(ListA* a) { 
+void PrinterV::visit(ListA* a) {
     indent();
-    cout << "ListA\n"; 
+    cout << "ListA\n";
     ++d;
     deque<AST *> asts = a->getASTs();
-    for (AST *a2 : asts) { 
-        a2->accept(*this); 
+    for (AST *a2 : asts) {
+        a2->accept(*this);
     }
     --d;
 }
-void PrinterV::visit(ClassA* a) { 
+void PrinterV::visit(ClassA* a) {
     indent();
-    cout << "ClassA: " << a->getName() << "\n"; 
+    cout << "ClassA: " << a->getName()->getName() << "\n";
     ++d;
     a->getMembers()->accept(*this);
     --d;
 }
-void PrinterV::visit(SuperA* a) { 
+void PrinterV::visit(SuperA* a) {
     indent();
-    cout << "SuperA\n"; 
+    cout << "SuperA\n";
     ++d;
     a->getType()->accept(*this);
     --d;
 }
-void PrinterV::visit(MethodBodyA* a) { 
+void PrinterV::visit(MethodBodyA* a) {
     indent();
-    cout << "MethodBodyA\n"; 
+    cout << "MethodBodyA\n";
     ++d;
     // a->getFormalList()->accept(*this); // repeated in MethodA
     a->getStatementList()->accept(*this);
     --d;
 }
-void PrinterV::visit(FieldDeclA* a) { 
+void PrinterV::visit(FieldDeclA* a) {
     indent();
-    cout << "FieldDeclA\n"; 
+    cout << "FieldDeclA\n";
     ++d;
     a->getFieldList()->accept(*this);
     --d;
 }
-void PrinterV::visit(FieldA* a) { 
+void PrinterV::visit(FieldA* a) {
     indent();
-    cout << "FieldA\n"; 
+    cout << "FieldA\n";
     ++d;
     a->getModifers()->accept(*this);
     a->getType()->accept(*this);
-    a->getVars()->accept(*this);
+    a->getVar()->accept(*this);
     --d;
 }
-void PrinterV::visit(MethodA* a) { 
+void PrinterV::visit(MethodA* a) {
     indent();
-    cout << "MethodA: " << a->getName() << "\n"; 
+    cout << "MethodA: " << a->getName() << "\n";
     ++d;
     a->getModifiers()->accept(*this);
     a->getType()->accept(*this);
@@ -128,192 +128,191 @@ void PrinterV::visit(MethodA* a) {
     a->getMethodBody()->accept(*this);
     --d;
 }
-void PrinterV::visit(ConstructorA* a) { 
+void PrinterV::visit(ConstructorA* a) {
     indent();
-    cout << "ConstructorA\n"; 
+    cout << "ConstructorA\n";
     ++d;
     a->getType()->accept(*this);
     a->getMethodBody()->accept(*this);
     --d;
 }
-void PrinterV::visit(FormalA* a) { 
+void PrinterV::visit(FormalA* a) {
     indent();
-    cout << "FormalA: " << a->getName() << "\n"; 
+    cout << "FormalA: " << a->getName() << "\n";
     ++d;
     a->getType()->accept(*this);
     --d;
 }
-void PrinterV::visit(DeclStatementA* a) { 
+void PrinterV::visit(DeclStatementA* a) {
     indent();
-    cout << "DeclStatementA\n"; 
+    cout << "DeclStatementA\n";
     ++d;
     a->getType()->accept(*this);
     a->getLocalList()->accept(*this);
     --d;
 }
-void PrinterV::visit(LocalA* a) { 
+void PrinterV::visit(LocalA* a) {
     indent();
-    cout << "LocalA\n"; 
+    cout << "LocalA\n";
     ++d;
     a->getExpression()->accept(*this);
     --d;
 }
-void PrinterV::visit(IfStatementA* a) { 
+void PrinterV::visit(IfStatementA* a) {
     indent();
-    cout << "IfStatementA\n"; 
+    cout << "IfStatementA\n";
     ++d;
     a->getExpression()->accept(*this);
     a->getStatement1()->accept(*this);
     a->getStatement2()->accept(*this);
     --d;
 }
-void PrinterV::visit(ExpressionStatementA* a) { 
+void PrinterV::visit(ExpressionStatementA* a) {
     indent();
-    cout << "ExpressionStatementA\n"; 
+    cout << "ExpressionStatementA\n";
     ++d;
     a->getExpression()->accept(*this);
     --d;
 }
-void PrinterV::visit(WhileStatementA* a) { 
+void PrinterV::visit(WhileStatementA* a) {
     indent();
-    cout << "WhileStatementA\n"; 
+    cout << "WhileStatementA\n";
     ++d;
     a->getExpression()->accept(*this);
     a->getStatement()->accept(*this);
     --d;
 }
-void PrinterV::visit(ReturnStatementA* a) { 
+void PrinterV::visit(ReturnStatementA* a) {
     indent();
-    cout << "ReturnStatementA\n"; 
+    cout << "ReturnStatementA\n";
     ++d;
     a->getExpression()->accept(*this);
     --d;
 }
-void PrinterV::visit(ContinueStatementA* a) { 
+void PrinterV::visit(ContinueStatementA* a) {
     indent();
-    cout << "ContinueStatementA\n"; 
+    cout << "ContinueStatementA\n";
     ++d;
     --d;
 }
-void PrinterV::visit(BreakStatementA* a) { 
+void PrinterV::visit(BreakStatementA* a) {
     indent();
-    cout << "BreakStatementA\n"; 
+    cout << "BreakStatementA\n";
     ++d;
     --d;
 }
-void PrinterV::visit(BlockStatementA* a) { 
+void PrinterV::visit(BlockStatementA* a) {
     indent();
-    cout << "BlockStatementA\n"; 
+    cout << "BlockStatementA\n";
     ++d;
     a->getBlock()->accept(*this);
     --d;
 }
-void PrinterV::visit(BlockA* a) { 
+void PrinterV::visit(BlockA* a) {
     indent();
-    cout << "BlockA\n"; 
+    cout << "BlockA\n";
     ++d;
     a->getStatementList()->accept(*this);
     --d;
 }
-void PrinterV::visit(SuperStatementA* a) { 
+void PrinterV::visit(SuperStatementA* a) {
     indent();
-    cout << "SuperStatementA\n"; 
+    cout << "SuperStatementA\n";
     ++d;
-    a->getCall()->accept(*this);
+    a->getArgs()->accept(*this);
     --d;
 }
-void PrinterV::visit(CallA* a) { 
+void PrinterV::visit(CallA* a) {
     indent();
-    cout << "CallA: " << a->getName() << "\n"; 
+    cout << "CallA: " << a->getName() << "\n";
     ++d;
     a->getExpressionList()->accept(*this);
     --d;
 }
-void PrinterV::visit(OpExpressionA* a) { 
+void PrinterV::visit(OpExpressionA* a) {
     indent();
-    cout << "OpExpressionA: " << a->getOp() << "(" << a->getArity() << ")\n"; 
+    cout << "OpExpressionA: " << a->getOp() << "(" << a->getArity() << ")\n";
     ++d;
     a->getExpression1()->accept(*this);
     a->getExpression2()->accept(*this);
     --d;
 }
-void PrinterV::visit(NewArrayA* a) { 
+void PrinterV::visit(NewArrayA* a) {
     indent();
-    cout << "NewArrayA\n"; 
+    cout << "NewArrayA\n";
     ++d;
     a->getType()->accept(*this);
-    a->getExpressions()->accept(*this);
+    a->getDimList()->accept(*this);
     --d;
 }
-void PrinterV::visit(ArrayRefA* a) { 
+void PrinterV::visit(ArrayRefA* a) {
     indent();
-    cout << "ArrayRefA\n"; 
+    cout << "ArrayRefA\n";
     ++d;
-    a->getExpression1()->accept(*this);
-    a->getExpression2()->accept(*this);
+    a->getExpression()->accept(*this);
     --d;
 }
 
-void PrinterV::visit(PrimTypeA* a) { 
+void PrinterV::visit(PrimTypeA* a) {
     indent();
-    cout << "PrimTypeA: " << a->getName() << "\n"; 
+    cout << "PrimTypeA: " << a->getName()->getName() << "\n";
     ++d;
     --d;
 }
-void PrinterV::visit(ArrayTypeA* a) { 
+void PrinterV::visit(ArrayTypeA* a) {
     indent();
     cout << "ArrayTypeA: dim " << a->getDim() << "\n";
     ++d;
     a->getType()->accept(*this);
     --d;
 }
-void PrinterV::visit(ClassTypeA* a) { 
+void PrinterV::visit(ClassTypeA* a) {
     indent();
-    cout << "ClassTypeA: " << a->getName() << "\n"; 
+    cout << "ClassTypeA: " << a->getName() << "\n";
     ++d;
     --d;
 }
-void PrinterV::visit(VarDeclA* a) { 
+void PrinterV::visit(VarDeclA* a) {
     indent();
-    cout << "VarDeclA: " << a->getName() << "\n"; 
+    cout << "VarDeclA: " << a->getName() << "\n";
     ++d;
     a->getExpression()->accept(*this);
     --d;
 }
 
-void PrinterV::visit(ExpressionA* a) { 
+void PrinterV::visit(ExpressionA* a) {
     indent();
-    cout << "ExpressionA\n"; 
+    cout << "ExpressionA\n";
     ++d;
     --d;
 }
-void PrinterV::visit(InitializerA* a) { 
+void PrinterV::visit(InitializerA* a) {
     indent();
-    cout << "InitializerA\n"; 
+    cout << "InitializerA\n";
     ++d;
     --d;
 }
-void PrinterV::visit(StatementA* a) { 
+void PrinterV::visit(StatementA* a) {
     indent();
-    cout << "StatementA\n"; 
+    cout << "StatementA\n";
     ++d;
     --d;
 }
-void PrinterV::visit(NameA* a) { 
+void PrinterV::visit(NameA* a) {
     indent();
-    cout << "NameA\n"; 
+    cout << "NameA\n";
     ++d;
     --d;
 }
-void PrinterV::visit(StrLitA* a) { 
+void PrinterV::visit(StrLitA* a) {
     indent();
-    cout << "StrLitA: " << a->getValue() << "\n"; 
+    cout << "StrLitA: " << a->getValue() << "\n";
     ++d;
     --d;
 }
-void PrinterV::visit(IntLitA* a) { 
+void PrinterV::visit(IntLitA* a) {
     indent();
-    cout << "IntLitA: " << a->getValue() << "\n"; 
+    cout << "IntLitA: " << a->getValue() << "\n";
     ++d;
     --d;
 }
@@ -356,16 +355,3 @@ void PrinterV::visit(IntLitA* a) {
 // void CounterV::visit(StatementA* a) { cout << this->c++ << "\n"; }
 // void CounterV::visit(NameA* a) { cout << this->c++ << "\n"; }
 // void CounterV::visit(StrLitA* a) { cout << this->c++ << "\n"; }
-
-
-
-
-
-
-
-
-
-
-
-
-
