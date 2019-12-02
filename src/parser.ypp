@@ -166,6 +166,7 @@ class_list
     | single_class {
         yydebug(" $$ = new StartA(); $$->addf($1); ");
         $$ = new StartA(); $$->addf($1);
+        start = $$;
     }
 
 
