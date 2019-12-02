@@ -61,6 +61,22 @@ void NameA::accept(Visitor& v) { v.visit(this); }
 void StrLitA::accept(Visitor& v) { v.visit(this); }
 void IntLitA::accept(Visitor& v) { v.visit(this); }
 
+void DimensionA::accept(Visitor& v) { v.visit(this); }
+void FieldExprA::accept(Visitor& v) { v.visit(this); }
+void NewObjExprA::accept(Visitor& v) { v.visit(this); }
+void PrimaryArrayA::accept(Visitor& v) { v.visit(this); }
+void ThisCallExprA::accept(Visitor& v) { v.visit(this); }
+void SuperCallExprA::accept(Visitor& v) { v.visit(this); }
+void EmptyStatementA::accept(Visitor& v) { v.visit(this); }
+void MethodCallExprA::accept(Visitor& v) { v.visit(this); }
+void SuperFieldExprA::accept(Visitor& v) { v.visit(this); }
+void NonArrayPrimaryA::accept(Visitor& v) { v.visit(this); }
+void BoolLitA::accept(Visitor& v) { v.visit(this); }
+void CharLitA::accept(Visitor& v) { v.visit(this); }
+void NullLitA::accept(Visitor& v) { v.visit(this); }
+void ModifierA::accept(Visitor& v) { v.visit(this); }
+void ThisExprA::accept(Visitor& v) { v.visit(this); }
+
 /// Visitors ///
 
 void PrinterV::visit(StartA* a) {
@@ -317,6 +333,98 @@ void PrinterV::visit(IntLitA* a) {
     --d;
 }
 
+
+
+void PrinterV::visit(DimensionA* a) {
+    indent();
+    cout << "DimensionA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(FieldExprA* a) {
+    indent();
+    cout << "FieldExprA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(NewObjExprA* a) {
+    indent();
+    cout << "NewObjExprA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(PrimaryArrayA* a) {
+    indent();
+    cout << "PrimaryArrayA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(ThisCallExprA* a) {
+    indent();
+    cout << "ThisCallExprA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(SuperCallExprA* a) {
+    indent();
+    cout << "SuperCallExprA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(EmptyStatementA* a) {
+    indent();
+    cout << "EmptyStatementA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(MethodCallExprA* a) {
+    indent();
+    cout << "MethodCallExprA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(SuperFieldExprA* a) {
+    indent();
+    cout << "SuperFieldExprA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(NonArrayPrimaryA* a) {
+    indent();
+    cout << "NonArrayPrimaryA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(BoolLitA* a) {
+    indent();
+    cout << "BoolLitA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(CharLitA* a) {
+    indent();
+    cout << "CharLitA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(NullLitA* a) {
+    indent();
+    cout << "NullLitA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(ModifierA* a) {
+    indent();
+    cout << "ModifierA\n";
+    ++d;
+    --d;
+}
+void PrinterV::visit(ThisExprA* a) {
+    indent();
+    cout << "ThisExprA\n";
+    ++d;
+    --d;
+}
 
 
 

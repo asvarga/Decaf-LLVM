@@ -217,13 +217,15 @@ union YYSTYPE
     class BlockA*       blockA;
     class StatementA*   statementA;
     class ExpressionA*  expressionA;
-    class VarDeclA*     varDeclA;
-    class SuperA*       superA;
-    class NewArrayA*    newArrayA;
     class ArrayRefA*    arrayRefA;
-    class FieldExprA*   fieldExprA;
+    class VarDeclA*     varDeclA;
+    class DimensionA*   dimensionA;
+    class SuperA*       superA;
+    class ModifierA*    modifierA;
+    class NewArrayA*    newArrayA;
+    class PrimaryExprA* primaryExprA;
 
-#line 227 "parser.tab.cpp"
+#line 229 "parser.tab.cpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -534,17 +536,17 @@ static const yytype_uint8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   159,   159,   163,   170,   174,   178,   182,   188,   194,
-     198,   204,   208,   212,   218,   234,   250,   254,   260,   264,
-     270,   274,   280,   284,   288,   292,   298,   302,   308,   312,
-     318,   324,   328,   332,   338,   342,   348,   352,   356,   360,
-     366,   370,   376,   380,   386,   390,   396,   400,   406,   410,
-     416,   420,   424,   429,   433,   437,   441,   445,   449,   453,
-     457,   461,   467,   471,   475,   479,   483,   487,   491,   495,
-     499,   503,   507,   511,   515,   519,   523,   527,   531,   535,
-     541,   545,   549,   555,   559,   565,   571,   578,   584,   588,
-     592,   596,   600,   604,   608,   612,   616,   622,   626,   632,
-     636,   642,   646,   650,   654,   658,   664,   668,   674,   679
+       0,   162,   162,   166,   173,   177,   181,   185,   191,   197,
+     201,   207,   211,   215,   221,   229,   241,   245,   251,   255,
+     261,   265,   271,   275,   279,   283,   289,   293,   299,   303,
+     309,   315,   319,   323,   329,   333,   339,   343,   347,   351,
+     357,   361,   367,   371,   377,   381,   387,   391,   397,   401,
+     407,   411,   415,   420,   424,   428,   432,   436,   440,   444,
+     448,   452,   458,   462,   466,   470,   474,   478,   482,   486,
+     490,   494,   498,   502,   506,   510,   514,   518,   522,   526,
+     532,   536,   540,   546,   550,   556,   563,   570,   576,   580,
+     584,   588,   592,   596,   600,   604,   608,   614,   618,   624,
+     628,   634,   638,   642,   646,   650,   656,   660,   666,   671
 };
 #endif
 
@@ -629,10 +631,10 @@ static const yytype_uint8 yydefact[] =
        0,     0,     0,     3,     0,     1,     2,     0,     0,     0,
        8,    24,    25,    23,    22,    39,    38,    36,    37,     4,
       32,     0,    10,    11,     0,    12,    13,    17,     0,    31,
-       0,     0,     0,     6,     9,    32,     0,    16,     0,    45,
-      33,     0,    41,    43,     5,     0,    27,    32,     0,    29,
+       0,     0,     0,     5,     9,    32,     0,    16,     0,    45,
+      33,     0,    41,    43,     7,     0,    27,    32,     0,    29,
        0,     0,    21,     0,    45,     0,    35,     0,    15,     0,
-       0,     0,     7,    26,     0,    45,    30,     0,     0,     0,
+       0,     0,     6,    26,     0,    45,    30,     0,     0,     0,
        0,     0,     0,    89,     0,     0,     0,     0,     0,    47,
       50,    82,   101,   102,   103,   105,   104,     0,    60,     0,
       49,     0,    79,    80,    81,    96,    95,    88,    20,     0,
@@ -818,7 +820,7 @@ static const yytype_uint8 yyr1[] =
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     2,     1,     4,     5,     5,     6,     2,     2,
+       0,     2,     2,     1,     4,     5,     6,     5,     2,     2,
        1,     1,     1,     1,     4,     3,     2,     1,     5,     4,
        4,     3,     1,     1,     1,     1,     3,     2,     3,     1,
        2,     1,     1,     2,     3,     2,     1,     1,     1,     1,
@@ -1515,1006 +1517,995 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 159 "parser.ypp"
+#line 162 "parser.ypp"
     {
         yydebug(" $$ = $2; $$->addf($1); ");
         (yyval.startA) = (yyvsp[0].startA); (yyval.startA)->addf((yyvsp[-1].classA));
     }
-#line 1524 "parser.tab.cpp"
+#line 1526 "parser.tab.cpp"
     break;
 
   case 3:
-#line 163 "parser.ypp"
+#line 166 "parser.ypp"
     {
         yydebug(" $$ = new StartA(); $$->addf($1); ");
         (yyval.startA) = new StartA(); (yyval.startA)->addf((yyvsp[0].classA));
     }
-#line 1533 "parser.tab.cpp"
+#line 1535 "parser.tab.cpp"
     break;
 
   case 4:
-#line 170 "parser.ypp"
+#line 173 "parser.ypp"
     {
-        yydebug(" $$ = new ClassA($2, new SuperA(new ClassTypeA(\"Object\"))); ");
-        (yyval.classA) = new ClassA((yyvsp[-2].s), new SuperA(new ClassTypeA("Object")));
+        yydebug(" $$ = new ClassA(new NameA($2), new SuperA( new NameA(\"Object\"))); ");
+        (yyval.classA) = new ClassA(new NameA((yyvsp[-2].s)), new SuperA( new NameA("Object")));
     }
-#line 1542 "parser.tab.cpp"
+#line 1544 "parser.tab.cpp"
     break;
 
   case 5:
-#line 174 "parser.ypp"
+#line 177 "parser.ypp"
     {
-        yydebug(" $$ = new ClassA($2, $3); ");
-        (yyval.classA) = new ClassA((yyvsp[-3].s), (yyvsp[-2].superA));
+        yydebug(" $$ = new ClassA( new NameA($2), new SuperA(new NameA(\"Object\")), $4); ");
+        (yyval.classA) = new ClassA( new NameA((yyvsp[-3].s)), new SuperA(new NameA("Object")), (yyvsp[-1].listA));
     }
-#line 1551 "parser.tab.cpp"
+#line 1553 "parser.tab.cpp"
     break;
 
   case 6:
-#line 178 "parser.ypp"
+#line 181 "parser.ypp"
     {
-        yydebug(" $$ = new ClassA($2, new SuperA(new ClassTypeA(\"Object\")), $4); ");
-        (yyval.classA) = new ClassA((yyvsp[-3].s), new SuperA(new ClassTypeA("Object")), (yyvsp[-1].listA));
+        yydebug(" $$ = new ClassA( new NameA($2), $3, $5); ");
+        (yyval.classA) = new ClassA( new NameA((yyvsp[-4].s)), (yyvsp[-3].superA), (yyvsp[-1].listA));
     }
-#line 1560 "parser.tab.cpp"
+#line 1562 "parser.tab.cpp"
     break;
 
   case 7:
-#line 182 "parser.ypp"
+#line 185 "parser.ypp"
     {
-        yydebug(" $$ = new ClassA($2, $3, $5); ");
-        (yyval.classA) = new ClassA((yyvsp[-4].s), (yyvsp[-3].superA), (yyvsp[-1].listA));
+        yydebug(" $$ = new ClassA( new NameA($2), $3); ");
+        (yyval.classA) = new ClassA( new NameA((yyvsp[-3].s)), (yyvsp[-2].superA));
     }
-#line 1569 "parser.tab.cpp"
+#line 1571 "parser.tab.cpp"
     break;
 
   case 8:
-#line 188 "parser.ypp"
+#line 191 "parser.ypp"
     {
-        yydebug(" $$ = new SuperA($2); ");
-        (yyval.superA) = new SuperA(new ClassTypeA((yyvsp[0].s)));
+        yydebug(" $$ = new SuperA(NameA($2)); ");
+        (yyval.superA) = new SuperA(new NameA((yyvsp[0].s)));
      }
-#line 1578 "parser.tab.cpp"
+#line 1580 "parser.tab.cpp"
     break;
 
   case 9:
-#line 194 "parser.ypp"
+#line 197 "parser.ypp"
     {
         yydebug(" $$ = $2; $$->addf($1); ");
         (yyval.listA) = (yyvsp[0].listA); (yyval.listA)->addf((yyvsp[-1].ast));
     }
-#line 1587 "parser.tab.cpp"
+#line 1589 "parser.tab.cpp"
     break;
 
   case 10:
-#line 198 "parser.ypp"
+#line 201 "parser.ypp"
     {
         yydebug(" $$ = new ListA(); $$->addf($1); ");
         (yyval.listA) = new ListA(); (yyval.listA)->addf((yyvsp[0].ast));
     }
-#line 1596 "parser.tab.cpp"
+#line 1598 "parser.tab.cpp"
     break;
 
   case 11:
-#line 204 "parser.ypp"
+#line 207 "parser.ypp"
     {
         yydebug(" $$ = $1; ");
-        (yyval.ast) = (yyvsp[0].fieldA);
+        (yyval.ast) = (yyvsp[0].listA);
     }
-#line 1605 "parser.tab.cpp"
+#line 1607 "parser.tab.cpp"
     break;
 
   case 12:
-#line 208 "parser.ypp"
+#line 211 "parser.ypp"
     {
-        ydebug(" $$ = $1; ");
+        yydebug(" $$ = $1; ");
         (yyval.ast) = (yyvsp[0].methodA);
     }
-#line 1614 "parser.tab.cpp"
+#line 1616 "parser.tab.cpp"
     break;
 
   case 13:
-#line 212 "parser.ypp"
+#line 215 "parser.ypp"
     {
         yydebug(" $$ = $1; ");
         (yyval.ast) = (yyvsp[0].constructorA);
     }
-#line 1623 "parser.tab.cpp"
+#line 1625 "parser.tab.cpp"
     break;
 
   case 14:
-#line 218 "parser.ypp"
+#line 221 "parser.ypp"
     {
-        yydebug(" \\
-        $$ = new ListA(); \\
-        for(auto const field : $3.getASTs()) \\
-        { \\
-            $$->addb(new FieldA($1, $2, field)); \\
-        }");
-
-        (yyval.fieldA) = new ListA();
-        for(auto const field : (yyvsp[-1].listA).getASTs())
+        yydebug("$$ = new ListA();\n for(auto const field : $3->getASTs()) \n{\n \t $$->addb(new FieldA($1, $2, field));\n}");
+        (yyval.listA) = new ListA();
+        for(auto const field : (yyvsp[-1].listA)->getASTs())
         {
-            (yyval.fieldA)->addb(new FieldA((yyvsp[-3].listA), (yyvsp[-2].typeA), field));
+            (yyval.listA)->addb(new FieldA((yyvsp[-3].listA), (yyvsp[-2].typeA), static_cast<VarDeclA*>(field)));
         }
-
-
     }
-#line 1644 "parser.tab.cpp"
+#line 1638 "parser.tab.cpp"
     break;
 
   case 15:
-#line 234 "parser.ypp"
+#line 229 "parser.ypp"
     {
-        yydebug(" \\
-        $$ = new ListA(); \\
-        for(auto const field : $2) \\
-        { \\
-            $$->addb(new FieldA("public", $1, field)); \\
-        }");
-
-        (yyval.fieldA) = new ListA();
-        for(auto const field : (yyvsp[-1].listA))
+        yydebug("$$ = new ListA();\nfor(auto const field : $2)\n{\n \t$$->addb(new FieldA(\"public\", $1, field));\n}");
+        (yyval.listA) = new ListA();
+        for(auto const field : (yyvsp[-1].listA)->getASTs())
         {
-            (yyval.fieldA)->addb(new FieldA("public", (yyvsp[-2].typeA), field));
+            auto list = new ListA();
+            list->addf(new ModifierA("public"));
+            (yyval.listA)->addb(new FieldA(list, (yyvsp[-2].typeA), static_cast<VarDeclA*>(field)));
         }
     }
-#line 1663 "parser.tab.cpp"
+#line 1653 "parser.tab.cpp"
     break;
 
   case 16:
-#line 250 "parser.ypp"
+#line 241 "parser.ypp"
     {
         yydebug(" $$ = $2; $$->addf($1); ");
-        (yyval.listA) = (yyvsp[0].listA); (yyval.listA)->addf((yyvsp[-1].litA));
+        (yyval.listA) = (yyvsp[0].listA); (yyval.listA)->addf((yyvsp[-1].modifierA));
     }
-#line 1672 "parser.tab.cpp"
+#line 1662 "parser.tab.cpp"
     break;
 
   case 17:
-#line 254 "parser.ypp"
+#line 245 "parser.ypp"
     {
         yydebug(" $$ = new ListA(); $$->addf($1); ");
-        (yyval.listA) = new ListA(); (yyval.listA)->addf((yyvsp[0].litA));
+        (yyval.listA) = new ListA(); (yyval.listA)->addf((yyvsp[0].modifierA));
     }
-#line 1681 "parser.tab.cpp"
+#line 1671 "parser.tab.cpp"
     break;
 
   case 18:
-#line 260 "parser.ypp"
+#line 251 "parser.ypp"
     {
         yydebug(" $$ = new MethodA($1, $2, $3, $4, new MethodBodyA($4, $5->getStatementList())); ");
         (yyval.methodA) = new MethodA((yyvsp[-4].listA), (yyvsp[-3].typeA), (yyvsp[-2].s), (yyvsp[-1].listA), new MethodBodyA((yyvsp[-1].listA), (yyvsp[0].blockA)->getStatementList()));
     }
-#line 1690 "parser.tab.cpp"
+#line 1680 "parser.tab.cpp"
     break;
 
   case 19:
-#line 264 "parser.ypp"
+#line 255 "parser.ypp"
     {
         yydebug(" $$ = new MethodA($1, $2, $3, new MethodBodyA($3, $4->getStatementList())); ");
         (yyval.methodA) = new MethodA((yyvsp[-3].typeA), (yyvsp[-2].s), (yyvsp[-1].listA), new MethodBodyA((yyvsp[-1].listA), (yyvsp[0].blockA)->getStatementList()));
     }
-#line 1699 "parser.tab.cpp"
+#line 1689 "parser.tab.cpp"
     break;
 
   case 20:
-#line 270 "parser.ypp"
+#line 261 "parser.ypp"
     {
-        yydebug(" $$ = new ConstructorA(new TypeA($2), $1, new MethodBodyA($3, $4)); ");
-        (yyval.constructorA) = new ConstructorA(new ClassTypeA((yyvsp[-2].s)), (yyvsp[-3].listA), new MethodBodyA((yyvsp[-1].listA), (yyvsp[0].blockA)));
+        yydebug(" $$ = new ConstructorA(new NameA($2), $1, new MethodBodyA($3, $4->getStatementList())); ");
+        (yyval.constructorA) = new ConstructorA(new ClassTypeA(new NameA((yyvsp[-2].s))), (yyvsp[-3].listA), new MethodBodyA((yyvsp[-1].listA), (yyvsp[0].blockA)->getStatementList()));
     }
-#line 1708 "parser.tab.cpp"
+#line 1698 "parser.tab.cpp"
     break;
 
   case 21:
-#line 274 "parser.ypp"
+#line 265 "parser.ypp"
     {
-        yydebug(" $$ = new Constructor(new TypeA($1), new MethodBodyA($2, $3)); ");
-        (yyval.constructorA) = new Constructor(new ClassTypeA((yyvsp[-2].s)), new MethodBodyA((yyvsp[-1].listA), (yyvsp[0].blockA)));
+        yydebug(" $$ = new ConstructorA(new NameA($1), new MethodBodyA($2, $3->getStatementList())); ");
+        (yyval.constructorA) = new ConstructorA(new ClassTypeA(new NameA((yyvsp[-2].s))), new MethodBodyA((yyvsp[-1].listA), (yyvsp[0].blockA)->getStatementList()));
     }
-#line 1717 "parser.tab.cpp"
+#line 1707 "parser.tab.cpp"
     break;
 
   case 22:
-#line 280 "parser.ypp"
+#line 271 "parser.ypp"
     {
-        yydebug(" $$ = new modifierA("static"); ");
-        (yyval.litA) = new modifierA("static");
+        yydebug(" $$ = new ModifierA(\"static\"); ");
+        (yyval.modifierA) = new ModifierA("static");
     }
-#line 1726 "parser.tab.cpp"
+#line 1716 "parser.tab.cpp"
     break;
 
   case 23:
-#line 284 "parser.ypp"
+#line 275 "parser.ypp"
     {
-        yydebug(" $$ = new modifierA("public"); ");
-        (yyval.litA) = new modifierA("public");
+        yydebug(" $$ = new ModifierA(\"public\"); ");
+        (yyval.modifierA) = new ModifierA("public");
     }
-#line 1735 "parser.tab.cpp"
+#line 1725 "parser.tab.cpp"
     break;
 
   case 24:
-#line 288 "parser.ypp"
+#line 279 "parser.ypp"
     {
-        yydebug(" $$ = new modifierA("private"); ");
-        (yyval.litA) = new modifierA("private");
+        yydebug(" $$ = new ModifierA(\"private\"); ");
+        (yyval.modifierA) = new ModifierA("private");
     }
-#line 1744 "parser.tab.cpp"
+#line 1734 "parser.tab.cpp"
     break;
 
   case 25:
-#line 292 "parser.ypp"
+#line 283 "parser.ypp"
     {
-        yydebug(" $$ = new modifierA("protected"); ");
-        (yyval.litA) = new modifierA("protected");
+        yydebug(" $$ = new ModifierA(\"protected\"); ");
+        (yyval.modifierA) = new ModifierA("protected");
     }
-#line 1753 "parser.tab.cpp"
+#line 1743 "parser.tab.cpp"
     break;
 
   case 26:
-#line 298 "parser.ypp"
+#line 289 "parser.ypp"
     {
         yydebug(" $$ = $2; ");
         (yyval.listA) = (yyvsp[-1].listA);
     }
-#line 1762 "parser.tab.cpp"
+#line 1752 "parser.tab.cpp"
     break;
 
   case 27:
-#line 302 "parser.ypp"
+#line 293 "parser.ypp"
     {
         yydebug(" $$ = new ListA(); ");
         (yyval.listA) = new ListA();
     }
-#line 1771 "parser.tab.cpp"
+#line 1761 "parser.tab.cpp"
     break;
 
   case 28:
-#line 308 "parser.ypp"
+#line 299 "parser.ypp"
     {
         yydebug(" $$ = $3; $$->addf($1); ");
         (yyval.listA) = (yyvsp[0].listA); (yyval.listA)->addf((yyvsp[-2].formalA));
     }
-#line 1780 "parser.tab.cpp"
+#line 1770 "parser.tab.cpp"
     break;
 
   case 29:
-#line 312 "parser.ypp"
+#line 303 "parser.ypp"
     {
         yydebug(" $$ = new ListA(); $$->addf($1); ");
         (yyval.listA) = new ListA(); (yyval.listA)->addf((yyvsp[0].formalA));
     }
-#line 1789 "parser.tab.cpp"
+#line 1779 "parser.tab.cpp"
     break;
 
   case 30:
-#line 318 "parser.ypp"
+#line 309 "parser.ypp"
     {
         yydebug(" $$ = new FormalA($1, $2);");
         (yyval.formalA) = new FormalA((yyvsp[-1].typeA), (yyvsp[0].s));
     }
-#line 1798 "parser.tab.cpp"
+#line 1788 "parser.tab.cpp"
     break;
 
   case 31:
-#line 324 "parser.ypp"
+#line 315 "parser.ypp"
     {
         yydebug(" $$ = $1; ");
         (yyval.typeA) = (yyvsp[0].primTypeA);
     }
-#line 1807 "parser.tab.cpp"
+#line 1797 "parser.tab.cpp"
     break;
 
   case 32:
-#line 328 "parser.ypp"
+#line 319 "parser.ypp"
     {
         yydebug(" $$ = new ClassTypeA($1); ");
-        (yyval.typeA) = new ClassTypeA((yyvsp[0].s));
+        (yyval.typeA) = new ClassTypeA(new NameA((yyvsp[0].s)));
     }
-#line 1816 "parser.tab.cpp"
+#line 1806 "parser.tab.cpp"
     break;
 
   case 33:
-#line 332 "parser.ypp"
+#line 323 "parser.ypp"
     {
-        yydebug(" $$ = new ArrayTypeA($1, $2); ");
+        yydebug(" $$ = new ArrayTypeA(new NameA($1), $2); ");
         (yyval.typeA) = new ArrayTypeA((yyvsp[-1].typeA), (yyvsp[0].i));
     }
-#line 1825 "parser.tab.cpp"
+#line 1815 "parser.tab.cpp"
     break;
 
   case 34:
-#line 338 "parser.ypp"
+#line 329 "parser.ypp"
     {
         yydebug(" $$ = ++$3; ");
         (yyval.i) = ++(yyvsp[0].i);
     }
-#line 1834 "parser.tab.cpp"
+#line 1824 "parser.tab.cpp"
     break;
 
   case 35:
-#line 342 "parser.ypp"
+#line 333 "parser.ypp"
     {
         yydebug(" $$ = 1; ");
         (yyval.i) = 1;
     }
-#line 1843 "parser.tab.cpp"
+#line 1833 "parser.tab.cpp"
     break;
 
   case 36:
-#line 348 "parser.ypp"
+#line 339 "parser.ypp"
     {
         yydebug(" $$ = new PrimTypeA(new NameA($1)); ");
         (yyval.primTypeA) = new PrimTypeA(new NameA((yyvsp[0].s)));
     }
-#line 1852 "parser.tab.cpp"
+#line 1842 "parser.tab.cpp"
     break;
 
   case 37:
-#line 352 "parser.ypp"
+#line 343 "parser.ypp"
     {
         yydebug(" $$ = new PrimTypeA(new NameA($1)); ");
         (yyval.primTypeA) = new PrimTypeA(new NameA((yyvsp[0].s)));
     }
-#line 1861 "parser.tab.cpp"
+#line 1851 "parser.tab.cpp"
     break;
 
   case 38:
-#line 356 "parser.ypp"
+#line 347 "parser.ypp"
     {
         yydebug(" $$ = new PrimTypeA(new NameA($1)); ");
         (yyval.primTypeA) = new PrimTypeA(new NameA((yyvsp[0].s)));
     }
-#line 1870 "parser.tab.cpp"
+#line 1860 "parser.tab.cpp"
     break;
 
   case 39:
-#line 360 "parser.ypp"
+#line 351 "parser.ypp"
     {
         yydebug(" $$ = new PrimTypeA(new NameA($1)); ");
         (yyval.primTypeA) = new PrimTypeA(new NameA((yyvsp[0].s)));
     }
-#line 1879 "parser.tab.cpp"
+#line 1869 "parser.tab.cpp"
     break;
 
   case 40:
-#line 366 "parser.ypp"
+#line 357 "parser.ypp"
     {
         yydebug(" $$ = $3; $$->addf($1); ");
         (yyval.listA) = (yyvsp[0].listA); (yyval.listA)->addf((yyvsp[-2].varDeclA));
     }
-#line 1888 "parser.tab.cpp"
+#line 1878 "parser.tab.cpp"
     break;
 
   case 41:
-#line 370 "parser.ypp"
+#line 361 "parser.ypp"
     {
         yydebug(" $$ = new StartA(); $$->addf($1); ");
         (yyval.listA) = new ListA(); (yyval.listA)->addf((yyvsp[0].varDeclA));
     }
-#line 1897 "parser.tab.cpp"
+#line 1887 "parser.tab.cpp"
     break;
 
   case 42:
-#line 376 "parser.ypp"
+#line 367 "parser.ypp"
     {
         yydebug(" $$ = new VarDeclA($1, $3); ");
         (yyval.varDeclA) = new VarDeclA((yyvsp[-2].s), (yyvsp[0].expressionA));
     }
-#line 1906 "parser.tab.cpp"
+#line 1896 "parser.tab.cpp"
     break;
 
   case 43:
-#line 380 "parser.ypp"
+#line 371 "parser.ypp"
     {
         yydebug(" $$ = new VarDeclA($1); ");
         (yyval.varDeclA) = new VarDeclA((yyvsp[0].s));
     }
-#line 1915 "parser.tab.cpp"
+#line 1905 "parser.tab.cpp"
     break;
 
   case 44:
-#line 386 "parser.ypp"
+#line 377 "parser.ypp"
     {
         yyerror(" $$ = $1+\"[]\"; ");
         (yyval.s) = (yyvsp[-2].s);
     }
-#line 1924 "parser.tab.cpp"
+#line 1914 "parser.tab.cpp"
     break;
 
   case 45:
-#line 390 "parser.ypp"
+#line 381 "parser.ypp"
     {
         yydebug(" $$ = $1; ");
         (yyval.s) = (yyvsp[0].s);
     }
-#line 1933 "parser.tab.cpp"
+#line 1923 "parser.tab.cpp"
     break;
 
   case 46:
-#line 396 "parser.ypp"
+#line 387 "parser.ypp"
     {
         yydebug(" $$ = new BlockA($2); ");
             (yyval.blockA) = new BlockA((yyvsp[-1].listA));
         }
-#line 1942 "parser.tab.cpp"
+#line 1932 "parser.tab.cpp"
     break;
 
   case 47:
-#line 400 "parser.ypp"
+#line 391 "parser.ypp"
     {
         yydebug(" $$ = new BlockA(); ");
         (yyval.blockA) = new BlockA();
     }
-#line 1951 "parser.tab.cpp"
+#line 1941 "parser.tab.cpp"
     break;
 
   case 48:
-#line 406 "parser.ypp"
+#line 397 "parser.ypp"
     {
         yydebug(" $$ = $2; $$->addf($1); ");
         (yyval.listA) = (yyvsp[0].listA); (yyval.listA)->addf((yyvsp[-1].statementA));
     }
-#line 1960 "parser.tab.cpp"
+#line 1950 "parser.tab.cpp"
     break;
 
   case 49:
-#line 410 "parser.ypp"
+#line 401 "parser.ypp"
     {
         yydebug(" $$ = new ListA(); $$->addf($1); ");
         (yyval.listA) = new ListA(); (yyval.listA)->addf((yyvsp[0].statementA));
     }
-#line 1969 "parser.tab.cpp"
+#line 1959 "parser.tab.cpp"
     break;
 
   case 50:
-#line 416 "parser.ypp"
+#line 407 "parser.ypp"
     {
         yyerror(" $$ =new EmptyStatement() ");
-        new EmptyStatement()
+        (yyval.statementA) = new EmptyStatementA();
     }
-#line 1978 "parser.tab.cpp"
+#line 1968 "parser.tab.cpp"
     break;
 
   case 51:
-#line 420 "parser.ypp"
+#line 411 "parser.ypp"
     {
         yydebug(" $$ = new DeclStatementA($1, $2); ");
         (yyval.statementA) = new DeclStatementA((yyvsp[-2].typeA), (yyvsp[-1].listA));
     }
-#line 1987 "parser.tab.cpp"
+#line 1977 "parser.tab.cpp"
     break;
 
   case 52:
-#line 425 "parser.ypp"
+#line 416 "parser.ypp"
     {
             yyerror(" $$ = new IfStatementA($3, $5, NULL); ");
             (yyval.statementA) = new IfStatementA((yyvsp[-2].expressionA), (yyvsp[0].statementA), NULL);
     }
-#line 1996 "parser.tab.cpp"
+#line 1986 "parser.tab.cpp"
     break;
 
   case 53:
-#line 429 "parser.ypp"
+#line 420 "parser.ypp"
     {
         yyerror(" $$ = new IfStatementA($3, $5, $7); ");
         (yyval.statementA) = new IfStatementA((yyvsp[-4].expressionA), (yyvsp[-2].statementA), (yyvsp[0].statementA));
     }
-#line 2005 "parser.tab.cpp"
+#line 1995 "parser.tab.cpp"
     break;
 
   case 54:
-#line 433 "parser.ypp"
+#line 424 "parser.ypp"
     {
         yydebug(" $$ = new ExpressionStatementA($1); ");
         (yyval.statementA) = new ExpressionStatementA((yyvsp[-1].expressionA));
     }
-#line 2014 "parser.tab.cpp"
+#line 2004 "parser.tab.cpp"
     break;
 
   case 55:
-#line 437 "parser.ypp"
+#line 428 "parser.ypp"
     {
         yyerror(" $$ = new WhileStatement(new symbolTable(), $3, $5); ");
-        (yyval.statementA) = new WhileStatement((yyvsp[-2].expressionA), (yyvsp[0].statementA));
+        (yyval.statementA) = new WhileStatementA((yyvsp[-2].expressionA), (yyvsp[0].statementA));
     }
-#line 2023 "parser.tab.cpp"
+#line 2013 "parser.tab.cpp"
     break;
 
   case 56:
-#line 441 "parser.ypp"
+#line 432 "parser.ypp"
     {
         yyerror(" $$ = new ReturnStatement(NULL); ");
-        (yyval.statementA) = new ReturnStatement(NULL);
+        (yyval.statementA) = new ReturnStatementA(NULL);
     }
-#line 2032 "parser.tab.cpp"
+#line 2022 "parser.tab.cpp"
     break;
 
   case 57:
-#line 445 "parser.ypp"
+#line 436 "parser.ypp"
     {
         yyerror(" $$ = new ReturnStatement($2); ");
-        (yyval.statementA) = new ReturnStatement((yyvsp[-1].expressionA));
+        (yyval.statementA) = new ReturnStatementA((yyvsp[-1].expressionA));
     }
-#line 2041 "parser.tab.cpp"
+#line 2031 "parser.tab.cpp"
     break;
 
   case 58:
-#line 449 "parser.ypp"
+#line 440 "parser.ypp"
     {
         yyerror(" $$ = new ContinueStatement(); ");
-        (yyval.statementA) = new ContinueStatement();
+        (yyval.statementA) = new ContinueStatementA();
     }
-#line 2050 "parser.tab.cpp"
+#line 2040 "parser.tab.cpp"
     break;
 
   case 59:
-#line 453 "parser.ypp"
+#line 444 "parser.ypp"
     {
         yyerror(" $$ = new BreakStatement(); ");
-        (yyval.statementA) = new BreakStatement();
+        (yyval.statementA) = new BreakStatementA();
     }
-#line 2059 "parser.tab.cpp"
+#line 2049 "parser.tab.cpp"
     break;
 
   case 60:
-#line 457 "parser.ypp"
+#line 448 "parser.ypp"
     {
         yyerror(" $$ = new Block($1); ");
         (yyval.statementA) = new BlockStatementA((yyvsp[0].blockA));
     }
-#line 2068 "parser.tab.cpp"
+#line 2058 "parser.tab.cpp"
     break;
 
   case 61:
-#line 461 "parser.ypp"
+#line 452 "parser.ypp"
     {
-        yyerror(" $$ = new SuperStatement($2); ");
-        (yyval.statementA) = new SuperStatementA((yyvsp[-1].listA))
+        yyerror(" $$ = new SuperStatementA($2); ");
+        (yyval.statementA) = new SuperStatementA((yyvsp[-1].listA));
     }
-#line 2077 "parser.tab.cpp"
+#line 2067 "parser.tab.cpp"
     break;
 
   case 62:
-#line 467 "parser.ypp"
+#line 458 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
         }
-#line 2086 "parser.tab.cpp"
+#line 2076 "parser.tab.cpp"
     break;
 
   case 63:
-#line 471 "parser.ypp"
+#line 462 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2095 "parser.tab.cpp"
+#line 2085 "parser.tab.cpp"
     break;
 
   case 64:
-#line 475 "parser.ypp"
+#line 466 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2104 "parser.tab.cpp"
+#line 2094 "parser.tab.cpp"
     break;
 
   case 65:
-#line 479 "parser.ypp"
+#line 470 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2113 "parser.tab.cpp"
+#line 2103 "parser.tab.cpp"
     break;
 
   case 66:
-#line 483 "parser.ypp"
+#line 474 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2122 "parser.tab.cpp"
+#line 2112 "parser.tab.cpp"
     break;
 
   case 67:
-#line 487 "parser.ypp"
+#line 478 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2131 "parser.tab.cpp"
+#line 2121 "parser.tab.cpp"
     break;
 
   case 68:
-#line 491 "parser.ypp"
+#line 482 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2140 "parser.tab.cpp"
+#line 2130 "parser.tab.cpp"
     break;
 
   case 69:
-#line 495 "parser.ypp"
+#line 486 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2149 "parser.tab.cpp"
+#line 2139 "parser.tab.cpp"
     break;
 
   case 70:
-#line 499 "parser.ypp"
+#line 490 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2158 "parser.tab.cpp"
+#line 2148 "parser.tab.cpp"
     break;
 
   case 71:
-#line 503 "parser.ypp"
+#line 494 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2167 "parser.tab.cpp"
+#line 2157 "parser.tab.cpp"
     break;
 
   case 72:
-#line 507 "parser.ypp"
+#line 498 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2176 "parser.tab.cpp"
+#line 2166 "parser.tab.cpp"
     break;
 
   case 73:
-#line 511 "parser.ypp"
+#line 502 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2185 "parser.tab.cpp"
+#line 2175 "parser.tab.cpp"
     break;
 
   case 74:
-#line 515 "parser.ypp"
+#line 506 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2194 "parser.tab.cpp"
+#line 2184 "parser.tab.cpp"
     break;
 
   case 75:
-#line 519 "parser.ypp"
+#line 510 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2203 "parser.tab.cpp"
+#line 2193 "parser.tab.cpp"
     break;
 
   case 76:
-#line 523 "parser.ypp"
+#line 514 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($1, $2); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[0].expressionA));
     }
-#line 2212 "parser.tab.cpp"
+#line 2202 "parser.tab.cpp"
     break;
 
   case 77:
-#line 527 "parser.ypp"
+#line 518 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($1, $2); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[0].expressionA));
     }
-#line 2221 "parser.tab.cpp"
+#line 2211 "parser.tab.cpp"
     break;
 
   case 78:
-#line 531 "parser.ypp"
+#line 522 "parser.ypp"
     {
         yydebug(" $$ = new OpExpressionA($1, $2); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[0].expressionA));
     }
-#line 2230 "parser.tab.cpp"
+#line 2220 "parser.tab.cpp"
     break;
 
   case 79:
-#line 535 "parser.ypp"
+#line 526 "parser.ypp"
     {
         yydebug(" $$ = $1; ");
-        (yyval.expressionA) = (yyvsp[0].expressionA);
+        (yyval.expressionA) = (yyvsp[0].primaryExprA);
     }
-#line 2239 "parser.tab.cpp"
+#line 2229 "parser.tab.cpp"
     break;
 
   case 80:
-#line 541 "parser.ypp"
+#line 532 "parser.ypp"
     {
         yyerror(" $$ = $1 ");
-        (yyval.expressionA) = (yyvsp[0].newArrayA);
+        (yyval.primaryExprA) = new PrimaryArrayA((yyvsp[0].newArrayA));
     }
-#line 2248 "parser.tab.cpp"
+#line 2238 "parser.tab.cpp"
     break;
 
   case 81:
-#line 545 "parser.ypp"
+#line 536 "parser.ypp"
     {
         yydebug(" $$ = $1; ");
-        (yyval.expressionA) = (yyvsp[0].expressionA);
+        (yyval.primaryExprA) = new NonArrayPrimaryA((yyvsp[0].expressionA));
     }
-#line 2257 "parser.tab.cpp"
+#line 2247 "parser.tab.cpp"
     break;
 
   case 82:
-#line 549 "parser.ypp"
+#line 540 "parser.ypp"
     {
         yydebug(" $$ = $1; ");
-        (yyval.expressionA) = new NameA((yyvsp[0].s));
+        (yyval.primaryExprA) = new NameA((yyvsp[0].s));
     }
-#line 2266 "parser.tab.cpp"
+#line 2256 "parser.tab.cpp"
     break;
 
   case 83:
-#line 555 "parser.ypp"
+#line 546 "parser.ypp"
     {
         yydebug(" new NewArrayA( new NameA($2), $3) ");
         new NewArrayA( new ClassTypeA(new NameA((yyvsp[-1].s))), (yyvsp[0].listA));
     }
-#line 2275 "parser.tab.cpp"
+#line 2265 "parser.tab.cpp"
     break;
 
   case 84:
-#line 559 "parser.ypp"
+#line 550 "parser.ypp"
     {
         yydebug("new newArrayA($2, $3);");
         new NewArrayA((yyvsp[-1].primTypeA), (yyvsp[0].listA));
     }
-#line 2284 "parser.tab.cpp"
+#line 2274 "parser.tab.cpp"
     break;
 
   case 85:
-#line 565 "parser.ypp"
+#line 556 "parser.ypp"
     {
-        yydebug(" $1->addf(new DimensionA($1)); $$ = $2; ");
-        (yyvsp[-1].expressionA)->addf(new DimensionA((yyvsp[-1].expressionA)));
+        yydebug(" $$ = $2; $$->addf(new DimensionA($1)); ");
         (yyval.listA) = (yyvsp[0].listA);
+        (yyval.listA)->addf((yyvsp[-1].dimensionA));
+
 
     }
-#line 2295 "parser.tab.cpp"
+#line 2286 "parser.tab.cpp"
     break;
 
   case 86:
-#line 571 "parser.ypp"
+#line 563 "parser.ypp"
     {
-        yydebug("$$ = new ListA(); $$->addf($1); ");
+        yydebug(" $$ = new ListA(); $$->addf($1);; ");
         (yyval.listA) = new ListA();
-        (yyval.listA)->addf(new DimensionA((yyvsp[0].expressionA)));
+        (yyval.listA)->addf((yyvsp[0].dimensionA));
+    }
+#line 2296 "parser.tab.cpp"
+    break;
+
+  case 87:
+#line 570 "parser.ypp"
+    {
+        yydebug(" $$ = new DimensionA($2); ");
+        (yyval.dimensionA) = new DimensionA((yyvsp[-1].expressionA));
     }
 #line 2305 "parser.tab.cpp"
     break;
 
-  case 87:
-#line 578 "parser.ypp"
-    {
-        yydebug(" $$ = $2 ");
-        (yyval.expressionA) = (yyvsp[-1].expressionA);
-    }
-#line 2314 "parser.tab.cpp"
-    break;
-
   case 88:
-#line 584 "parser.ypp"
+#line 576 "parser.ypp"
     {
         yydebug(" $$ = $1; ");
         (yyval.expressionA) = (yyvsp[0].litA);
     }
-#line 2323 "parser.tab.cpp"
+#line 2314 "parser.tab.cpp"
     break;
 
   case 89:
-#line 588 "parser.ypp"
+#line 580 "parser.ypp"
     {
-        yydebug(" $$ = new ThisExpr(); ");
-        (yyval.expressionA) = new ThisExpr();
+        yydebug(" $$ = new ThisExprA(); ");
+        (yyval.expressionA) = new ThisExprA();
     }
-#line 2332 "parser.tab.cpp"
+#line 2323 "parser.tab.cpp"
     break;
 
   case 90:
-#line 592 "parser.ypp"
+#line 584 "parser.ypp"
     {
         yydebug(" $$ = $2; ");
         (yyval.expressionA) = (yyvsp[-1].expressionA);
     }
-#line 2341 "parser.tab.cpp"
+#line 2332 "parser.tab.cpp"
     break;
 
   case 91:
-#line 596 "parser.ypp"
+#line 588 "parser.ypp"
     {
-        yydebug(" $$ = new NewObjExpr(new NameA($2), $3); ");
-        (yyval.expressionA) = new NewObjExpr(new Name((yyvsp[-1].s)), (yyvsp[0].listA));
+        yydebug(" $$ = new NewObjExprA(new NameA($2), $3); ");
+        (yyval.expressionA) = new NewObjExprA(new NameA((yyvsp[-1].s)), (yyvsp[0].listA));
+    }
+#line 2341 "parser.tab.cpp"
+    break;
+
+  case 92:
+#line 592 "parser.ypp"
+    {
+        yydebug(" $$ = new ThisCallExprA($1, $2); ");
+        (yyval.expressionA) = new ThisCallExprA(new NameA((yyvsp[-1].s)), (yyvsp[0].listA));
     }
 #line 2350 "parser.tab.cpp"
     break;
 
-  case 92:
-#line 600 "parser.ypp"
+  case 93:
+#line 596 "parser.ypp"
     {
-        yydebug(" $$ = new ThisCallExpr($1, $2); ");
-        (yyval.expressionA) = new ThisCallExpr(new NameA((yyvsp[-1].s)), (yyvsp[0].listA));
+        yydebug(" $$ = new MethodCallExprA($1, $3, $4); ");
+        (yyval.expressionA) = new MethodCallExprA((yyvsp[-3].primaryExprA), new NameA((yyvsp[-1].s)), (yyvsp[0].listA));
     }
 #line 2359 "parser.tab.cpp"
     break;
 
-  case 93:
-#line 604 "parser.ypp"
+  case 94:
+#line 600 "parser.ypp"
     {
-        yydebug(" $$ = new MethodCallExpr($1, $3, $4); ");
-        (yyval.expressionA) = new MethodCallExpr((yyvsp[-3].expressionA), new NameA((yyvsp[-1].s)), (yyvsp[0].listA));
+        yydebug(" $$ = new SuperCallExprA($3, $4); ");
+        (yyval.expressionA) = new SuperCallExprA(new NameA((yyvsp[-1].s)), (yyvsp[0].listA));
     }
 #line 2368 "parser.tab.cpp"
     break;
 
-  case 94:
-#line 608 "parser.ypp"
-    {
-        yydebug(" $$ = new SuperCallExpr($3, $4); ");
-        (yyval.expressionA) = new SuperCallExpr(new NameA((yyvsp[-1].s)), (yyvsp[0].listA));
-    }
-#line 2377 "parser.tab.cpp"
-    break;
-
   case 95:
-#line 612 "parser.ypp"
+#line 604 "parser.ypp"
     {
         yydebug(" $$ = $1; ");
         (yyval.expressionA) = (yyvsp[0].arrayRefA);
     }
-#line 2386 "parser.tab.cpp"
+#line 2377 "parser.tab.cpp"
     break;
 
   case 96:
-#line 616 "parser.ypp"
+#line 608 "parser.ypp"
     {
         yydebug(" $$ = $1; ");
-        (yyval.expressionA) = (yyvsp[0].FieldExprA);
+        (yyval.expressionA) = (yyvsp[0].expressionA);
+    }
+#line 2386 "parser.tab.cpp"
+    break;
+
+  case 97:
+#line 614 "parser.ypp"
+    {
+        yydebug(" $$ = new FieldExprA($1, $3);");
+        (yyval.expressionA) = new FieldExprA((yyvsp[-2].primaryExprA), new NameA((yyvsp[0].s)));
     }
 #line 2395 "parser.tab.cpp"
     break;
 
-  case 97:
-#line 622 "parser.ypp"
+  case 98:
+#line 618 "parser.ypp"
     {
-        yydebug(" $$ = new FieldExprA($1, new NameA($3)); ");
-        (yyval.FieldExprA) = new FieldExprA((yyvsp[-2].expressionA), new NameA((yyvsp[0].s)));
+        yydebug(" $$ = new SuperfieldExpr($3); ");
+        (yyval.expressionA) = new SuperFieldExprA(new NameA((yyvsp[0].s)));
     }
 #line 2404 "parser.tab.cpp"
     break;
 
-  case 98:
-#line 626 "parser.ypp"
+  case 99:
+#line 624 "parser.ypp"
     {
-        yydebug(" $$ = new SuperfieldExprA(new NameA($3)); ");
-        (yyval.FieldExprA) = new SuperfieldExprA(new NameA((yyvsp[0].s)));
+        yydebug(" $$ = new ArrayRefA(new NameA($1), $2); ");
+        (yyval.arrayRefA) = new ArrayRefA(new NameA((yyvsp[-1].s)), (yyvsp[0].dimensionA));
     }
 #line 2413 "parser.tab.cpp"
     break;
 
-  case 99:
-#line 632 "parser.ypp"
+  case 100:
+#line 628 "parser.ypp"
     {
-        yydebug(" $$ = new ArrayRefA(new NameA($1), $2); ");
-        (yyval.arrayRefA) = new ArrayRefA(new NameA((yyvsp[-1].s)), (yyvsp[0].expressionA));
+        yydebug(" $$ = new ArrayRefA($1, $2); ");
+        (yyval.arrayRefA) = new ArrayRefA((yyvsp[-1].expressionA), (yyvsp[0].dimensionA));
     }
 #line 2422 "parser.tab.cpp"
     break;
 
-  case 100:
-#line 636 "parser.ypp"
-    {
-        yydebug(" $$ = new ArrayRefA($1, $2); ");
-        (yyval.arrayRefA) = new ArrayRefA((yyvsp[-1].expressionA), (yyvsp[0].expressionA));
-    }
-#line 2431 "parser.tab.cpp"
-    break;
-
   case 101:
-#line 642 "parser.ypp"
+#line 634 "parser.ypp"
     {
         yyerror(" $$ = new NullLiteral(); ");
         (yyval.litA) = new NullLitA();
     }
-#line 2440 "parser.tab.cpp"
+#line 2431 "parser.tab.cpp"
     break;
 
   case 102:
-#line 646 "parser.ypp"
+#line 638 "parser.ypp"
     {
         yyerror(" $$ = new BoolLiteral($1); ");
         (yyval.litA) = new BoolLitA((yyvsp[0].b));
     }
-#line 2449 "parser.tab.cpp"
+#line 2440 "parser.tab.cpp"
     break;
 
   case 103:
-#line 650 "parser.ypp"
+#line 642 "parser.ypp"
     {
         yydebug(" $$ = new IntLitA($1); ");
         (yyval.litA) = new IntLitA((yyvsp[0].i));
     }
-#line 2458 "parser.tab.cpp"
+#line 2449 "parser.tab.cpp"
     break;
 
   case 104:
-#line 654 "parser.ypp"
+#line 646 "parser.ypp"
     {
-        yyerror(" $$ = new CharLiteral($1); ");
-        (yyval.litA) = new CharLiteral((yyvsp[0].c));
+        yyerror(" $$ = new CharLitA($1); ");
+        (yyval.litA) = new CharLitA((yyvsp[0].c));
     }
-#line 2467 "parser.tab.cpp"
+#line 2458 "parser.tab.cpp"
     break;
 
   case 105:
-#line 658 "parser.ypp"
+#line 650 "parser.ypp"
     {
         yydebug(" $$ = new StrLitA($1); ");
         (yyval.litA) = new StrLitA((yyvsp[0].s));
     }
-#line 2476 "parser.tab.cpp"
+#line 2467 "parser.tab.cpp"
     break;
 
   case 106:
-#line 664 "parser.ypp"
+#line 656 "parser.ypp"
     {
         yydebug(" $$ = $2 ");
         (yyval.listA) = (yyvsp[-1].listA);
     }
-#line 2485 "parser.tab.cpp"
+#line 2476 "parser.tab.cpp"
     break;
 
   case 107:
-#line 668 "parser.ypp"
+#line 660 "parser.ypp"
     {
-        yydebug(" $$ = {} ");
+        yydebug(" $$ = ListA(); ");
         (yyval.listA) = new ListA();
     }
-#line 2494 "parser.tab.cpp"
+#line 2485 "parser.tab.cpp"
     break;
 
   case 108:
-#line 674 "parser.ypp"
+#line 666 "parser.ypp"
     {
-        yydebug(" $$ = $3; $$->addf($1); ");
+        yydebug(" $$ = $2; $$->addf($1); ");
         (yyval.listA) = (yyvsp[0].listA);
         (yyval.listA)->addf((yyvsp[-2].expressionA));
     }
-#line 2504 "parser.tab.cpp"
+#line 2495 "parser.tab.cpp"
     break;
 
   case 109:
-#line 679 "parser.ypp"
+#line 671 "parser.ypp"
     {
         yydebug(" $$ = new ListA(); $$->addf($1); ");
         (yyval.listA) = new ListA();
         (yyval.listA)->addf((yyvsp[0].expressionA));
     }
-#line 2514 "parser.tab.cpp"
+#line 2505 "parser.tab.cpp"
     break;
 
 
-#line 2518 "parser.tab.cpp"
+#line 2509 "parser.tab.cpp"
 
       default: break;
     }
@@ -2746,7 +2737,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 685 "parser.ypp"
+#line 677 "parser.ypp"
 
 
 void yyerror(string s)

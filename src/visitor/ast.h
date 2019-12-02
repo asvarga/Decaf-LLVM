@@ -261,7 +261,7 @@ class FieldA : public AST {
     TypeA *type;
     VarDeclA *var;
 public:
-    FieldA(ListA *ms, TypeA *t, VarDeclA *v): modifiers(ms), type(type), var(v) {};
+    FieldA(ListA *ms, TypeA *t, VarDeclA *v): modifiers(ms), type(t), var(v) {};
     ListA *getModifers() { return modifiers; };
     VarDeclA *getVar() { return var; };
     TypeA *getType() { return type; };
@@ -606,6 +606,22 @@ public:
     virtual void visit(NameA* a) = 0;
     virtual void visit(StrLitA* a) = 0;
     virtual void visit(IntLitA* a) = 0;
+
+    virtual void visit(DimensionA* a) = 0;
+    virtual void visit(FieldExprA* a) = 0;
+    virtual void visit(NewObjExprA* a) = 0;
+    virtual void visit(PrimaryArrayA* a) = 0;
+    virtual void visit(ThisCallExprA* a) = 0;
+    virtual void visit(SuperCallExprA* a) = 0;
+    virtual void visit(EmptyStatementA* a) = 0;
+    virtual void visit(MethodCallExprA* a) = 0;
+    virtual void visit(SuperFieldExprA* a) = 0;
+    virtual void visit(NonArrayPrimaryA* a) = 0;
+    virtual void visit(BoolLitA* a) = 0;
+    virtual void visit(CharLitA* a) = 0;
+    virtual void visit(NullLitA* a) = 0;
+    virtual void visit(ModifierA* a) = 0;
+    virtual void visit(ThisExprA* a) = 0;
 };
 
 class PrinterV : public Visitor {
@@ -651,6 +667,22 @@ public:
     virtual void visit(NameA* a);
     virtual void visit(StrLitA* a);
     virtual void visit(IntLitA* a);
+
+    virtual void visit(DimensionA* a);
+    virtual void visit(FieldExprA* a);
+    virtual void visit(NewObjExprA* a);
+    virtual void visit(PrimaryArrayA* a);
+    virtual void visit(ThisCallExprA* a);
+    virtual void visit(SuperCallExprA* a);
+    virtual void visit(EmptyStatementA* a);
+    virtual void visit(MethodCallExprA* a);
+    virtual void visit(SuperFieldExprA* a);
+    virtual void visit(NonArrayPrimaryA* a);
+    virtual void visit(BoolLitA* a);
+    virtual void visit(CharLitA* a);
+    virtual void visit(NullLitA* a);
+    virtual void visit(ModifierA* a);
+    virtual void visit(ThisExprA* a);
 };
 
 // class CounterV : public Visitor {

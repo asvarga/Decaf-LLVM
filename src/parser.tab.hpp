@@ -135,13 +135,15 @@ union YYSTYPE
     class BlockA*       blockA;
     class StatementA*   statementA;
     class ExpressionA*  expressionA;
-    class VarDeclA*     varDeclA;
-    class SuperA*       superA;
-    class NewArrayA*    newArrayA;
     class ArrayRefA*    arrayRefA;
-    class FieldExprA*   fieldExprA;
+    class VarDeclA*     varDeclA;
+    class DimensionA*   dimensionA;
+    class SuperA*       superA;
+    class ModifierA*    modifierA;
+    class NewArrayA*    newArrayA;
+    class PrimaryExprA* primaryExprA;
 
-#line 145 "parser.tab.hpp"
+#line 147 "parser.tab.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
