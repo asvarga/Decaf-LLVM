@@ -78,20 +78,23 @@ class CounterV;
 
 class AST {
 public:
+    AST() {};
     virtual void accept(Visitor& v) = 0;
 };
+
 class ExpressionA : public AST {
 public:
     ExpressionA() {};
     virtual void accept(Visitor& v);
 };
+
 class LitA : public ExpressionA {};
 
-class TypeA : public AST {};
-//     string name;
-// public:
-//     TypeA(string n): name(n){};
-// };
+class TypeA : public AST {;
+public:
+    TypeA(){};
+    virtual void accept(Visitor& v);
+};
 
 
 
@@ -120,19 +123,24 @@ public:
 };
 
 class BoolLitA : public LitA {
-    int value;
+    bool value;
 public:
-    BoolLitA(int v): value(v) {};
-    int getValue() { return value; }
+    BoolLitA(bool v): value(v) {};
+    bool getValue() { return value; }
     virtual void accept(Visitor& v);
 };
 
 class NullLitA : public LitA {
 public:
+    NullLitA() {};
     virtual void accept(Visitor& v);
 };
 
-class PrimaryExprA : public ExpressionA {};
+class PrimaryExprA : public ExpressionA {
+public:
+    PrimaryExprA() {};
+    virtual void accept(Visitor& v);
+};
 
 class NameA : public PrimaryExprA {
     string name;
@@ -147,10 +155,11 @@ class PrimTypeA : public TypeA {
     NameA *name;
 public:
     PrimTypeA(NameA *n): name(n) { };
-    NameA* getName() { return name; };
+    NameA *getName() { return name; };
     virtual void accept(Visitor& v);
 };
 
+//Might need to change dim to be of type DimensionA
 class ArrayTypeA : public TypeA {
     TypeA *type;
     int dim;
@@ -174,9 +183,6 @@ public:
     StatementA() {};
     virtual void accept(Visitor& v);
 };
-
-
-
 
 
 class ListA : public AST {
@@ -204,7 +210,7 @@ class SuperA : public AST {
     NameA *name;
 public:
     SuperA(NameA *n): name(n) {};
-    NameA *getType() { return name; };
+    NameA *getName() { return name; };
     virtual void accept(Visitor& v);
 };
 
@@ -235,6 +241,8 @@ public:
     ListA *getStatementList() { return statementList; };
     virtual void accept(Visitor& v);
 };
+
+
 // Is this one necessary?
 class FieldDeclA : public AST {
     ListA *fieldList;
@@ -246,12 +254,12 @@ public:
 
 
 class VarDeclA : public AST {
-    string name;
+    NameA *name;
     ExpressionA *expression;
 public:
-    VarDeclA(string n): name(n) {};
-    VarDeclA(string n, ExpressionA *e): name(n), expression(e) {};
-    string getName() { return name; }
+    VarDeclA(NameA *n): name(n), expression(0) {};
+    VarDeclA(NameA *n, ExpressionA *e): name(n), expression(e) {};
+    NameA *getName() { return name; }
     ExpressionA *getExpression() { return expression; };
     virtual void accept(Visitor& v);
 };
@@ -263,8 +271,8 @@ class FieldA : public AST {
 public:
     FieldA(ListA *ms, TypeA *t, VarDeclA *v): modifiers(ms), type(t), var(v) {};
     ListA *getModifers() { return modifiers; };
-    VarDeclA *getVar() { return var; };
     TypeA *getType() { return type; };
+    VarDeclA *getVar() { return var; };
     virtual void accept(Visitor& v);
 };
 
@@ -279,26 +287,24 @@ public:
 class MethodA : public AST {
     ListA *modifiers;
     TypeA *type;
-    string name;
+    NameA *name;
     ListA *args;
     MethodBodyA *methodbody;
 public:
-    MethodA(ListA* ms, TypeA *t, string n, ListA *as, MethodBodyA *m):
+    MethodA(ListA* ms, TypeA *t, NameA *n, ListA *as, MethodBodyA *m):
         modifiers(ms), type(t), name(n), args(as), methodbody(m) {};
-    MethodA(TypeA *t, string n, ListA *as, MethodBodyA *m):
+    MethodA(TypeA *t, NameA *n, ListA *as, MethodBodyA *m):
         modifiers(new ListA()), type(t), name(n), args(as), methodbody(m) {
             modifiers = new ListA();
             modifiers->addb(new ModifierA("public")); // Correct?:
         };
+    NameA *getName() { return name; }
     ListA *getModifiers() { return modifiers; }
     TypeA *getType() { return type; };
-    string getName() { return name; }
     ListA *getArgs() { return args; }
     MethodBodyA *getMethodBody() { return methodbody; };
     virtual void accept(Visitor& v);
 };
-
-
 
 class ConstructorA : public AST {
     TypeA *type;
@@ -311,19 +317,21 @@ public:
         modifiers->addb(new ModifierA("public")); // Correct?:
     };
     TypeA *getType() { return type; };
+    ListA *getModifers() { return modifiers; }
     MethodBodyA *getMethodBody() { return methodbody; };
     virtual void accept(Visitor& v);
 };
 
 class FormalA : public AST {
     TypeA *type;
-    string name;
+    NameA *varDecl;
 public:
-    FormalA(TypeA *t, string n): type(t), name(n) {};
+    FormalA(TypeA *t, NameA *v): type(t), varDecl(v) {};
     TypeA *getType() { return type; };
-    string getName() { return name; }
+    NameA *getVarDecl() { return varDecl; }
     virtual void accept(Visitor& v);
 };
+
 class DeclStatementA : public StatementA {
     TypeA *type;
     ListA *localList;
@@ -333,6 +341,7 @@ public:
     ListA *getLocalList() { return localList; };
     virtual void accept(Visitor& v);
 };
+
 class LocalA : public AST {
     ExpressionA *expression;
 public:
@@ -340,18 +349,20 @@ public:
     ExpressionA *getExpression() { return expression; };
     virtual void accept(Visitor& v);
 };
+
 class IfStatementA : public StatementA {
     ExpressionA *expression;
     StatementA *statement1;
     StatementA *statement2;
 public:
-    IfStatementA(ExpressionA *e, StatementA *s1): expression(e), statement1(s1) {};
+    IfStatementA(ExpressionA *e, StatementA *s1): expression(e), statement1(s1), statement2(0) {};
     IfStatementA(ExpressionA *e, StatementA *s1, StatementA *s2): expression(e), statement1(s1), statement2(s2) {};
     ExpressionA *getExpression() { return expression; };
     StatementA *getStatement1() { return statement1; };
     StatementA *getStatement2() { return statement2; };
     virtual void accept(Visitor& v);
 };
+
 class ExpressionStatementA : public StatementA {
     ExpressionA *expression;
 public:
@@ -359,6 +370,7 @@ public:
     ExpressionA *getExpression() { return expression; };
     virtual void accept(Visitor& v);
 };
+
 class WhileStatementA : public StatementA {
     ExpressionA *expression;
     StatementA *statement;
@@ -368,6 +380,7 @@ public:
     StatementA *getStatement() { return statement; };
     virtual void accept(Visitor& v);
 };
+
 class ReturnStatementA : public StatementA {
     ExpressionA *expression;
 public:
@@ -411,8 +424,6 @@ public:
     EmptyStatementA() {};
     virtual void accept(Visitor& v);
 };
-
-
 
 class NewArrayA : public AST {
     TypeA *type;
@@ -490,7 +501,7 @@ public:
     OpExpressionA(string o, ExpressionA *e1, ExpressionA *e2):
         op(o), arity(2), expression1(e1), expression2(e2) {};
     OpExpressionA(string o, ExpressionA *e1):
-        op(o), arity(1), expression1(e1) {};
+        op(o), arity(1), expression1(e1), expression2(0) {};
     string getOp() { return op; }
     int getArity() { return arity; }
     ExpressionA *getExpression1() { return expression1; };
@@ -507,9 +518,11 @@ public:
 
 class NewObjExprA: public ExpressionA{
     NameA *name;
-    ListA *expression;
+    ListA *expressions;
 public:
-    NewObjExprA(NameA *n, ListA *e): name(n), expression(e) {};
+    NewObjExprA(NameA *n, ListA *es): name(n), expressions(es) {};
+    NameA *getName() { return name; };
+    ListA *getExpressionList() { return expressions; }
     virtual void accept(Visitor& v);
 };
 
@@ -518,6 +531,8 @@ class ThisCallExprA: public ExpressionA{
     ListA *args;
 public:
     ThisCallExprA(NameA *n, ListA *as): name(n), args(as) {};
+    NameA *getName() { return name; };
+    ListA *getArgs() { return args; };
     virtual void accept(Visitor& v);
 };
 
@@ -527,6 +542,9 @@ class MethodCallExprA: public ExpressionA{
     ListA *args;
 public:
     MethodCallExprA(PrimaryExprA* t, NameA* n, ListA *as): type(t), name(n), args(as) {};
+    PrimaryExprA *getType() { return type; }
+    NameA *getName() { return name; };
+    ListA *getArgs() { return args; };
     virtual void accept(Visitor& v);
 };
 
@@ -535,21 +553,26 @@ class SuperCallExprA: public ExpressionA{
     ListA *args;
 public:
     SuperCallExprA(NameA *t, ListA *as): name(t), args(as) {};
+    NameA *getName() { return name; };
+    ListA *getArgs() { return args; };
     virtual void accept(Visitor& v);
 };
 
 class FieldExprA: public ExpressionA{
     PrimaryExprA *type;
-    NameA *identifier;
+    NameA *name;
 public:
-    FieldExprA(PrimaryExprA *t, NameA *is): type(t), identifier(is) {};
+    FieldExprA(PrimaryExprA *t, NameA *i): type(t), name(i) {};
+    PrimaryExprA *getType() { return type; };
+    NameA *getName() { return name; };
     virtual void accept(Visitor& v);
 };
 
 class SuperFieldExprA: public ExpressionA{
-    NameA *identifier;
+    NameA *name;
 public:
-    SuperFieldExprA(NameA *i): identifier(i) {};
+    SuperFieldExprA(NameA *n): name(n) {};
+    NameA *getName() { return name; };
     virtual void accept(Visitor& v);
 };
 
@@ -595,7 +618,7 @@ public:
     virtual void visit(NewArrayA* a) = 0;
     virtual void visit(ArrayRefA* a) = 0;
     virtual void visit(VarDeclA* a) = 0;
-
+    // virtual void visit(TypeA *a) = 0
     virtual void visit(PrimTypeA* a) = 0;
     virtual void visit(ArrayTypeA* a) = 0;
     virtual void visit(ClassTypeA* a) = 0;
@@ -622,6 +645,7 @@ public:
     virtual void visit(NullLitA* a) = 0;
     virtual void visit(ModifierA* a) = 0;
     virtual void visit(ThisExprA* a) = 0;
+    
 };
 
 class PrinterV : public Visitor {

@@ -127,11 +127,11 @@ StartA* start;
     class ModifierA*    modifierA;
     class NewArrayA*    newArrayA;
     class PrimaryExprA* primaryExprA;
+    class NameA*        nameA;
+
 }
 
-%type<s>                var_decl_id
 %type<i>                bracket_list
-
 %type<ast>              member
 %type<classA>           single_class
 %type<listA>            member_list modifier_list formal_args formal_arg_list statement_list dimension_list var_decl_list actual_args expr_list field
@@ -151,7 +151,8 @@ StartA* start;
 %type<varDeclA>         var_decl
 %type<modifierA>        modifier
 %type<newArrayA>        new_array_expr
-%type<primaryExprA>    primary
+%type<primaryExprA>     primary
+%type<nameA>            var_decl_id
 
 
 %%
@@ -250,21 +251,21 @@ modifier_list
 
 method_decl
     : modifier_list type_decl IDENTIFIER formal_args block {
-        yydebug(" $$ = new MethodA($1, $2, $3, $4, new MethodBodyA($4, $5->getStatementList())); ");
-        $$ = new MethodA($1, $2, $3, $4, new MethodBodyA($4, $5->getStatementList()));
+        yydebug(" $$ = new MethodA($1, $2, new NameA($3), $4, new MethodBodyA($4, $5->getStatementList())); ");
+        $$ = new MethodA($1, $2, new NameA($3), $4, new MethodBodyA($4, $5->getStatementList()));
     }
     | type_decl IDENTIFIER formal_args block {
-        yydebug(" $$ = new MethodA($1, $2, $3, new MethodBodyA($3, $4->getStatementList())); ");
-        $$ = new MethodA($1, $2, $3, new MethodBodyA($3, $4->getStatementList()));
+        yydebug(" $$ = new MethodA($1, new NameA($2), $3, new MethodBodyA($3, $4->getStatementList())); ");
+        $$ = new MethodA($1, new NameA($2), $3, new MethodBodyA($3, $4->getStatementList()));
     }
 
 ctor
     : modifier_list IDENTIFIER formal_args block {
-        yydebug(" $$ = new ConstructorA(new NameA($2), $1, new MethodBodyA($3, $4->getStatementList())); ");
+        yydebug(" $$ = new ConstructorA(new ClassTypeA(new NameA($2)), $1, new MethodBodyA($3, $4->getStatementList())); ");
         $$ = new ConstructorA(new ClassTypeA(new NameA($2)), $1, new MethodBodyA($3, $4->getStatementList()));
     }
     | IDENTIFIER formal_args block {
-        yydebug(" $$ = new ConstructorA(new NameA($1), new MethodBodyA($2, $3->getStatementList())); ");
+        yydebug(" $$ = new ConstructorA(new ClassTypeA(new NameA($1)), new MethodBodyA($2, $3->getStatementList())); ");
         $$ = new ConstructorA(new ClassTypeA(new NameA($1)), new MethodBodyA($2, $3->getStatementList()));
     }
 
@@ -381,7 +382,7 @@ var_decl_id
     }
     | IDENTIFIER {
         yydebug(" $$ = $1; ");
-        $$ = $1;
+        $$ = new NameA($1);
     }
 
 block
