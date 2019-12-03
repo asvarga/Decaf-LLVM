@@ -618,11 +618,13 @@ public:
     virtual void visit(NewArrayA* a) = 0;
     virtual void visit(ArrayRefA* a) = 0;
     virtual void visit(VarDeclA* a) = 0;
-    // virtual void visit(TypeA *a) = 0
+
+    virtual void visit(TypeA *a) = 0;
     virtual void visit(PrimTypeA* a) = 0;
     virtual void visit(ArrayTypeA* a) = 0;
     virtual void visit(ClassTypeA* a) = 0;
 
+    virtual void visit(PrimaryExprA* a) = 0;
     virtual void visit(ExpressionA* a) = 0;
     virtual void visit(InitializerA* a) = 0;
     virtual void visit(StatementA* a) = 0;
@@ -681,10 +683,12 @@ public:
     virtual void visit(ArrayRefA* a);
     virtual void visit(VarDeclA* a);
 
+    virtual void visit(TypeA *a);
     virtual void visit(PrimTypeA* a);
     virtual void visit(ArrayTypeA* a);
     virtual void visit(ClassTypeA* a);
 
+    virtual void visit(PrimaryExprA* a);
     virtual void visit(ExpressionA* a);
     virtual void visit(InitializerA* a);
     virtual void visit(StatementA* a);

@@ -142,8 +142,10 @@ union YYSTYPE
     class ModifierA*    modifierA;
     class NewArrayA*    newArrayA;
     class PrimaryExprA* primaryExprA;
+    class NameA*        nameA;
 
-#line 147 "parser.tab.hpp"
+
+#line 149 "parser.tab.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

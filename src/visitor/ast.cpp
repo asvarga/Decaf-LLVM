@@ -50,13 +50,15 @@ void NewArrayA::accept(Visitor& v) { v.visit(this); }
 void ArrayRefA::accept(Visitor& v) { v.visit(this); }
 void VarDeclA::accept(Visitor& v) { v.visit(this); }
 
+void TypeA::accept(Visitor& v) { v.visit(this); }
 void PrimTypeA::accept(Visitor& v) { v.visit(this); }
 void ArrayTypeA::accept(Visitor& v) { v.visit(this); }
 void ClassTypeA::accept(Visitor& v) { v.visit(this); }
 
-// void ExpressionA::accept(Visitor& v) { v.visit(this); }
+void PrimaryExprA::accept(Visitor& v) { v.visit(this); }
+void ExpressionA::accept(Visitor& v) { v.visit(this); }
 void InitializerA::accept(Visitor& v) { v.visit(this); }
-// void StatementA::accept(Visitor& v) { v.visit(this); }
+void StatementA::accept(Visitor& v) { v.visit(this); }
 void NameA::accept(Visitor& v) { v.visit(this); }
 void StrLitA::accept(Visitor& v) { v.visit(this); }
 void IntLitA::accept(Visitor& v) { v.visit(this); }
@@ -118,6 +120,13 @@ void PrinterV::visit(NameA* a) {
     --d;
 }
 
+void PrinterV::visit(TypeA* a) {
+    indent();
+    cout << "TypeA" << "\n";
+    ++d;
+    --d;
+}
+
 void PrinterV::visit(PrimTypeA* a) {
     indent();
     cout << "PrimTypeA" << "\n";
@@ -142,12 +151,26 @@ void PrinterV::visit(ClassTypeA* a) {
     --d;
 }
 
-// void PrinterV::visit(StatementA* a) {
-//     indent();
-//     cout << "StatementA\n";
-//     ++d;
-//     --d;
-// }
+void PrinterV::visit(StatementA* a) {
+    indent();
+    cout << "StatementA\n";
+    ++d;
+    --d;
+}
+
+void PrinterV::visit(PrimaryExprA* a) {
+    indent();
+    cout << "PrimaryExprA\n";
+    ++d;
+    --d;
+}
+
+void PrinterV::visit(ExpressionA* a) {
+    indent();
+    cout << "ExpressionA\n";
+    ++d;
+    --d;
+}
 
 void PrinterV::visit(ListA* a) {
     indent();
