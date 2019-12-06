@@ -5,6 +5,8 @@
 #include <vector>
 
 #include "visitor/ast.cpp"
+#include "visitor/printerV.cpp"
+#include "visitor/codeGenV.cpp"
 
 
 using namespace std;
