@@ -514,38 +514,61 @@ void PrinterV::visit(InitializerA* a) {
 
 
 
-// void CounterV::visit(StartA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(ListA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(ClassA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(SuperA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(MethodBodyA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(FieldDeclA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(FieldA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(MethodA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(ConstructorA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(FormalA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(DeclStatementA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(LocalA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(IfStatementA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(ExpressionStatementA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(WhileStatementA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(ReturnStatementA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(ContinueStatementA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(BreakStatementA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(BlockStatementA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(BlockA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(SuperStatementA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(CallA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(OpExpressionA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(NewArrayA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(ArrayRefA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(StartA* a) { 
+    cout << this->c++ << "\n"; 
+    a->getList()->accept(*this);
+    }
+void CodeGenV::visit(ListA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(ClassA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(SuperA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(MethodBodyA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(FieldDeclA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(FieldA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(MethodA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(ConstructorA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(FormalA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(DeclStatementA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(LocalA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(IfStatementA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(ExpressionStatementA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(WhileStatementA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(ReturnStatementA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(ContinueStatementA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(BreakStatementA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(BlockStatementA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(BlockA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(SuperStatementA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(CallA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(OpExpressionA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(NewArrayA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(ArrayRefA* a) { cout << this->c++ << "\n"; }
 
-// void CounterV::visit(PrimTypeA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(ArrayTypeA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(ClassTypeA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(PrimTypeA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(ArrayTypeA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(ClassTypeA* a) { cout << this->c++ << "\n"; }
 
-// void CounterV::visit(ExpressionA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(InitializerA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(StatementA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(NameA* a) { cout << this->c++ << "\n"; }
-// void CounterV::visit(StrLitA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(ExpressionA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(InitializerA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(StatementA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(NameA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(StrLitA* a) { cout << this->c++ << "\n"; }
+
+void CodeGenV::visit(DimensionA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(FieldExprA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(NewObjExprA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(PrimaryExprA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(PrimaryArrayA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(ThisCallExprA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(SuperCallExprA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(EmptyStatementA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(MethodCallExprA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(SuperFieldExprA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(NonArrayPrimaryA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(TypeA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(IntLitA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(BoolLitA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(CharLitA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(NullLitA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(VarDeclA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(ModifierA* a) { cout << this->c++ << "\n"; }
+void CodeGenV::visit(ThisExprA* a) { cout << this->c++ << "\n"; }

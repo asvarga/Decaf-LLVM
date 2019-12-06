@@ -2765,10 +2765,10 @@ int main(int argc, char **argv) {
     start->accept(*(new PrinterV()));
     cout << "\n";
 
-    // cout << "\n===[COUNTING]===\n";
-    // cout << "\n";
-    // start->accept(*(new CounterV()));
-    // cout << "\n";
+    cout << "\n===[CODEGEN-ING]===\n";
+    cout << "\n";
+    start->accept(*(new CodeGenV()));
+    cout << "\n";
 
 	return 0;
 }
