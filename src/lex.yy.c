@@ -935,416 +935,416 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 YY_RULE_SETUP
 #line 32 "lexer.l"
-{ std::cout << "BREAK: " << yytext << "\n"; 
+{ /* std::cout << "BREAK: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return BREAK; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
 #line 34 "lexer.l"
-{ std::cout << "CLASS: " << yytext << "\n"; 
+{ /* std::cout << "CLASS: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return CLASS; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
 #line 36 "lexer.l"
-{ std::cout << "CONTINUE: " << yytext << "\n"; 
+{ /* std::cout << "CONTINUE: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return CONTINUE; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
 #line 38 "lexer.l"
-{ std::cout << "ELSE: " << yytext << "\n"; 
+{ /* std::cout << "ELSE: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return ELSE; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 40 "lexer.l"
-{ std::cout << "EXTENDS: " << yytext << "\n"; 
+{ /* std::cout << "EXTENDS: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return EXTENDS; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 42 "lexer.l"
-{ std::cout << "IF: " << yytext << "\n"; 
+{ /* std::cout << "IF: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return IF; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 44 "lexer.l"
-{ std::cout << "NEW: " << yytext << "\n"; 
+{ /* std::cout << "NEW: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return NEW; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 46 "lexer.l"
-{ std::cout << "NILL: " << yytext << "\n"; 
+{ /* std::cout << "NILL: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return NILL; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
 #line 48 "lexer.l"
-{ std::cout << "PRIVATE: " << yytext << "\n"; 
+{ /* std::cout << "PRIVATE: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return PRIVATE; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
 #line 50 "lexer.l"
-{ std::cout << "PROTECTED: " << yytext << "\n"; 
+{ /* std::cout << "PROTECTED: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return PROTECTED; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 52 "lexer.l"
-{ std::cout << "PUBLIC: " << yytext << "\n"; 
+{ /* std::cout << "PUBLIC: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return PUBLIC; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
 #line 54 "lexer.l"
-{ std::cout << "RETURN: " << yytext << "\n"; 
+{ /* std::cout << "RETURN: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return RETURN; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
 #line 56 "lexer.l"
-{ std::cout << "STATIC: " << yytext << "\n"; 
+{ /* std::cout << "STATIC: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return STATIC; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
 #line 58 "lexer.l"
-{ std::cout << "SUPER: " << yytext << "\n"; 
+{ /* std::cout << "SUPER: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return SUPER; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
 #line 60 "lexer.l"
-{ std::cout << "THIS: " << yytext << "\n"; 
+{ /* std::cout << "THIS: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return THIS; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
 #line 62 "lexer.l"
-{ std::cout << "WHILE: " << yytext << "\n"; 
+{ /* std::cout << "WHILE: " << yytext << "\n"; */
                 yylval.s = strdup(yytext); return WHILE; }
 	YY_BREAK
 /* Forbidden Words*/
 case 17:
 YY_RULE_SETUP
 #line 66 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
 #line 68 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 70 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 72 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 74 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 76 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 78 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 80 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 82 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 84 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 86 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 88 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 90 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 92 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 94 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 96 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 98 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
 #line 100 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
 #line 102 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
 #line 104 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 106 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
 #line 108 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
 #line 110 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
 #line 112 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
 #line 114 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
 #line 116 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
 #line 118 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
 #line 120 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
 #line 122 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
 #line 124 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
 #line 126 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
 #line 128 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
 #line 130 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
 #line 132 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
 #line 134 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
 #line 136 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
 #line 138 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
 #line 140 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
 #line 142 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
 #line 144 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
 #line 146 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
 #line 148 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
 #line 150 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
 #line 152 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
 #line 154 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
 #line 156 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
 #line 158 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
 #line 160 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
 #line 162 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
 #line 164 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
 #line 166 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
 #line 168 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
 #line 170 "lexer.l"
-{ std::cout << "FORBIDDEN: " << yytext << "\n"; 
+{ /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
                     return FORBIDDEN; }
 	YY_BREAK
 /* Comments */
@@ -1368,221 +1368,221 @@ YY_RULE_SETUP
 case 73:
 YY_RULE_SETUP
 #line 182 "lexer.l"
-{ std::cout << "LEQ: " << yytext << "\n"; 
+{ /* std::cout << "LEQ: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return LEQ; }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
 #line 184 "lexer.l"
-{ std::cout << "LESS: " << yytext << "\n"; 
+{ /* std::cout << "LESS: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return LESS; }
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
 #line 186 "lexer.l"
-{ std::cout << "GEQ: " << yytext << "\n"; 
+{ /* std::cout << "GEQ: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return GEQ; }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
 #line 188 "lexer.l"
-{ std::cout << "GREATER: " << yytext << "\n"; 
+{ /* std::cout << "GREATER: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return GREATER; }
 	YY_BREAK
 case 77:
 YY_RULE_SETUP
 #line 190 "lexer.l"
-{ std::cout << "EQEQ: " << yytext << "\n"; 
+{ /* std::cout << "EQEQ: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return EQEQ; }
 	YY_BREAK
 case 78:
 YY_RULE_SETUP
 #line 192 "lexer.l"
-{ std::cout << "EQ: " << yytext << "\n"; 
+{ /* std::cout << "EQ: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return EQ; }
 	YY_BREAK
 case 79:
 YY_RULE_SETUP
 #line 194 "lexer.l"
-{ std::cout << "NEQ: " << yytext << "\n"; 
+{ /* std::cout << "NEQ: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return NEQ; }
 	YY_BREAK
 case 80:
 YY_RULE_SETUP
 #line 196 "lexer.l"
-{ std::cout << "LAND: " << yytext << "\n"; 
+{ /* std::cout << "LAND: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return LAND; }
 	YY_BREAK
 case 81:
 YY_RULE_SETUP
 #line 198 "lexer.l"
-{ std::cout << "LOR: " << yytext << "\n"; 
+{ /* std::cout << "LOR: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return LOR; }
 	YY_BREAK
 case 82:
 YY_RULE_SETUP
 #line 200 "lexer.l"
-{ std::cout << "PLUS: " << yytext << "\n"; 
+{ /* std::cout << "PLUS: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return PLUS; }
 	YY_BREAK
 case 83:
 YY_RULE_SETUP
 #line 202 "lexer.l"
-{ std::cout << "MINUS: " << yytext << "\n"; 
+{ /* std::cout << "MINUS: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return MINUS; }
 	YY_BREAK
 case 84:
 YY_RULE_SETUP
 #line 204 "lexer.l"
-{ std::cout << "TIMES: " << yytext << "\n"; 
+{ /* std::cout << "TIMES: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return TIMES; }
 	YY_BREAK
 case 85:
 YY_RULE_SETUP
 #line 206 "lexer.l"
-{ std::cout << "DIV: " << yytext << "\n"; 
+{ /* std::cout << "DIV: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return DIV; }
 	YY_BREAK
 case 86:
 YY_RULE_SETUP
 #line 208 "lexer.l"
-{ std::cout << "MOD: " << yytext << "\n"; 
+{ /* std::cout << "MOD: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return MOD; }
 	YY_BREAK
 case 87:
 YY_RULE_SETUP
 #line 210 "lexer.l"
-{ std::cout << "NOT: " << yytext << "\n"; 
+{ /* std::cout << "NOT: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return NOT; }
 	YY_BREAK
 case 88:
 YY_RULE_SETUP
 #line 212 "lexer.l"
-{ std::cout << "OP: " << yytext << "\n"; 
+{ /* std::cout << "OP: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return OP; }
 	YY_BREAK
 case 89:
 YY_RULE_SETUP
 #line 214 "lexer.l"
-{ std::cout << "CP: " << yytext << "\n"; 
+{ /* std::cout << "CP: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return CP; }
 	YY_BREAK
 case 90:
 YY_RULE_SETUP
 #line 216 "lexer.l"
-{ std::cout << "OB: " << yytext << "\n"; 
+{ /* std::cout << "OB: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return OB; }
 	YY_BREAK
 case 91:
 YY_RULE_SETUP
 #line 218 "lexer.l"
-{ std::cout << "CB: " << yytext << "\n"; 
+{ /* std::cout << "CB: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return CB; }
 	YY_BREAK
 case 92:
 YY_RULE_SETUP
 #line 220 "lexer.l"
-{ std::cout << "OC: " << yytext << "\n"; 
+{ /* std::cout << "OC: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return OC; }
 	YY_BREAK
 case 93:
 YY_RULE_SETUP
 #line 222 "lexer.l"
-{ std::cout << "CC: " << yytext << "\n"; 
+{ /* std::cout << "CC: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return CC; }
 	YY_BREAK
 case 94:
 YY_RULE_SETUP
 #line 224 "lexer.l"
-{ std::cout << "COMMA: " << yytext << "\n"; 
+{ /* std::cout << "COMMA: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return COMMA; }
 	YY_BREAK
 case 95:
 YY_RULE_SETUP
 #line 226 "lexer.l"
-{ std::cout << "DOT: " << yytext << "\n"; 
+{ /* std::cout << "DOT: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return DOT; }
 	YY_BREAK
 case 96:
 YY_RULE_SETUP
 #line 228 "lexer.l"
-{ std::cout << "SEMICOLON: " << yytext << "\n"; 
+{ /* std::cout << "SEMICOLON: " << yytext << "\n"; */
                         yylval.s = strdup(yytext);return SEMICOLON; }
 	YY_BREAK
 /*Primitive Types*/
 case 97:
 YY_RULE_SETUP
 #line 233 "lexer.l"
-{ std::cout << "TYPE_VOID: " << yytext << "\n"; 
+{ /* std::cout << "TYPE_VOID: " << yytext << "\n"; */
                     yylval.s = strdup(yytext); return TYPE_VOID; }
 	YY_BREAK
 case 98:
 YY_RULE_SETUP
 #line 235 "lexer.l"
-{ std::cout << "TYPE_INT: " << yytext << "\n"; 
+{ /* std::cout << "TYPE_INT: " << yytext << "\n"; */
                     yylval.s = strdup(yytext); return TYPE_INT; }
 	YY_BREAK
 case 99:
 YY_RULE_SETUP
 #line 237 "lexer.l"
-{ std::cout << "TYPE_BOOL: " << yytext << "\n"; 
+{ /* std::cout << "TYPE_BOOL: " << yytext << "\n"; */
                     yylval.s = strdup(yytext); return TYPE_BOOL; }
 	YY_BREAK
 case 100:
 YY_RULE_SETUP
 #line 239 "lexer.l"
-{ std::cout << "TYPE_CHAR: " << yytext << "\n"; 
+{ /* std::cout << "TYPE_CHAR: " << yytext << "\n"; */
                     yylval.s = strdup(yytext); return TYPE_CHAR; }
 	YY_BREAK
 /* Literal Types */
 case 101:
 YY_RULE_SETUP
 #line 243 "lexer.l"
-{ std::cout << "BOOLEAN: " << yytext << "\n"; 
+{ /* std::cout << "BOOLEAN: " << yytext << "\n"; */
                         yylval.b = (strcmp(yytext, "true")==0); return BOOLEAN; }
 	YY_BREAK
 case 102:
 YY_RULE_SETUP
 #line 245 "lexer.l"
-{ std::cout << "IDENTIFIER: " << yytext << "\n"; 
+{ /* std::cout << "IDENTIFIER: " << yytext << "\n"; */
                         yylval.s = strdup(yytext); return IDENTIFIER; }
 	YY_BREAK
 case 103:
 YY_RULE_SETUP
 #line 247 "lexer.l"
-{ std::cout << "INTEGER: " << yytext << "\n"; 
+{ /* std::cout << "INTEGER: " << yytext << "\n"; */
                         yylval.i = atoi(yytext); return INTEGER; }
 	YY_BREAK
 case 104:
 YY_RULE_SETUP
 #line 249 "lexer.l"
-{ std::cout << "STRING: " << yytext << "\n"; 
+{ /* std::cout << "STRING: " << yytext << "\n"; */
                         yylval.s = strdup(yytext); return STRING; }
 	YY_BREAK
 case 105:
 YY_RULE_SETUP
 #line 251 "lexer.l"
-{ std::cout << "STRING: " << yytext << "\n"; 
+{ /* std::cout << "STRING: " << yytext << "\n"; */
                         yylval.s = strdup(yytext); return STRING; }
 	YY_BREAK
 case 106:
 YY_RULE_SETUP
 #line 253 "lexer.l"
-{ std::cout << "CHAR: " << yytext << "\n"; 
+{ /* std::cout << "CHAR: " << yytext << "\n"; */
                         yylval.c = yytext[0]; return STRING; }
 	YY_BREAK
 case 107:
 /* rule 107 can match eol */
 YY_RULE_SETUP
 #line 255 "lexer.l"
-{ std::cout << "CHAR: " << yytext << "\n"; 
+{ /* std::cout << "CHAR: " << yytext << "\n"; */
                         yylval.c = yytext[0]; return STRING; }
 	YY_BREAK
 /* Default rule (error) */
 case 108:
 YY_RULE_SETUP
 #line 260 "lexer.l"
-{ std::cout << "UNRECOG_ERROR: " << yytext << "\n"; 
+{ /* std::cout << "UNRECOG_ERROR: " << yytext << "\n"; */
                         return UNRECOG_ERROR; }
 	YY_BREAK
 case 109:

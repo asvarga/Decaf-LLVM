@@ -1,84 +1,36 @@
 
+
+#include <llvm/IR/LLVMContext.h>
+#include <llvm/IR/Instructions.h>
+#include <llvm/IR/LegacyPassManager.h>
+#include <llvm/IR/IRBuilder.h>
+#include <llvm/IR/Module.h>
+#include <llvm/IR/BasicBlock.h>
+#include <llvm/IR/Constants.h>
+
 #include <string>
 #include <deque>
 
-
 using namespace std;
-
-struct Null{};
-union Value {
-    int i;
-    char c;
-    string s;   // TODO: use char*?
-    bool b;
-    Null n;
-};
+using namespace llvm;
 
 /// Forward Declaration ///
-//
-// class AST;
-// class LitA;
-// class TypeA;
-//
-// class StartA;
-// class ListA;
-// class ClassA;
-// class SuperA;
-// class MethodBodyA;
-// class FieldDeclA;
-// class FieldA;
-// class MethodA;
-// class ConstructorA;
-// class FormalA;
-// class DeclStatementA;
-// class LocalA;
-// class IfStatementA;
-// class ExpressionStatementA;
-// class WhileStatementA;
-// class ReturnStatementA;
-// class ContinueStatementA;
-// class BreakStatementA;
-// class BlockStatementA;
-// class EmptyStatementA;
-// class BlockA;
-// class SuperStatementA;
-// class CallA;
-// class OpExpressionA;
-// class NewArrayA;
-// class ArrayRefA;
-// class VarDeclA;
-// class SuperStatementA;
-// class PrimaryExprA;
-// class DimensionA;
-// class PrimTypeA;
-// class ArrayTypeA;
-// class ClassTypeA;
-// class FieldlExprA
-// class ExpressionA;
-// class InitializerA;
-// class StatementA;
-// class NameA;
-// class StrLitA;
-// class BoolLitA;
-// class IntLitA;
-// class MethodCallExprA;
-// class NewObjExprA;
-// class ModifierA;
-// class ThisExprA;
-// class NonArrayPrimaryA;
-// class NullLitA;
-
 class Visitor;
-// class PrinterV;
-// class CounterV;
-
-
 
 /// ASTs ///
 
 class AST {
+    Value *reg;
+    int depth = 0;
+    AST *parent;
 public:
     AST() {};
+    Value *getReg() { return reg; }
+    void setReg(Value *r) { reg = r; }
+    int getDepth() { return depth; }
+    void setDepth(int d) { depth = d; }
+    AST *getParent() { return parent; }
+    void setParent(AST *p) { parent = p; }
     virtual void accept(Visitor& v) = 0;
 };
 

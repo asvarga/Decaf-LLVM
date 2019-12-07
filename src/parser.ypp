@@ -7,6 +7,7 @@
 #include "visitor/ast.cpp"
 #include "visitor/printerV.cpp"
 #include "visitor/codeGenV.cpp"
+#include "visitor/pass1V.cpp"
 
 
 using namespace std;
@@ -682,13 +683,11 @@ expr_list
 
 void yyerror(string s)
 {
-	// fprintf(stderr, "error: %s\n", s);
     cout << "XXXX error: " << s << " XXXXXXXXXXXXXXXXXXXXXXX\n";
 }
 
 void yydebug(string s) {
-    // printf("%s", s);
-    cout << "\t" << s << "\n";
+    // cout << "\t" << s << "\n";
 }
 
 int main(int argc, char **argv) {
@@ -697,13 +696,14 @@ int main(int argc, char **argv) {
     yyin = fopen(argv[1], "r");
 	yyparse();
 
-    cout << "\n===[PRINTING]===\n";
-    cout << "\n";
-    start->accept(*(new PrinterV()));
-    cout << "\n";
+    // cout << "\n===[PRINTING]===\n";
+    // cout << "\n";
+    // start->accept(*(new PrinterV()));
+    // cout << "\n";
 
     cout << "\n===[CODEGEN-ING]===\n";
     cout << "\n";
+    start->accept(*(new Pass1V()));
     start->accept(*(new CodeGenV()));
     cout << "\n";
 
