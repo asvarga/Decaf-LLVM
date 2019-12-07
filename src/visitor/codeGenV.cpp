@@ -110,7 +110,7 @@ void CodeGenV::visit(FieldA* a) {
 }
 
 void CodeGenV::visit(ModifierA* a) {
-    indent(a->getDepth()); cout << "ModifierA" << a->getModifier() << endl;
+    indent(a->getDepth()); cout << "ModifierA: " << a->getModifier() << endl;
 }
 
 void CodeGenV::visit(MethodA* a) {

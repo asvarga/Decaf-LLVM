@@ -121,6 +121,7 @@ void Pass1V::visit(StartA* a) {
     a->setParent(parent);
     parent = a;
     a->setDepth(d);
+    this->currStart = a;
     ++d;
     a->getList()->accept(*this);
     --d;
@@ -139,6 +140,10 @@ void Pass1V::visit(ClassA* a) {
     a->setParent(parent);
     parent = a;
     a->setDepth(d);
+
+    this->currClass = a;
+    this->currStart->addClass(a->getName()->getName(), a); 
+
     ++d;
     a->getName()->accept(*this);
     a->getSuperClass()->accept(*this);
@@ -198,6 +203,11 @@ void Pass1V::visit(MethodA* a) {
     a->setParent(parent);
     parent = a;
     a->setDepth(d);
+
+    this->currMethod = a;
+    this->currClass->addMethod(a->getName()->getName(), a); 
+    a->setClass(currClass);
+
     ++d;
     a->getName()->accept(*this);
     a->getModifiers()->accept(*this);

@@ -2,6 +2,9 @@
 class Pass1V : public Visitor {
     int d = 0;
     AST *parent;
+    StartA *currStart;
+    ClassA *currClass;
+    MethodA *currMethod;
 public:
     virtual void visit(StartA* a);
     virtual void visit(ListA* a);

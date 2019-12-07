@@ -8,6 +8,8 @@
 #include <llvm/IR/BasicBlock.h>
 #include <llvm/IR/Constants.h>
 
+#include "symbolTable.h"
+
 #include <string>
 #include <deque>
 
@@ -16,6 +18,9 @@ using namespace llvm;
 
 /// Forward Declaration ///
 class Visitor;
+class ClassA;
+class MethodA;
+class FieldA;
 
 /// ASTs ///
 
@@ -149,10 +154,21 @@ public:
 };
 class StartA : public AST {
     ListA *list;
+    std::map<string, ClassA*> classTable;
 public:
     StartA(): list(new ListA()) {}
     StartA(ListA *l): list(l) {};
     ListA *getList() { return list; }
+
+    void addClass(string name, ClassA *clas) { classTable.insert({name, clas}); }
+    bool hasClass(string name) { return classTable.end() != classTable.find(name); }
+    ClassA *getClass(string name) { 
+        if (hasClass(name)) { return classTable[name]; } else {
+            cout << "Class not in scope: " << name << endl;
+            return nullptr;
+        }
+    }
+
     void addb(AST *a) { list->addb(a); }
     void addf(AST *a) { list->addf(a); }
     virtual void accept(Visitor& v);
@@ -172,6 +188,8 @@ class ClassA : public AST {
     // NOTE: Changed constructors so default is provided in Parser.ypp
     // We need to decide if the type of superClass is ClassA, SuperA TypeA or ClassTypeA
     ListA *members;
+    std::map<string, MethodA*> methodTable;
+    std::map<string, FieldA*> fieldTable;
 public:
     //ClassA(string n): name(n), members(new ListA()) {};
     ClassA(NameA *n, SuperA *sc): name(n), superClass(sc), members(new ListA()) {};
@@ -180,6 +198,24 @@ public:
     NameA *getName() { return name; };
     SuperA *getSuperClass() { return superClass; };
     ListA *getMembers() { return members; };
+
+    void addMethod(string name, MethodA *method) { methodTable.insert({name, method}); }
+    bool hasMethod(string name) { return methodTable.end() != methodTable.find(name); }
+    MethodA *getMethod(string name) { 
+        if (hasMethod(name)) { return methodTable[name]; } else {
+            cout << "Method not in scope: " << name << endl;
+            return nullptr;
+        }
+    }
+    void addField(string name, FieldA *field) { fieldTable.insert({name, field}); }
+    bool hasField(string name) { return fieldTable.end() != fieldTable.find(name); }
+    FieldA *getField(string name) { 
+        if (hasField(name)) { return fieldTable[name]; } else {
+            cout << "Field not in scope: " << name << endl;
+            return nullptr;
+        }
+    }
+
     virtual void accept(Visitor& v);
 };
 
@@ -242,19 +278,28 @@ class MethodA : public AST {
     NameA *name;
     ListA *args;
     MethodBodyA *methodbody;
+    SymbolTable *symbolTable;
+    ClassA *clas;
 public:
     MethodA(ListA* ms, TypeA *t, NameA *n, ListA *as, MethodBodyA *m):
-        modifiers(ms), type(t), name(n), args(as), methodbody(m) {};
+        modifiers(ms), type(t), name(n), args(as), methodbody(m) {
+            symbolTable = new SymbolTable();
+        };
     MethodA(TypeA *t, NameA *n, ListA *as, MethodBodyA *m):
         modifiers(new ListA()), type(t), name(n), args(as), methodbody(m) {
             modifiers = new ListA();
             modifiers->addb(new ModifierA("public")); // Correct?:
+            symbolTable = new SymbolTable();
         };
     NameA *getName() { return name; }
     ListA *getModifiers() { return modifiers; }
     TypeA *getType() { return type; };
     ListA *getArgs() { return args; }
     MethodBodyA *getMethodBody() { return methodbody; };
+    SymbolTable *getSymbolTable() { return symbolTable; };
+    Value *lookup(string name) { return symbolTable->getGlobal(name); }
+    void setClass(ClassA *c) { clas = c; }
+    ClassA *getClass() { return clas; };
     virtual void accept(Visitor& v);
 };
 
