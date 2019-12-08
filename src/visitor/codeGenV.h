@@ -1,5 +1,8 @@
 
+#pragma once
+
 #include <list>
+#include "symbolTable.h"
 
 using namespace llvm;
 
@@ -14,6 +17,11 @@ class CodeGenV : public Visitor {
     // StartA * start;
     // Function * mainFunction;
     //SymbolTable symbolTable;
+    StartA *currStart;
+    ClassA *currClass;
+    MethodA *currMethod;
+    SymbolTable *currSymTab;
+    int nameCase;   // decaf-semantics.pdf: page 12
 public:
     void LogErrorV(const char *s) {
         cout << "XXXX error: " << s << " XXXXXXXXXXXXXXXXXXXXXXX\n";

@@ -26,8 +26,19 @@ void CodeGenV::visit(NullLitA* a) {
 
 void CodeGenV::visit(NameA* a) {
     indent(a->getDepth()); cout << "NameA: " << a->getName() << endl;
-    // TODO:
-    a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 1234));
+    string name = a->getName();
+    switch(nameCase) {
+        case 1: break;
+        case 2: break;
+        case 3: break;
+        case 4: break;
+        case 5: break;
+        case 6:
+            a->setReg(currSymTab->getGlobal(name));
+            break;
+        default:
+            a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 1234));    // TODO:
+    }
 }
 
 void CodeGenV::visit(TypeA* a) {
@@ -70,6 +81,7 @@ void CodeGenV::visit(ListA* a) {
 }
 void CodeGenV::visit(StartA* a) {
     indent(a->getDepth()); cout << "StartA\n";
+    currStart = a;
     a->getList()->accept(*this);
 }
 
@@ -80,6 +92,9 @@ void CodeGenV::visit(SuperA* a) {
 
 void CodeGenV::visit(ClassA* a) {
     indent(a->getDepth()); cout << "ClassA\n" ;
+
+    currClass = a;
+
     a->getName()->accept(*this);
     a->getSuperClass()->accept(*this);
     a->getMembers()->accept(*this);
@@ -97,9 +112,12 @@ void CodeGenV::visit(FieldDeclA* a) {
 }
 
 void CodeGenV::visit(VarDeclA* a) {
-    indent(a->getDepth()); cout << "VarDeclA\n";
-    a->getName()->accept(*this);
+    indent(a->getDepth()); cout << "VarDeclA: " << a->getName()->getName() << "\n";
+    // a->getName()->accept(*this);
     a->getExpression()->accept(*this);
+    Value *reg = a->getExpression()->getReg(); 
+    //= ConstantInt::get(Type::getInt64Ty(TheContext), 0); 
+    currSymTab->declareLocal(a->getName()->getName(), reg);
 }
 
 void CodeGenV::visit(FieldA* a) {
@@ -115,6 +133,13 @@ void CodeGenV::visit(ModifierA* a) {
 
 void CodeGenV::visit(MethodA* a) {
     indent(a->getDepth()); cout << "MethodA\n";
+
+    currMethod = a;
+    currSymTab = a->getSymbolTable();
+    BasicBlock *BB = BasicBlock::Create(TheContext, a->getName()->getName());
+    Builder.SetInsertPoint(BB);
+    currSymTab->enterScope(BB);
+    
     a->getName()->accept(*this);
     a->getModifiers()->accept(*this);
     a->getType()->accept(*this);
@@ -213,6 +238,7 @@ void CodeGenV::visit(PrimaryArrayA* a) {
 void CodeGenV::visit(NonArrayPrimaryA* a) {
     indent(a->getDepth()); cout << "NonArrayPrimaryA\n";
     a->getExpression()->accept(*this);
+    a->setReg(a->getExpression()->getReg());
 }
 
 void CodeGenV::visit(CallA* a) {
@@ -228,6 +254,7 @@ void CodeGenV::visit(SuperStatementA* a) {
 
 void CodeGenV::visit(OpExpressionA* a) {
     indent(a->getDepth()); cout << "OpExpressionA: " << a->getOp() << " (" << a->getArity() << ")\n";
+    nameCase = 6;
     ExpressionA *e1 = a->getExpression1();
     ExpressionA *e2 = a->getExpression2();
 
@@ -238,13 +265,13 @@ void CodeGenV::visit(OpExpressionA* a) {
         e2->accept(*this);
         Value *R = e2->getReg();
 
+        string op = a->getOp();
+
         if (!L || !R)
         {
             LogErrorV("Missing operand for binary operator");
-            return;
         }
-        string op = a->getOp();
-        if ( op == "+")
+        else if ( op == "+")
         {
             a->setReg(Builder.CreateFAdd(L, R, "addtmp"));
         }
@@ -300,7 +327,6 @@ void CodeGenV::visit(OpExpressionA* a) {
         else
         {
             LogErrorV("invalid binary operator");
-            return;
         }
 
     }
@@ -320,9 +346,9 @@ void CodeGenV::visit(OpExpressionA* a) {
         else
         {
             LogErrorV("invalid unary operator");
-            return;
         }
     }
+    nameCase = 0; // TODO: remove when all cases implemented
 }
 
 void CodeGenV::visit(ThisExprA* a) {

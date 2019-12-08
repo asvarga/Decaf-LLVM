@@ -1,4 +1,5 @@
 
+#pragma once
 
 #include <llvm/IR/LLVMContext.h>
 #include <llvm/IR/Instructions.h>
@@ -155,6 +156,7 @@ public:
 class StartA : public AST {
     ListA *list;
     std::map<string, ClassA*> classTable;
+    MethodA *main;
 public:
     StartA(): list(new ListA()) {}
     StartA(ListA *l): list(l) {};
@@ -168,6 +170,9 @@ public:
             return nullptr;
         }
     }
+
+    MethodA *getMain() { return main; }
+    void setMain(MethodA *m) { main = m; }
 
     void addb(AST *a) { list->addb(a); }
     void addf(AST *a) { list->addf(a); }

@@ -8,6 +8,7 @@
 #include "visitor/printerV.cpp"
 #include "visitor/codeGenV.cpp"
 #include "visitor/pass1V.cpp"
+#include "visitor/symbolTable.cpp"
 
 
 using namespace std;
@@ -707,5 +708,12 @@ int main(int argc, char **argv) {
     start->accept(*(new CodeGenV()));
     cout << "\n";
 
+    cout << "\n===[FINALIZING]===\n";
+    cout << "\n";
+    // cout << "Start Register: " << start->getReg() << "\n";
+    cout << "Main Register: " << start->getMain()->getReg() << "\n";
+    cout << "\n";
+
+    
 	return 0;
 }

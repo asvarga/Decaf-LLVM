@@ -5,7 +5,3 @@ class Aaa {
         int y = x+x;
     }
 }
-
-class Bbb {
-    public void foo () {}
-}

@@ -207,6 +207,10 @@ void Pass1V::visit(MethodA* a) {
     this->currMethod = a;
     this->currClass->addMethod(a->getName()->getName(), a); 
     a->setClass(currClass);
+    if (a->getName()->getName() == "main") {
+        // cout << "FOUND!" << "\n";
+        currStart->setMain(a);
+    }
 
     ++d;
     a->getName()->accept(*this);

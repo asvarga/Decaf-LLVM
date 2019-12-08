@@ -1,4 +1,6 @@
 
+#pragma once
+
 class Pass1V : public Visitor {
     int d = 0;
     AST *parent;
