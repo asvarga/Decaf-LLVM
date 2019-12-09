@@ -4,25 +4,25 @@ parser: parser.ypp lexer.l
 	bison -d parser.ypp
 
 compiler: parser
-	g++ -std=c++11 -Wfatal-errors -o parser parser.tab.cpp lex.yy.c -ll -g -ldl `llvm-config --cppflags --libs all --libfiles core --ldflags --system-libs`
+	g++ -std=c++11 -Wfatal-errors -o ../build/parser parser.tab.cpp lex.yy.c -ll -g -ldl `llvm-config --cppflags --libs all --libfiles core --ldflags --system-libs`
 
 # TESTS #
 adder: compiler
-	./parser test/adder.decaf
-	clang decafruntime.c main.o -o main
-	./main
+	../build/parser test/adder.decaf
+	clang decafruntime.c ../build/main.o -o ../build/main
+	../build/main
 empty: compiler
-	./parser test2/emptyClasses.decaf
-	clang decafruntime.c main.o -o main
-	./main
+	../build/parser test2/emptyClasses.decaf
+	clang decafruntime.c ../build/main.o -o ../build/main
+	../build/main
 hello: compiler
-	./parser test2/helloWorld.decaf
-	clang decafruntime.c main.o -o main
-	./main
+	../build/parser test2/helloWorld.decaf
+	clang decafruntime.c ../build/main.o -o ../build/main
+	../build/main
 test0: compiler
-	./parser test2/test0.decaf
-	clang decafruntime.c main.o -o main
-	./main
+	../build/parser test2/test0.decaf
+	clang decafruntime.c ../build/main.o -o ../build/main
+	../build/main
 
 .PHONY: clean
 
