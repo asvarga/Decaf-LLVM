@@ -131,39 +131,60 @@ void CodeGenV::visit(ModifierA* a) {
 
 void CodeGenV::visit(MethodA* a) {
     indent(a->getDepth()); cout << "MethodA\n";
-
     currMethod = a;
     currSymTab = a->getSymbolTable();
-    BasicBlock *BB = BasicBlock::Create(TheContext, a->getName());
+    
+    // TODO: currently all methods are type () -> int64 and just return 999    
+    Type *returnType = Type::getInt64Ty(TheContext);
+    std::vector<Type*> argTypes(0);
+    FunctionType *FT = FunctionType::get(returnType, argTypes, false);
+
+    string fname = a->getClass()->getName() + "$" + a->getName();   // TODO: make sure no collision across classes
+    Function *TheFunction = Function::Create(FT, Function::ExternalLinkage, fname, TheModule.get());   
+
+    BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
     Builder.SetInsertPoint(BB);
-    currSymTab->enterScope(BB);
 
-    a->setBB(BB);
+    Value *RetVal = ConstantInt::get(Type::getInt64Ty(TheContext), 999);
+    Builder.CreateRet(RetVal);
+    verifyFunction(*TheFunction);
 
-    // Type* type = a->getType()->getType();
-    // vector<Type*> argtypes = a->getTypes();
-    //
-    // FunctionType *FT = FunctionType::get(type, argtypes, false);
-    // Function *F = Function::Create(FT, Function::ExternalLinkage, Name, TheModule.get());
-    // // Create a new basic block to start insertion into.
-    // BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
-    // Builder.SetInsertPoint(BB);
-    //
     // // Record the function arguments in the NamedValues map.
     // NamedValues.clear(); //figure out this business for Symbol table
     // for (auto &Arg : TheFunction->args())
     //   NamedValues[Arg.getName()] = &Arg;
-    //
 
-    if (a->getName() == "main") {
-        ClassA *mainClass = a->getClass();
-        // TODO: define simple IO methods directly in mainClass (temporarily avoid classes)
-    }
+
+    currSymTab->enterScope(BB);
+    a->setBB(BB);   // TODO: store Function instead of BasicBlock?
 
     a->getModifiers()->accept(*this);
     a->getType()->accept(*this);
     a->getArgs()->accept(*this);
     a->getMethodBody()->accept(*this);
+
+
+    if (a->getName() == "main") {
+        // build _Decaf$Main in global scope which just calls the main method defined above
+
+        Type *mainReturnType = Type::getInt64Ty(TheContext);
+        std::vector<Type*> mainArgTypes(1, Type::getInt64Ty(TheContext));
+        FunctionType *mainFT = FunctionType::get(mainReturnType, mainArgTypes, false);
+
+        Function *MainFunction = Function::Create(mainFT, Function::ExternalLinkage, "_$DecafMain", TheModule.get()); 
+
+        BasicBlock *BB = BasicBlock::Create(TheContext, "entry", MainFunction);
+        Builder.SetInsertPoint(BB);
+
+        std::vector<Value *> ArgsV; // no args
+        Value *RetVal = Builder.CreateCall(TheFunction, ArgsV, "calltmp");  // call function above
+        Builder.CreateRet(RetVal);
+        verifyFunction(*TheFunction);
+
+
+        // ClassA *mainClass = a->getClass();
+        // TODO: link to IO methods directly in mainClass (temporarily avoid classes)
+    }
 }
 
 void CodeGenV::visit(ConstructorA* a) {

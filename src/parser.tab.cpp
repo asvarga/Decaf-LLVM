@@ -2843,6 +2843,9 @@ int main(int argc, char **argv) {
     TheModule->print(errs(), nullptr);
 
     cout << "\n";
+    cout << "\n===[DONE]===\n";
+    cout << "\n";
+
 
 	return 0;
 }

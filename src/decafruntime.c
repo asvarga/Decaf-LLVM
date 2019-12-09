@@ -212,7 +212,8 @@ doAlloc(int typ,int ndim,int dim,va_list ap)
 /*										*/
 /********************************************************************************/
 
-extern void _$DecafMain(ARRAY);
+// extern void _$DecafMain(ARRAY);
+extern int _$DecafMain();
 extern int main();
 
 int main(int argc,char ** argv)
@@ -227,7 +228,7 @@ int main(int argc,char ** argv)
 
    // _$DecafMain(a);
 
-   IO$putInt(123);
+   IO$putInt(_$DecafMain());
    IO$putChar('\n');
 
    return 0;
