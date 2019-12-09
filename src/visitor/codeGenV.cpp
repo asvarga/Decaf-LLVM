@@ -131,11 +131,20 @@ void CodeGenV::visit(ModifierA* a) {
 void CodeGenV::visit(MethodA* a) {
     indent(a->getDepth()); cout << "MethodA\n";
 
-    currMethod = a;
-    currSymTab = a->getSymbolTable();
-    BasicBlock *BB = BasicBlock::Create(TheContext, a->getName());
-    Builder.SetInsertPoint(BB);
-    currSymTab->enterScope(BB);
+    // Type* type = a->getType()->getType();
+    // vector<Type*> argtypes = a->getTypes();
+    //
+    // FunctionType *FT = FunctionType::get(type, argtypes, false);
+    // Function *F = Function::Create(FT, Function::ExternalLinkage, Name, TheModule.get());
+    // // Create a new basic block to start insertion into.
+    // BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
+    // Builder.SetInsertPoint(BB);
+    //
+    // // Record the function arguments in the NamedValues map.
+    // NamedValues.clear(); //figure out this business for Symbol table
+    // for (auto &Arg : TheFunction->args())
+    //   NamedValues[Arg.getName()] = &Arg;
+    //
 
     a->getModifiers()->accept(*this);
     a->getType()->accept(*this);
