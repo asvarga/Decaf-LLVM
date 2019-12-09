@@ -5,11 +5,13 @@
 #include "symbolTable.h"
 
 using namespace llvm;
+using namespace llvm::sys;
+
 
 /// LLVM ///
 static LLVMContext TheContext;
 static IRBuilder<> Builder(TheContext);
-static std::unique_ptr<Module> TheModule;
+static std::unique_ptr<Module> TheModule = make_unique<Module>("START", TheContext);
 static std::map<std::string, Value *> NamedValues;
 
 class CodeGenV : public Visitor {

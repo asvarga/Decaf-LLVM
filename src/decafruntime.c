@@ -46,16 +46,16 @@ String$$init$(String xthis)
 
 
 
-String
-_$CreateString(char * t)
-{
-   extern void * _V$String;
+// String
+// _$CreateString(char * t)
+// {
+//    extern void * _V$String;
 
-   String s = (String) malloc(sizeof(struct __String) + strlen(t));
-   s->v_table = &_V$String;
-   strcpy(s->contents,t);
-   return s;
-}
+//    String s = (String) malloc(sizeof(struct __String) + strlen(t));
+//    s->v_table = &_V$String;
+//    strcpy(s->contents,t);
+//    return s;
+// }
 
 
 
@@ -131,14 +131,14 @@ IO$getInt()
 
 
 
-String
-IO$getLine()
-{
-   char buf[10240];
-   fgets(buf,10240,stdin);
+// String
+// IO$getLine()
+// {
+//    char buf[10240];
+//    fgets(buf,10240,stdin);
 
-   return _$CreateString(buf);
-}
+//    return _$CreateString(buf);
+// }
 
 
 
@@ -215,17 +215,20 @@ doAlloc(int typ,int ndim,int dim,va_list ap)
 extern void _$DecafMain(ARRAY);
 extern int main();
 
-main(int argc,char ** argv)
+int main(int argc,char ** argv)
 {	
-   int i;
-   ARRAY a = _$ArrayAllocate(3,1,argc-1);
-   String * sp = (String *) (&a->data);
+   // int i;
+   // ARRAY a = _$ArrayAllocate(3,1,argc-1);
+   // String * sp = (String *) (&a->data);
 
-   for (i = 1; i < argc; ++i) {
-      sp[i-1] = _$CreateString(argv[i]);
-    }
+   // for (i = 1; i < argc; ++i) {
+   //    sp[i-1] = _$CreateString(argv[i]);
+   //  }
 
-   _$DecafMain(a);
+   // _$DecafMain(a);
+
+   IO$putInt(123);
+   IO$putChar('\n');
 
    return 0;
 }

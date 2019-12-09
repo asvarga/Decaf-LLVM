@@ -81,6 +81,7 @@ void CodeGenV::visit(ListA* a) {
 void CodeGenV::visit(StartA* a) {
     indent(a->getDepth()); cout << "StartA\n";
     currStart = a;
+
     a->getList()->accept(*this);
 }
 
@@ -131,6 +132,14 @@ void CodeGenV::visit(ModifierA* a) {
 void CodeGenV::visit(MethodA* a) {
     indent(a->getDepth()); cout << "MethodA\n";
 
+    currMethod = a;
+    currSymTab = a->getSymbolTable();
+    BasicBlock *BB = BasicBlock::Create(TheContext, a->getName());
+    Builder.SetInsertPoint(BB);
+    currSymTab->enterScope(BB);
+
+    a->setBB(BB);
+
     // Type* type = a->getType()->getType();
     // vector<Type*> argtypes = a->getTypes();
     //
@@ -145,6 +154,11 @@ void CodeGenV::visit(MethodA* a) {
     // for (auto &Arg : TheFunction->args())
     //   NamedValues[Arg.getName()] = &Arg;
     //
+
+    if (a->getName() == "main") {
+        ClassA *mainClass = a->getClass();
+        // TODO: define simple IO methods directly in mainClass (temporarily avoid classes)
+    }
 
     a->getModifiers()->accept(*this);
     a->getType()->accept(*this);
