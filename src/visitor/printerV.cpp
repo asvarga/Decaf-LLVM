@@ -113,17 +113,15 @@ void PrinterV::visit(StartA* a) {
 
 void PrinterV::visit(SuperA* a) {
     indent();
-    cout << "SuperA\n";
+    cout << "SuperA: " << a->getName() <<  "\n";
     ++d;
-    a->getName()->accept(*this);
     --d;
 }
 
 void PrinterV::visit(ClassA* a) {
     indent();
-    cout << "ClassA\n" ;
+    cout << "ClassA: " << a->getName() << "\n" ;
     ++d;
-    a->getName()->accept(*this);
     a->getSuperClass()->accept(*this);
     a->getMembers()->accept(*this);
     --d;
@@ -148,9 +146,8 @@ void PrinterV::visit(FieldDeclA* a) {
 
 void PrinterV::visit(VarDeclA* a) {
     indent();
-    cout << "VarDeclA\n";
+    cout << "VarDeclA: " << a->getName() << endl;
     ++d;
-    a->getName()->accept(*this);
     a->getExpression()->accept(*this);
     --d;
 }
@@ -174,9 +171,8 @@ void PrinterV::visit(ModifierA* a) {
 
 void PrinterV::visit(MethodA* a) {
     indent();
-    cout << "MethodA\n";
+    cout << "MethodA: " << a->getName() << endl;
     ++d;
-    a->getName()->accept(*this);
     a->getModifiers()->accept(*this);
     a->getType()->accept(*this);
     a->getArgs()->accept(*this);
@@ -196,10 +192,9 @@ void PrinterV::visit(ConstructorA* a) {
 
 void PrinterV::visit(FormalA* a) {
     indent();
-    cout << "FormalA\n";
+    cout << "FormalA" << a->getVarDecl() << "\n";
     ++d;
     a->getType()->accept(*this);
-    a->getVarDecl()->accept(*this);
     --d;
 }
 

@@ -156,7 +156,7 @@ StartA* start;
 %type<modifierA>        modifier
 %type<newArrayA>        new_array_expr
 %type<primaryExprA>     primary
-%type<nameA>            var_decl_id
+%type<s>            var_decl_id
 
 
 %%
@@ -177,26 +177,26 @@ class_list
 
 single_class
     : CLASS IDENTIFIER OC CC {
-        yydebug(" $$ = new ClassA(new NameA($2), new SuperA( new NameA(\"Object\"))); ");
-        $$ = new ClassA(new NameA($2), new SuperA( new NameA("Object")));
+        yydebug(" $$ = new ClassA($2, new SuperA( \"Object\"); ");
+        $$ = new ClassA($2, new SuperA("Object"));
     }
     | CLASS IDENTIFIER OC member_list CC {
-        yydebug(" $$ = new ClassA( new NameA($2), new SuperA(new NameA(\"Object\")), $4); ");
-        $$ = new ClassA( new NameA($2), new SuperA(new NameA("Object")), $4);
+        yydebug(" $$ = new ClassA($2, new SuperA(\"Object\"), $4); ");
+        $$ = new ClassA($2, new SuperA("Object"), $4);
     }
     | CLASS IDENTIFIER super OC member_list CC {
-        yydebug(" $$ = new ClassA( new NameA($2), $3, $5); ");
-        $$ = new ClassA( new NameA($2), $3, $5);
+        yydebug(" $$ = new ClassA($2, $3, $5); ");
+        $$ = new ClassA($2, $3, $5);
     }
     | CLASS IDENTIFIER super OC CC {
-        yydebug(" $$ = new ClassA( new NameA($2), $3); ");
-        $$ = new ClassA( new NameA($2), $3);
+        yydebug(" $$ = new ClassA( $2, $3); ");
+        $$ = new ClassA($2, $3);
     }
 
 super
     : EXTENDS IDENTIFIER {
-        yydebug(" $$ = new SuperA(NameA($2)); ");
-        $$ = new SuperA(new NameA($2));
+        yydebug(" $$ = new SuperA($2); ");
+        $$ = new SuperA($2);
      }
 
 member_list
@@ -255,22 +255,22 @@ modifier_list
 
 method_decl
     : modifier_list type_decl IDENTIFIER formal_args block {
-        yydebug(" $$ = new MethodA($1, $2, new NameA($3), $4, new MethodBodyA($4, $5->getStatementList())); ");
-        $$ = new MethodA($1, $2, new NameA($3), $4, new MethodBodyA($4, $5->getStatementList()));
+        yydebug(" $$ = new MethodA($1, $2, $3, $4, new MethodBodyA($4, $5->getStatementList())); ");
+        $$ = new MethodA($1, $2, $3, $4, new MethodBodyA($4, $5->getStatementList()));
     }
     | type_decl IDENTIFIER formal_args block {
-        yydebug(" $$ = new MethodA($1, new NameA($2), $3, new MethodBodyA($3, $4->getStatementList())); ");
-        $$ = new MethodA($1, new NameA($2), $3, new MethodBodyA($3, $4->getStatementList()));
+        yydebug(" $$ = new MethodA($1, $2, $3, new MethodBodyA($3, $4->getStatementList())); ");
+        $$ = new MethodA($1, $2, $3, new MethodBodyA($3, $4->getStatementList()));
     }
 
 ctor
     : modifier_list IDENTIFIER formal_args block {
-        yydebug(" $$ = new ConstructorA(new ClassTypeA(new NameA($2)), $1, new MethodBodyA($3, $4->getStatementList())); ");
-        $$ = new ConstructorA(new ClassTypeA(new NameA($2)), $1, new MethodBodyA($3, $4->getStatementList()));
+        yydebug(" $$ = new ConstructorA(new ClassTypeA(new NameA($2, 1)), $1, new MethodBodyA($3, $4->getStatementList())); ");
+        $$ = new ConstructorA(new ClassTypeA(new NameA($2, 1)), $1, new MethodBodyA($3, $4->getStatementList()));
     }
     | IDENTIFIER formal_args block {
-        yydebug(" $$ = new ConstructorA(new ClassTypeA(new NameA($1)), new MethodBodyA($2, $3->getStatementList())); ");
-        $$ = new ConstructorA(new ClassTypeA(new NameA($1)), new MethodBodyA($2, $3->getStatementList()));
+        yydebug(" $$ = new ConstructorA(new ClassTypeA(new NameA($1, 1)), new MethodBodyA($2, $3->getStatementList())); ");
+        $$ = new ConstructorA(new ClassTypeA(new NameA($1, 1)), new MethodBodyA($2, $3->getStatementList()));
     }
 
 modifier
@@ -323,11 +323,11 @@ type_decl
         $$ = $1;
     }
     | IDENTIFIER {
-        yydebug(" $$ = new ClassTypeA($1); ");
-        $$ = new ClassTypeA(new NameA($1));
+        yydebug(" $$ = new ClassTypeA(new NameA($1, 1)); ");
+        $$ = new ClassTypeA(new NameA($1, 1));
     }
     | type_decl bracket_list {
-        yydebug(" $$ = new ArrayTypeA(new NameA($1), $2); ");
+        yydebug(" $$ = new ArrayTypeA($1, $2); ");
         $$ = new ArrayTypeA($1, $2);
     }
 
@@ -343,20 +343,20 @@ bracket_list
 
 primitive_type
     : TYPE_BOOL {
-        yydebug(" $$ = new PrimTypeA(new NameA($1)); ");
-        $$ = new PrimTypeA(new NameA($1));
+        yydebug(" $$ = new PrimTypeA(new NameA($1, 1)); ");
+        $$ = new PrimTypeA(new NameA($1, 1));
     }
     | TYPE_CHAR {
-        yydebug(" $$ = new PrimTypeA(new NameA($1)); ");
-        $$ = new PrimTypeA(new NameA($1));
+        yydebug(" $$ = new PrimTypeA(new NameA($1, 1)); ");
+        $$ = new PrimTypeA(new NameA($1, 1));
     }
     | TYPE_INT  {
-        yydebug(" $$ = new PrimTypeA(new NameA($1)); ");
-        $$ = new PrimTypeA(new NameA($1));
+        yydebug(" $$ = new PrimTypeA(new NameA($1, 1)); ");
+        $$ = new PrimTypeA(new NameA($1, 1));
     }
     | TYPE_VOID {
-        yydebug(" $$ = new PrimTypeA(new NameA($1)); ");
-        $$ = new PrimTypeA(new NameA($1));
+        yydebug(" $$ = new PrimTypeA(new NameA($1, 1)); ");
+        $$ = new PrimTypeA(new NameA($1, 1));
     }
 
 var_decl_list
@@ -386,7 +386,7 @@ var_decl_id
     }
     | IDENTIFIER {
         yydebug(" $$ = $1; ");
-        $$ = new NameA($1);
+        $$ = $1;
     }
 
 block
@@ -545,13 +545,13 @@ primary
     }
     | IDENTIFIER {
         yydebug(" $$ = $1; ");
-        $$ = new NameA($1);
+        $$ = new NameA($1, 6);
     }
 
 new_array_expr
     : NEW IDENTIFIER dimension_list {
         yydebug(" new NewArrayA( new NameA($2), $3) ");
-        new NewArrayA( new ClassTypeA(new NameA($2)), $3);
+        new NewArrayA( new ClassTypeA(new NameA($2, 2)), $3);
     }
     | NEW primitive_type dimension_list {
         yydebug("new newArrayA($2, $3);");
@@ -593,19 +593,19 @@ non_new_array_expr
     }
     | NEW IDENTIFIER actual_args {
         yydebug(" $$ = new NewObjExprA(new NameA($2), $3); ");
-        $$ = new NewObjExprA(new NameA($2), $3);
+        $$ = new NewObjExprA(new NameA($2, 2), $3);
     }
     | IDENTIFIER actual_args {
         yydebug(" $$ = new ThisCallExprA($1, $2); ");
-        $$ = new ThisCallExprA(new NameA($1), $2);
+        $$ = new ThisCallExprA(new NameA($1, 2), $2);
     }
     | primary DOT IDENTIFIER actual_args {
         yydebug(" $$ = new MethodCallExprA($1, $3, $4); ");
-        $$ = new MethodCallExprA($1, new NameA($3), $4);
+        $$ = new MethodCallExprA($1, new NameA($3, 3), $4);
     }
     | SUPER DOT IDENTIFIER actual_args {
         yydebug(" $$ = new SuperCallExprA($3, $4); ");
-        $$ = new SuperCallExprA(new NameA($3), $4);
+        $$ = new SuperCallExprA(new NameA($3, 3), $4);
     }
     | array_expr {
         yydebug(" $$ = $1; ");
@@ -618,18 +618,18 @@ non_new_array_expr
 
 field_expr
     : primary DOT IDENTIFIER {
-        yydebug(" $$ = new FieldExprA($1, $3);");
-        $$ = new FieldExprA($1, new NameA($3));
+        yydebug(" $$ = new FieldExprA($1, new NameA($3, 6));");
+        $$ = new FieldExprA($1, new NameA($3, 5));
     }
     | SUPER DOT IDENTIFIER {
         yydebug(" $$ = new SuperfieldExpr($3); ");
-        $$ = new SuperFieldExprA(new NameA($3));
+        $$ = new SuperFieldExprA(new NameA($3, 5));
     }
 
 array_expr
     : IDENTIFIER dimension {
-        yydebug(" $$ = new ArrayRefA(new NameA($1), $2); ");
-        $$ = new ArrayRefA(new NameA($1), $2);
+        yydebug(" $$ = new ArrayRefA(new NameA($1, 1), $2); ");
+        $$ = new ArrayRefA(new NameA($1, 1), $2);
     }
     | non_new_array_expr dimension {
         yydebug(" $$ = new ArrayRefA($1, $2); ");
@@ -714,6 +714,6 @@ int main(int argc, char **argv) {
     cout << "Main Register: " << start->getMain()->getReg() << "\n";
     cout << "\n";
 
-    
+
 	return 0;
 }
