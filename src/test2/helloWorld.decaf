@@ -1,0 +1,7 @@
+
+class Hello {
+  static public void main (String[] argv)
+  {
+    IO.putString ("Hello World!");
+  }
+}
