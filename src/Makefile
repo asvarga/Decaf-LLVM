@@ -3,8 +3,8 @@ parser: parser.ypp lexer.l
 	flex lexer.l
 	bison -d parser.ypp
 
-compiler: parser 
-	g++ -std=c++11 -o parser parser.tab.cpp lex.yy.c -ll -g -ldl `llvm-config --cppflags --libs --libfiles core --ldflags --system-libs` 
+compiler: parser
+	g++ -std=c++11 -Wfatal-errors -o parser parser.tab.cpp lex.yy.c -ll -g -ldl `llvm-config --cppflags --libs --libfiles core --ldflags --system-libs`
 
 # TESTS #
 adder: compiler
@@ -13,8 +13,6 @@ empty: compiler
 	./parser test2/emptyClasses.decaf
 test0: compiler
 	./parser test2/test0.decaf
-test1: compiler
-	./parser test/adder.decaf
 
 .PHONY: clean
 

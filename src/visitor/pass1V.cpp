@@ -132,7 +132,6 @@ void Pass1V::visit(SuperA* a) {
     parent = a;
     a->setDepth(d);
     ++d;
-    a->getName()->accept(*this);
     --d;
 }
 
@@ -142,10 +141,9 @@ void Pass1V::visit(ClassA* a) {
     a->setDepth(d);
 
     this->currClass = a;
-    this->currStart->addClass(a->getName()->getName(), a); 
+    this->currStart->addClass(a->getName(), a);
 
     ++d;
-    a->getName()->accept(*this);
     a->getSuperClass()->accept(*this);
     a->getMembers()->accept(*this);
     --d;
@@ -175,7 +173,6 @@ void Pass1V::visit(VarDeclA* a) {
     parent = a;
     a->setDepth(d);
     ++d;
-    a->getName()->accept(*this);
     a->getExpression()->accept(*this);
     --d;
 }
@@ -205,15 +202,14 @@ void Pass1V::visit(MethodA* a) {
     a->setDepth(d);
 
     this->currMethod = a;
-    this->currClass->addMethod(a->getName()->getName(), a); 
+    this->currClass->addMethod(a->getName(), a);
     a->setClass(currClass);
-    if (a->getName()->getName() == "main") {
+    if (a->getName() == "main") {
         // cout << "FOUND!" << "\n";
         currStart->setMain(a);
     }
 
     ++d;
-    a->getName()->accept(*this);
     a->getModifiers()->accept(*this);
     a->getType()->accept(*this);
     a->getArgs()->accept(*this);
@@ -238,7 +234,6 @@ void Pass1V::visit(FormalA* a) {
     a->setDepth(d);
     ++d;
     a->getType()->accept(*this);
-    a->getVarDecl()->accept(*this);
     --d;
 }
 

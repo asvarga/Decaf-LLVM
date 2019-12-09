@@ -1,4 +1,3 @@
-
 #include "codeGenV.h"
 
 void CodeGenV::visit(StrLitA* a) {
@@ -7,7 +6,7 @@ void CodeGenV::visit(StrLitA* a) {
 void CodeGenV::visit(CharLitA* a) {
     indent(a->getDepth()); cout << "CharLitA: " << a->getValue() << endl ;
     a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), a->getValue()));
-    
+
 }
 void CodeGenV::visit(IntLitA* a) {
     indent(a->getDepth()); cout << "IntLitA: " << a->getValue() << "\n";
@@ -87,7 +86,6 @@ void CodeGenV::visit(StartA* a) {
 
 void CodeGenV::visit(SuperA* a) {
     indent(a->getDepth()); cout << "SuperA\n";
-    a->getName()->accept(*this);
 }
 
 void CodeGenV::visit(ClassA* a) {
@@ -95,7 +93,6 @@ void CodeGenV::visit(ClassA* a) {
 
     currClass = a;
 
-    a->getName()->accept(*this);
     a->getSuperClass()->accept(*this);
     a->getMembers()->accept(*this);
 }
@@ -112,12 +109,12 @@ void CodeGenV::visit(FieldDeclA* a) {
 }
 
 void CodeGenV::visit(VarDeclA* a) {
-    indent(a->getDepth()); cout << "VarDeclA: " << a->getName()->getName() << "\n";
+    indent(a->getDepth()); cout << "VarDeclA: " << a->getName() << "\n";
     // a->getName()->accept(*this);
     a->getExpression()->accept(*this);
-    Value *reg = a->getExpression()->getReg(); 
-    //= ConstantInt::get(Type::getInt64Ty(TheContext), 0); 
-    currSymTab->declareLocal(a->getName()->getName(), reg);
+    Value *reg = a->getExpression()->getReg();
+    //= ConstantInt::get(Type::getInt64Ty(TheContext), 0);
+    currSymTab->declareLocal(a->getName(), reg);
 }
 
 void CodeGenV::visit(FieldA* a) {
@@ -136,11 +133,10 @@ void CodeGenV::visit(MethodA* a) {
 
     currMethod = a;
     currSymTab = a->getSymbolTable();
-    BasicBlock *BB = BasicBlock::Create(TheContext, a->getName()->getName());
+    BasicBlock *BB = BasicBlock::Create(TheContext, a->getName());
     Builder.SetInsertPoint(BB);
     currSymTab->enterScope(BB);
-    
-    a->getName()->accept(*this);
+
     a->getModifiers()->accept(*this);
     a->getType()->accept(*this);
     a->getArgs()->accept(*this);
@@ -157,7 +153,7 @@ void CodeGenV::visit(ConstructorA* a) {
 void CodeGenV::visit(FormalA* a) {
     indent(a->getDepth()); cout << "FormalA\n";
     a->getType()->accept(*this);
-    a->getVarDecl()->accept(*this);
+    a->getVarDecl();
 }
 
 void CodeGenV::visit(DeclStatementA* a) {

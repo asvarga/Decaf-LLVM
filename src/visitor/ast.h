@@ -102,9 +102,11 @@ public:
 
 class NameA : public PrimaryExprA {
     string name;
+    int nameCase;
 public:
-    NameA(string n): name(n){};
-    string getName() { return name; }
+    NameA(string n, int nc): name(n), nameCase(nc){};
+    string getName() { return name; };
+    int getCase() { return nameCase; };
     virtual void accept(Visitor& v);
 };
 
@@ -164,7 +166,7 @@ public:
 
     void addClass(string name, ClassA *clas) { classTable.insert({name, clas}); }
     bool hasClass(string name) { return classTable.end() != classTable.find(name); }
-    ClassA *getClass(string name) { 
+    ClassA *getClass(string name) {
         if (hasClass(name)) { return classTable[name]; } else {
             cout << "Class not in scope: " << name << endl;
             return nullptr;
@@ -180,15 +182,15 @@ public:
 };
 
 class SuperA : public AST {
-    NameA *name;
+    string name;
 public:
-    SuperA(NameA *n): name(n) {};
-    NameA *getName() { return name; };
+    SuperA(string n): name(n) {};
+    string getName() { return name; };
     virtual void accept(Visitor& v);
 };
 
 class ClassA : public AST {
-    NameA *name;
+    string name;
     SuperA *superClass;
     // NOTE: Changed constructors so default is provided in Parser.ypp
     // We need to decide if the type of superClass is ClassA, SuperA TypeA or ClassTypeA
@@ -197,16 +199,16 @@ class ClassA : public AST {
     std::map<string, FieldA*> fieldTable;
 public:
     //ClassA(string n): name(n), members(new ListA()) {};
-    ClassA(NameA *n, SuperA *sc): name(n), superClass(sc), members(new ListA()) {};
+    ClassA(string n, SuperA *sc): name(n), superClass(sc), members(new ListA()) {};
     //ClassA(string n, ListA *ms): name(n), members(ms) {};
-    ClassA(NameA *n, SuperA *sc, ListA *ms): name(n), superClass(sc), members(ms) {};
-    NameA *getName() { return name; };
+    ClassA(string n, SuperA *sc, ListA *ms): name(n), superClass(sc), members(ms) {};
+    string getName() { return name; };
     SuperA *getSuperClass() { return superClass; };
     ListA *getMembers() { return members; };
 
     void addMethod(string name, MethodA *method) { methodTable.insert({name, method}); }
     bool hasMethod(string name) { return methodTable.end() != methodTable.find(name); }
-    MethodA *getMethod(string name) { 
+    MethodA *getMethod(string name) {
         if (hasMethod(name)) { return methodTable[name]; } else {
             cout << "Method not in scope: " << name << endl;
             return nullptr;
@@ -214,7 +216,7 @@ public:
     }
     void addField(string name, FieldA *field) { fieldTable.insert({name, field}); }
     bool hasField(string name) { return fieldTable.end() != fieldTable.find(name); }
-    FieldA *getField(string name) { 
+    FieldA *getField(string name) {
         if (hasField(name)) { return fieldTable[name]; } else {
             cout << "Field not in scope: " << name << endl;
             return nullptr;
@@ -247,12 +249,12 @@ public:
 
 
 class VarDeclA : public AST {
-    NameA *name;
+    string name;
     ExpressionA *expression;
 public:
-    VarDeclA(NameA *n): name(n), expression(0) {};
-    VarDeclA(NameA *n, ExpressionA *e): name(n), expression(e) {};
-    NameA *getName() { return name; }
+    VarDeclA(string n): name(n), expression(0) {};
+    VarDeclA(string n, ExpressionA *e): name(n), expression(e) {};
+    string getName() { return name; }
     ExpressionA *getExpression() { return expression; };
     virtual void accept(Visitor& v);
 };
@@ -280,23 +282,23 @@ public:
 class MethodA : public AST {
     ListA *modifiers;
     TypeA *type;
-    NameA *name;
+    string name;
     ListA *args;
     MethodBodyA *methodbody;
     SymbolTable *symbolTable;
     ClassA *clas;
 public:
-    MethodA(ListA* ms, TypeA *t, NameA *n, ListA *as, MethodBodyA *m):
+    MethodA(ListA* ms, TypeA *t, string n, ListA *as, MethodBodyA *m):
         modifiers(ms), type(t), name(n), args(as), methodbody(m) {
             symbolTable = new SymbolTable();
         };
-    MethodA(TypeA *t, NameA *n, ListA *as, MethodBodyA *m):
+    MethodA(TypeA *t, string n, ListA *as, MethodBodyA *m):
         modifiers(new ListA()), type(t), name(n), args(as), methodbody(m) {
             modifiers = new ListA();
             modifiers->addb(new ModifierA("public")); // Correct?:
             symbolTable = new SymbolTable();
         };
-    NameA *getName() { return name; }
+    string getName() { return name; }
     ListA *getModifiers() { return modifiers; }
     TypeA *getType() { return type; };
     ListA *getArgs() { return args; }
@@ -326,11 +328,11 @@ public:
 
 class FormalA : public AST {
     TypeA *type;
-    NameA *varDecl;
+    string varDecl;
 public:
-    FormalA(TypeA *t, NameA *v): type(t), varDecl(v) {};
+    FormalA(TypeA *t, string v): type(t), varDecl(v) {};
     TypeA *getType() { return type; };
-    NameA *getVarDecl() { return varDecl; }
+    string getVarDecl() { return varDecl; }
     virtual void accept(Visitor& v);
 };
 
@@ -649,6 +651,5 @@ public:
     virtual void visit(NullLitA* a) = 0;
     virtual void visit(ModifierA* a) = 0;
     virtual void visit(ThisExprA* a) = 0;
-    
-};
 
+};
