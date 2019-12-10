@@ -15,8 +15,13 @@ static std::unique_ptr<Module> TheModule = make_unique<Module>("START", TheConte
 static std::map<std::string, Value *> NamedValues;
 
 /// extern ///
-Function *PutIntFunction;
 Function *PutCharFunction;
+Function *PutIntFunction;
+Function *PutStringFunction;
+Function *PeekFunction;
+Function *GetCharFunction;
+Function *GetIntFunction;
+Function *GetLineFunction;
 
 class CodeGenV : public Visitor {
     // Module * module;
@@ -44,6 +49,26 @@ public:
         std::vector<Type*> putCharArgTypes(1, Type::getInt8Ty(TheContext));
         FunctionType *putCharFT = FunctionType::get(putCharReturnType, putCharArgTypes, false);
         PutCharFunction = Function::Create(putCharFT, Function::ExternalLinkage, "IO$putChar", TheModule.get()); 
+
+        // peek external declaration
+        Type *peekReturnType = Type::getInt8Ty(TheContext);
+        std::vector<Type*> peekArgTypes;
+        FunctionType *peekFT = FunctionType::get(peekReturnType, peekArgTypes, false);
+        PeekFunction = Function::Create(peekFT, Function::ExternalLinkage, "IO$peek", TheModule.get()); 
+
+        // getChar external declaration
+        Type *getCharReturnType = Type::getInt8Ty(TheContext);
+        std::vector<Type*> getCharArgTypes;
+        FunctionType *getCharFT = FunctionType::get(getCharReturnType, getCharArgTypes, false);
+        GetCharFunction = Function::Create(getCharFT, Function::ExternalLinkage, "IO$getChar", TheModule.get()); 
+
+        // getInt external declaration
+        Type *getIntReturnType = Type::getInt64Ty(TheContext);
+        std::vector<Type*> getIntArgTypes;
+        FunctionType *getIntFT = FunctionType::get(getIntReturnType, getIntArgTypes, false);
+        GetIntFunction = Function::Create(getIntFT, Function::ExternalLinkage, "IO$getInt", TheModule.get()); 
+
+
     }
     void LogErrorV(const char *s) {
         cout << "XXXX error: " << s << " XXXXXXXXXXXXXXXXXXXXXXX\n";

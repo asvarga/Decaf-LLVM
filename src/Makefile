@@ -22,7 +22,7 @@ hello: compiler
 test0: compiler
 	../build/parser test2/test0.decaf
 	clang decafruntime.c ../build/main.o -o ../build/main
-	../build/main
+	../build/main	# enter an int...
 
 .PHONY: clean
 

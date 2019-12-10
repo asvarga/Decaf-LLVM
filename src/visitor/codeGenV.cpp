@@ -161,12 +161,17 @@ void CodeGenV::visit(MethodA* a) {
     BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
     Builder.SetInsertPoint(BB);
 
-    // call IO$putInt(777)
-    std::vector<Value *> putIntArgsV(1, ConstantInt::get(Type::getInt64Ty(TheContext), 777));
-    Builder.CreateCall(PutIntFunction, putIntArgsV, "calltmp");  // call main
+    // call IO$getInt()
+    std::vector<Value *> getIntArgsV;
+    Value *i = Builder.CreateCall(GetIntFunction, getIntArgsV, "calltmp");
+    // square result
+    Value *i2 = Builder.CreateMul(i, i, "multmp");
+    // call IO$putInt(i2)
+    std::vector<Value *> putIntArgsV(1, i2);
+    Builder.CreateCall(PutIntFunction, putIntArgsV, "calltmp");
     // call IO$putChar('\n')
     std::vector<Value *> putCharArgsV(1, ConstantInt::get(Type::getInt8Ty(TheContext), '\n'));
-    Builder.CreateCall(PutCharFunction, putCharArgsV, "calltmp");  // call main
+    Builder.CreateCall(PutCharFunction, putCharArgsV, "calltmp");
     // return void
     Builder.CreateRet(nullptr); // c++ nullptr = llvm void
 
