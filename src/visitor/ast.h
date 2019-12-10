@@ -47,6 +47,7 @@ class AST {
     AST *parent;
 public:
     AST() {};
+    AST(Function *f): func(f) {};
     Value *getReg() { return reg; }
     void setReg(Value *r) { reg = r; }
     BasicBlock *getBB() { return bb; }
@@ -319,6 +320,7 @@ public:
             modifiers->addb(new ModifierA("public")); // Correct?:
             symbolTable = new SymbolTable();
         };
+    MethodA(Function *f): AST(f) {}; // use for externs
     string getName() { return name; }
     ListA *getModifiers() { return modifiers; }
     TypeA *getType() { return type; };

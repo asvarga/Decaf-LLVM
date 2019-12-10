@@ -82,6 +82,17 @@ void CodeGenV::visit(StartA* a) {
     indent(a->getDepth()); cout << "StartA\n";
     currStart = a;
 
+    // build IO object
+    ClassA *IO = new ClassA("IO", new SuperA("Object"));
+    a->addClass("IO", IO);
+    IO->addMethod("putChar", new MethodA(PutCharFunction));
+    IO->addMethod("putInt", new MethodA(PutIntFunction));
+    IO->addMethod("putString", new MethodA(PutStringFunction));
+    IO->addMethod("peek", new MethodA(PeekFunction));
+    IO->addMethod("getChar", new MethodA(GetCharFunction));
+    IO->addMethod("getInt", new MethodA(GetIntFunction));
+    IO->addMethod("getLine", new MethodA(GetLineFunction));
+
     a->getList()->accept(*this);
 
     // build _Decaf$Main in global scope which just calls the unique main method
