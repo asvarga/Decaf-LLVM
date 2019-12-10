@@ -45,11 +45,12 @@ void CodeGenV::visit(TypeA* a) {
 }
 
 void CodeGenV::visit(PrimTypeA* a) {
-    indent(a->getDepth()); cout << "PrimTypeA" << "\n";
+    indent(a->getDepth()); cout << "PrimTypeA: " << a->getName()->getName() << "\n";
     // a->getName()->accept(*this);
     string name = a->getName()->getName();
     if (name == "int") {
         a->setIRType(Type::getInt64Ty(TheContext));
+        a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 0));
     } else if (name == "void") {
         a->setIRType(Type::getVoidTy(TheContext));
     } else {
@@ -168,23 +169,27 @@ void CodeGenV::visit(MethodA* a) {
     indent(a->getDepth()); cout << "MethodA\n";
     currMethod = a;
     currSymTab = a->getSymbolTable();
+    currSymTab->enterScope();
     
     a->getModifiers()->accept(*this);
 
+    // return type
     a->getType()->accept(*this);
     Type *returnType = a->getType()->getIRType();
 
+    // arg types
     std::vector<Type*> argTypes;
     currArgTypes = argTypes;    
     a->getArgs()->accept(*this);    // populates currArgTypes
     FunctionType *FT = FunctionType::get(returnType, currArgTypes, false);
-
+    
+    // make TheFunction
     string fname = a->getClass()->getName() + "." + a->getName();   // avoid name collision across classes
     Function *TheFunction = Function::Create(FT, Function::ExternalLinkage, fname, TheModule.get());   
     a->setFunc(TheFunction);
     BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
     Builder.SetInsertPoint(BB);
-    currSymTab->enterScope(BB);
+    
 
     // TODO: replace this hard-coded code with generated code   
     // call IO$getInt()
@@ -219,11 +224,15 @@ void CodeGenV::visit(FormalA* a) {
     indent(a->getDepth()); cout << "FormalA: " << a->getName() << "\n";
     a->getType()->accept(*this);
     currArgTypes.push_back(a->getType()->getIRType());
+    if (a->getType()->getReg() != nullptr) {
+        currSymTab->declareLocal(a->getName(), a->getType()->getReg());
+    }   
 }
 
 void CodeGenV::visit(DeclStatementA* a) {
     indent(a->getDepth()); cout << "DeclStatementA\n";
     a->getType()->accept(*this);
+    currType = a->getType()->getIRType();
     a->getLocalList()->accept(*this);
 }
 

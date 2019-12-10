@@ -21,6 +21,7 @@ Value* Scope::getValue(string name)
 }
 void Scope::declareVar(string name, Value* value)
 {
+
     localSymbols.insert({name, value});
 }
 // just use declareVar and pass a 0
@@ -96,6 +97,9 @@ Value * SymbolTable::getGlobal(std::string name)
 }
 void SymbolTable::enterScope(BasicBlock* block) {
     this->scopes.push_front(new Scope(block));
+}
+void SymbolTable::enterScope() {
+    this->scopes.push_front(new Scope());
 }
 void SymbolTable::leaveScope() {
     this->scopes.pop_front();

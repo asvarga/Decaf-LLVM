@@ -33,6 +33,7 @@ class CodeGenV : public Visitor {
     MethodA *currMethod;
     SymbolTable *currSymTab;
     std::vector<Type*> currArgTypes;
+    Type *currType;
     int nameCase;   // decaf-semantics.pdf: page 12
 public:
     CodeGenV() {

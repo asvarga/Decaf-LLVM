@@ -10,7 +10,7 @@ using namespace llvm;
 class Scope
 {
 public:
-    BasicBlock* block;
+    BasicBlock* block;      // FIXME: why is this needed?
     std::map<string, Value*> localSymbols;
 
     Scope() {}; // TODO: remove
@@ -27,6 +27,10 @@ public:
     // }
 
     void setValue(string name, Value* value);
+
+    void Print(string s) {
+        cout << s << endl;
+    }
 };
 
 class SymbolTable
@@ -56,11 +60,16 @@ public:
     Value * getGlobal(std::string name);
 
     void enterScope(BasicBlock* block);
+    void enterScope();
 
     void leaveScope();
 
     BasicBlock* topBlock();
 
     BasicBlock* localBlock();
+
+    void Print(string s) {
+        cout << s << endl;
+    }
 
 };
