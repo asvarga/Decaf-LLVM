@@ -22,8 +22,7 @@ hello: compiler
 test0: compiler
 	../build/parser test2/test0.decaf
 	clang decafruntime.c ../build/main.o -o ../build/main
-	# ../build/main
-	echo 11111 | ../build/main
+	../build/main
 
 .PHONY: clean
 

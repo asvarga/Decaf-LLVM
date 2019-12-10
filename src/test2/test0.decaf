@@ -4,5 +4,7 @@ class Aaa {
     public static void main (int a, int b) {
         int x = 123;
         int y = x+x;
+        IO.putInt(y);
+        IO.putChar(10); // 10 = \n
     }
 }

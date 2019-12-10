@@ -24,9 +24,10 @@ void CodeGenV::visit(NullLitA* a) {
 }
 
 void CodeGenV::visit(NameA* a) {
-    indent(a->getDepth()); cout << "NameA: " << a->getName() << endl;
+    indent(a->getDepth()); 
+    cout << "NameA: " << a->getName() << " (case " << a->getCase() << ")\n";
     string name = a->getName();
-    switch(nameCase) {
+    switch(a->getCase()) {
         case 1: break;
         case 2: break;
         case 3: break;
@@ -150,7 +151,6 @@ void CodeGenV::visit(VarDeclA* a) {
     // a->getName()->accept(*this);
     a->getExpression()->accept(*this);
     Value *reg = a->getExpression()->getReg();
-    //= ConstantInt::get(Type::getInt64Ty(TheContext), 0);
     currSymTab->declareLocal(a->getName(), reg);
 }
 
@@ -191,24 +191,25 @@ void CodeGenV::visit(MethodA* a) {
     Builder.SetInsertPoint(BB);
     
 
-    // TODO: replace this hard-coded code with generated code   
-    // call IO$getInt()
-    std::vector<Value *> getIntArgsV;
-    currSymTab->declareLocal("i", Builder.CreateCall(GetIntFunction, getIntArgsV, "calltmp"));
-    // square result
-    currSymTab->declareLocal("i2", Builder.CreateMul(currSymTab->getLocal("i"),
-                                                     currSymTab->getLocal("i"),
-                                                     "multmp"));
-    // call IO$putInt(i2)
-    std::vector<Value *> putIntArgsV(1, currSymTab->getLocal("i2"));
-    Builder.CreateCall(PutIntFunction, putIntArgsV, "calltmp");
-    // call IO$putChar('\n')
-    std::vector<Value *> putCharArgsV(1, ConstantInt::get(Type::getInt8Ty(TheContext), '\n'));
-    Builder.CreateCall(PutCharFunction, putCharArgsV, "calltmp");
-    // return void
-    Builder.CreateRet(nullptr); // c++ nullptr = llvm void
+    // // call IO$getInt()
+    // std::vector<Value *> getIntArgsV;
+    // currSymTab->declareLocal("i", Builder.CreateCall(GetIntFunction, getIntArgsV, "calltmp"));
+    // // square result
+    // currSymTab->declareLocal("i2", Builder.CreateMul(currSymTab->getLocal("i"),
+    //                                                  currSymTab->getLocal("i"),
+    //                                                  "multmp"));
+    // // call IO$putInt(i2)
+    // std::vector<Value *> putIntArgsV(1, currSymTab->getLocal("i2"));
+    // Builder.CreateCall(PutIntFunction, putIntArgsV, "calltmp");
+    // // call IO$putChar('\n')
+    // std::vector<Value *> putCharArgsV(1, ConstantInt::get(Type::getInt8Ty(TheContext), '\n'));
+    // Builder.CreateCall(PutCharFunction, putCharArgsV, "calltmp");
 
+    // build method
     a->getMethodBody()->accept(*this);
+
+    // TODO: segfaults if multiple/no returns
+    Builder.CreateRet(nullptr); // c++ nullptr = llvm void
 
     verifyFunction(*TheFunction);
 }
@@ -261,6 +262,7 @@ void CodeGenV::visit(WhileStatementA* a) {
 void CodeGenV::visit(ReturnStatementA* a) {
     indent(a->getDepth()); cout << "ReturnStatementA\n";
     a->getExpression()->accept(*this);
+    Builder.CreateRet(a->getExpression()->getReg());
 }
 void CodeGenV::visit(ContinueStatementA* a) {
     indent(a->getDepth()); cout << "ContinueStatementA\n";
@@ -323,7 +325,8 @@ void CodeGenV::visit(SuperStatementA* a) {
 }
 
 void CodeGenV::visit(OpExpressionA* a) {
-    indent(a->getDepth()); cout << "OpExpressionA: " << a->getOp() << " (" << a->getArity() << ")\n";
+    indent(a->getDepth()); 
+    cout << "OpExpressionA: " << a->getOp() << " (arity " << a->getArity() << ")\n";
     nameCase = 6;
     ExpressionA *e1 = a->getExpression1();
     ExpressionA *e2 = a->getExpression2();
@@ -337,21 +340,22 @@ void CodeGenV::visit(OpExpressionA* a) {
 
         string op = a->getOp();
 
+        // TODO: support all types
         if (!L || !R)
         {
             LogErrorV("Missing operand for binary operator");
         }
         else if ( op == "+")
         {
-            a->setReg(Builder.CreateFAdd(L, R, "addtmp"));
+            a->setReg(Builder.CreateAdd(L, R, "addtmp"));
         }
         else if (op == "-")
         {
-            a->setReg(Builder.CreateFSub(L, R, "subtmp"));
+            a->setReg(Builder.CreateSub(L, R, "subtmp"));
         }
         else if (op == "*")
         {
-            a->setReg(Builder.CreateFMul(L, R, "multmp"));
+            a->setReg(Builder.CreateMul(L, R, "multmp"));
         }
         else if (op == "/")
         {
@@ -442,6 +446,14 @@ void CodeGenV::visit(MethodCallExprA* a) {
     a->getType()->accept(*this);
     a->getName()->accept(*this);
     a->getArgs()->accept(*this);
+    // TODO: this is a total hack, also getType is wack
+    if (a->getName()->getName() == "putInt") {
+        std::vector<Value *> putIntArgsV(1, a->getArgs()->getASTs().front()->getReg());
+        Builder.CreateCall(PutIntFunction, putIntArgsV, "calltmp");
+    } else if (a->getName()->getName() == "putChar") {
+        std::vector<Value *> putCharArgsV(1, a->getArgs()->getASTs().front()->getReg()); //ConstantInt::get(Type::getInt8Ty(TheContext), '\n'));
+        Builder.CreateCall(PutCharFunction, putCharArgsV, "calltmp");
+    }
 }
 
 void CodeGenV::visit(SuperCallExprA* a) {
