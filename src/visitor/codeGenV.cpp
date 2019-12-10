@@ -161,17 +161,19 @@ void CodeGenV::visit(MethodA* a) {
     currMethod = a;
     currSymTab = a->getSymbolTable();
     
-    // TODO: vvv temporary standin function between here and next // TODO:    
+    // TODO: replace this hard-coded type with generated type
     Type *returnType = Type::getVoidTy(TheContext);
     std::vector<Type*> argTypes;
     FunctionType *FT = FunctionType::get(returnType, argTypes, false);
 
     string fname = a->getClass()->getName() + "." + a->getName();   // avoid name collision across classes
     Function *TheFunction = Function::Create(FT, Function::ExternalLinkage, fname, TheModule.get());   
-
+    a->setFunc(TheFunction);
     BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
     Builder.SetInsertPoint(BB);
+    currSymTab->enterScope(BB);
 
+    // TODO: replace this hard-coded code with generated code   
     // call IO$getInt()
     std::vector<Value *> getIntArgsV;
     Value *i = Builder.CreateCall(GetIntFunction, getIntArgsV, "calltmp");
@@ -186,17 +188,8 @@ void CodeGenV::visit(MethodA* a) {
     // return void
     Builder.CreateRet(nullptr); // c++ nullptr = llvm void
 
+
     verifyFunction(*TheFunction);
-    // TODO: ^^^
-
-    // // Record the function arguments in the NamedValues map.
-    // NamedValues.clear(); //figure out this business for Symbol table
-    // for (auto &Arg : TheFunction->args())
-    //   NamedValues[Arg.getName()] = &Arg;
-
-
-    currSymTab->enterScope(BB);
-    a->setFunc(TheFunction);
 
     a->getModifiers()->accept(*this);
     a->getType()->accept(*this);
