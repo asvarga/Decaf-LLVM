@@ -451,8 +451,11 @@ void CodeGenV::visit(MethodCallExprA* a) {
         std::vector<Value *> putIntArgsV(1, a->getArgs()->getASTs().front()->getReg());
         Builder.CreateCall(PutIntFunction, putIntArgsV, "calltmp");
     } else if (a->getName()->getName() == "putChar") {
-        std::vector<Value *> putCharArgsV(1, a->getArgs()->getASTs().front()->getReg()); //ConstantInt::get(Type::getInt8Ty(TheContext), '\n'));
+        std::vector<Value *> putCharArgsV(1, a->getArgs()->getASTs().front()->getReg());
         Builder.CreateCall(PutCharFunction, putCharArgsV, "calltmp");
+    } else if (a->getName()->getName() == "getInt") {
+        std::vector<Value *> getIntArgsV;
+        a->setReg(Builder.CreateCall(GetIntFunction, getIntArgsV, "calltmp"));
     }
 }
 

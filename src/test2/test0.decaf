@@ -2,9 +2,19 @@
 class Aaa {
     // public static void main (String[] argv) {
     public static void main (int a, int b) {
-        int x = 123;
-        int y = x+x;
-        IO.putInt(y);
-        IO.putChar(10); // 10 = \n
+        IO.putChar(120); // 'x'
+        IO.putChar(32);  // ' '
+        IO.putChar(61);  // '='
+        IO.putChar(32);  // ' '
+        int x = IO.getInt();
+
+        IO.putChar(120); // 'x'
+        IO.putChar(42);  // '*'
+        IO.putChar(120); // 'x'
+        IO.putChar(32);  // ' '
+        IO.putChar(61);  // '='
+        IO.putChar(32);  // ' '
+        IO.putInt(x*x);
+        IO.putChar(10);  // newline
     }
 }
