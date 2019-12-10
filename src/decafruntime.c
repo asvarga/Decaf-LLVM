@@ -226,10 +226,10 @@ int main(int argc,char ** argv)
    //    sp[i-1] = _$CreateString(argv[i]);
    //  }
 
-   // _$DecafMain(a);
+   _$DecafMain();
 
-   IO$putInt(_$DecafMain());
-   IO$putChar('\n');
+   // IO$putInt(_$DecafMain());
+   // IO$putChar('\n');
 
    return 0;
 }

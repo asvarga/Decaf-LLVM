@@ -42,6 +42,7 @@ class FieldA;
 class AST {
     Value *reg;     // TODO: move somewhere more specific?
     BasicBlock *bb; // TODO: move somewhere more specific?
+    Function *func; // TODO: move somewhere more specific?
     int depth = 0;
     AST *parent;
 public:
@@ -50,6 +51,8 @@ public:
     void setReg(Value *r) { reg = r; }
     BasicBlock *getBB() { return bb; }
     void setBB(BasicBlock *b) { bb = b; }
+    Function *getFunc() { return func; }
+    void setFunc(Function *f) { func = f; }
 
     int getDepth() { return depth; }
     void setDepth(int d) { depth = d; }

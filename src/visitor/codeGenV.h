@@ -14,6 +14,10 @@ static IRBuilder<> Builder(TheContext);
 static std::unique_ptr<Module> TheModule = make_unique<Module>("START", TheContext);
 static std::map<std::string, Value *> NamedValues;
 
+/// extern ///
+Function *PutIntFunction;
+Function *PutCharFunction;
+
 class CodeGenV : public Visitor {
     // Module * module;
     // StartA * start;
@@ -25,6 +29,22 @@ class CodeGenV : public Visitor {
     SymbolTable *currSymTab;
     int nameCase;   // decaf-semantics.pdf: page 12
 public:
+    CodeGenV() {
+        // TODO: declare rest of externs
+        // TODO: put in IO class
+
+        // putInt external declaration
+        Type *putIntReturnType = Type::getVoidTy(TheContext);
+        std::vector<Type*> putIntArgTypes(1, Type::getInt64Ty(TheContext));
+        FunctionType *putIntFT = FunctionType::get(putIntReturnType, putIntArgTypes, false);
+        PutIntFunction = Function::Create(putIntFT, Function::ExternalLinkage, "IO$putInt", TheModule.get()); 
+
+        // putChar external declaration
+        Type *putCharReturnType = Type::getVoidTy(TheContext);
+        std::vector<Type*> putCharArgTypes(1, Type::getInt8Ty(TheContext));
+        FunctionType *putCharFT = FunctionType::get(putCharReturnType, putCharArgTypes, false);
+        PutCharFunction = Function::Create(putCharFT, Function::ExternalLinkage, "IO$putChar", TheModule.get()); 
+    }
     void LogErrorV(const char *s) {
         cout << "XXXX error: " << s << " XXXXXXXXXXXXXXXXXXXXXXX\n";
     }
