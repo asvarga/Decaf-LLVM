@@ -46,7 +46,15 @@ void CodeGenV::visit(TypeA* a) {
 
 void CodeGenV::visit(PrimTypeA* a) {
     indent(a->getDepth()); cout << "PrimTypeA" << "\n";
-    a->getName()->accept(*this);
+    // a->getName()->accept(*this);
+    string name = a->getName()->getName();
+    if (name == "int") {
+        a->setIRType(Type::getInt64Ty(TheContext));
+    } else if (name == "void") {
+        a->setIRType(Type::getVoidTy(TheContext));
+    } else {
+        Print("type unimplemented: " + name);
+    }
 }
 
 void CodeGenV::visit(ArrayTypeA* a) {
@@ -161,10 +169,15 @@ void CodeGenV::visit(MethodA* a) {
     currMethod = a;
     currSymTab = a->getSymbolTable();
     
-    // TODO: replace this hard-coded type with generated type
-    Type *returnType = Type::getVoidTy(TheContext);
+    a->getModifiers()->accept(*this);
+
+    a->getType()->accept(*this);
+    Type *returnType = a->getType()->getIRType();
+
     std::vector<Type*> argTypes;
-    FunctionType *FT = FunctionType::get(returnType, argTypes, false);
+    currArgTypes = argTypes;    
+    a->getArgs()->accept(*this);    // populates currArgTypes
+    FunctionType *FT = FunctionType::get(returnType, currArgTypes, false);
 
     string fname = a->getClass()->getName() + "." + a->getName();   // avoid name collision across classes
     Function *TheFunction = Function::Create(FT, Function::ExternalLinkage, fname, TheModule.get());   
@@ -190,14 +203,9 @@ void CodeGenV::visit(MethodA* a) {
     // return void
     Builder.CreateRet(nullptr); // c++ nullptr = llvm void
 
-
-    verifyFunction(*TheFunction);
-
-    a->getModifiers()->accept(*this);
-    a->getType()->accept(*this);
-    a->getArgs()->accept(*this);
     a->getMethodBody()->accept(*this);
 
+    verifyFunction(*TheFunction);
 }
 
 void CodeGenV::visit(ConstructorA* a) {
@@ -208,9 +216,9 @@ void CodeGenV::visit(ConstructorA* a) {
 }
 
 void CodeGenV::visit(FormalA* a) {
-    indent(a->getDepth()); cout << "FormalA\n";
+    indent(a->getDepth()); cout << "FormalA: " << a->getName() << "\n";
     a->getType()->accept(*this);
-    a->getVarDecl();
+    currArgTypes.push_back(a->getType()->getIRType());
 }
 
 void CodeGenV::visit(DeclStatementA* a) {

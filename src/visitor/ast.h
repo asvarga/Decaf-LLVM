@@ -70,9 +70,12 @@ public:
 
 class LitA : public ExpressionA {};
 
-class TypeA : public AST {;
+class TypeA : public AST {
+    Type *irtype;
 public:
     TypeA(){};
+    Type *getIRType() { return irtype; }
+    void setIRType(Type *t) { irtype = t; }
     virtual void accept(Visitor& v);
 };
 
@@ -351,11 +354,11 @@ public:
 
 class FormalA : public AST {
     TypeA *type;
-    string varDecl;
+    string name;
 public:
-    FormalA(TypeA *t, string v): type(t), varDecl(v) {};
+    FormalA(TypeA *t, string n): type(t), name(n) {};
     TypeA *getType() { return type; };
-    string getVarDecl() { return varDecl; }
+    string getName() { return name; }
     virtual void accept(Visitor& v);
 };
 

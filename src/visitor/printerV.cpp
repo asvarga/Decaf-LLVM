@@ -192,7 +192,7 @@ void PrinterV::visit(ConstructorA* a) {
 
 void PrinterV::visit(FormalA* a) {
     indent();
-    cout << "FormalA" << a->getVarDecl() << "\n";
+    cout << "FormalA: " << a->getName() << "\n";
     ++d;
     a->getType()->accept(*this);
     --d;

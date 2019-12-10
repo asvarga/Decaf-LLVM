@@ -32,6 +32,7 @@ class CodeGenV : public Visitor {
     ClassA *currClass;
     MethodA *currMethod;
     SymbolTable *currSymTab;
+    std::vector<Type*> currArgTypes;
     int nameCase;   // decaf-semantics.pdf: page 12
 public:
     CodeGenV() {
@@ -72,6 +73,9 @@ public:
     }
     void LogErrorV(const char *s) {
         cout << "XXXX error: " << s << " XXXXXXXXXXXXXXXXXXXXXXX\n";
+    }
+    void Print(string s) {
+        cout << s << endl;
     }
     void indent(int d) {
         for (int i=0; i<d; i++) { cout << "| "; }
