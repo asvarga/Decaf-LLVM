@@ -176,11 +176,13 @@ void CodeGenV::visit(MethodA* a) {
     // TODO: replace this hard-coded code with generated code   
     // call IO$getInt()
     std::vector<Value *> getIntArgsV;
-    Value *i = Builder.CreateCall(GetIntFunction, getIntArgsV, "calltmp");
+    currSymTab->declareLocal("i", Builder.CreateCall(GetIntFunction, getIntArgsV, "calltmp"));
     // square result
-    Value *i2 = Builder.CreateMul(i, i, "multmp");
+    currSymTab->declareLocal("i2", Builder.CreateMul(currSymTab->getLocal("i"),
+                                                     currSymTab->getLocal("i"),
+                                                     "multmp"));
     // call IO$putInt(i2)
-    std::vector<Value *> putIntArgsV(1, i2);
+    std::vector<Value *> putIntArgsV(1, currSymTab->getLocal("i2"));
     Builder.CreateCall(PutIntFunction, putIntArgsV, "calltmp");
     // call IO$putChar('\n')
     std::vector<Value *> putCharArgsV(1, ConstantInt::get(Type::getInt8Ty(TheContext), '\n'));
