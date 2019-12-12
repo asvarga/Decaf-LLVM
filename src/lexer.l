@@ -17,6 +17,7 @@ WHITESPACE          ([ \t]+)
 NEWLINE             (\r|\n|\r\n)
 SINGLE_COMMENT      ("//"[^\r\n]*)
 COMMENT             ("/*"[^*/]"*/")
+HASHBANG            ("#!"[^\r\n]*)
 IDENTIFIER          ([A-Za-z_][A-Za-z0-9_]*)
 INTEGER             (0|([1-9][0-9]*))
 BEG_STRING          (\"[^"\n]*)
@@ -174,6 +175,7 @@ CHAR_SLASH          "'"\\[^nt]"'"
     /* Comments */
 {SINGLE_COMMENT}            { /* COMMENT */ }
 {COMMENT}               { /* COMMENT */ ; }
+{HASHBANG}               { /* COMMENT */ ; }
 {WHITESPACE}       /* pass */
 
 

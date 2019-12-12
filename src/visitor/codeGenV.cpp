@@ -245,7 +245,7 @@ void CodeGenV::visit(LocalA* a) {
 void CodeGenV::visit(IfStatementA* a) {
     indent(a->getDepth()); cout << "IfStatementA\n";
 
-    // Emit if value.
+    // Emit cond value.
     a->getExpression()->accept(*this);
     Value* CondV = a->getExpression()->getReg();
     CondV = Builder.CreateICmpNE(CondV, ConstantInt::get(Type::getInt64Ty(TheContext), 0), "ifcond");
@@ -292,6 +292,33 @@ void CodeGenV::visit(WhileStatementA* a) {
     indent(a->getDepth()); cout << "WhileStatementA\n";
     a->getExpression()->accept(*this);
     a->getStatement()->accept(*this);
+
+    // Emit cond value.
+    Function *TheFunction = Builder.GetInsertBlock()->getParent();
+    BasicBlock *CondBB = BasicBlock::Create(TheContext, "cond", TheFunction);
+    Builder.CreateBr(CondBB);
+    Builder.SetInsertPoint(CondBB);
+    a->getExpression()->accept(*this);
+    Value* CondV = a->getExpression()->getReg();
+    CondV = Builder.CreateICmpNE(CondV, ConstantInt::get(Type::getInt64Ty(TheContext), 0), "ifcond");
+    // Create blocks for the then and else cases.  Insert the 'then' block at the
+    // end of the function.
+    BasicBlock *ThenBB = BasicBlock::Create(TheContext, "then", TheFunction);
+    BasicBlock *ElseBB = BasicBlock::Create(TheContext, "whilecont");
+    Builder.CreateCondBr(CondV, ThenBB, ElseBB);
+
+    // Emit then value.
+    Builder.SetInsertPoint(ThenBB);
+    a->getStatement()->accept(*this);
+    Builder.CreateBr(CondBB);
+    // Codegen of 'Then' can change the current block, update ThenBB for the PHI.
+    ThenBB = Builder.GetInsertBlock();
+    
+    // Emit else block.
+    TheFunction->getBasicBlockList().push_back(ElseBB);
+    Builder.SetInsertPoint(ElseBB);
+
+    
 }
 
 void CodeGenV::visit(ReturnStatementA* a) {

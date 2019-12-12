@@ -2781,12 +2781,14 @@ int main(int argc, char **argv) {
     // cout << "Main Register: " << start->getMain()->getReg() << "\n";
     // cout << "Main BasicBlock: " << start->getMain()->getBB() << "\n";
 
+    // Print out all of the generated code.
+    TheModule->print(errs(), nullptr);
+    cout << "\n";
+
     if (start->getMain() == nullptr) { 
         fprintf(stderr, "No main method defined"); 
         return 1; 
     }
-
-    
 
     // Initialize the target registry etc.
     InitializeAllTargetInfos();
@@ -2842,8 +2844,6 @@ int main(int argc, char **argv) {
 
 
 
-    // Print out all of the generated code.
-    TheModule->print(errs(), nullptr);
 
     cout << "\n";
     cout << "\n===[DONE]===\n";

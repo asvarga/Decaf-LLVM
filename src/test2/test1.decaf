@@ -1,0 +1,17 @@
+#!/usr/bin/env decaf
+
+// Inputs ints and prints :) until a 0 is entered
+
+class Aaa {
+    // public static void main (String[] argv) {
+    public static void main (int a, int b) {
+        while (IO.getInt()) {
+            IO.putChar(58); // ':'
+            IO.putChar(41); // ')'
+            IO.putChar(10);  // newline
+        }
+        IO.putChar(58); // ':'
+        IO.putChar(40); // '('
+        IO.putChar(10);  // newline
+    }
+}

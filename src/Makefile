@@ -15,6 +15,8 @@ hello: compiler
 	../decaf test2/helloWorld
 test0: compiler
 	../decaf test2/test0
+test1: compiler
+	../decaf test2/test1
 
 .PHONY: clean
 
