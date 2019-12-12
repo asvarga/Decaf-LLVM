@@ -380,13 +380,35 @@ public:
     virtual void accept(Visitor& v);
 };
 
+class EmptyStatementA : public StatementA {
+public:
+    EmptyStatementA() {};
+    virtual void accept(Visitor& v);
+};
+class BlockA : public AST {
+    ListA *statementList;
+public:
+    BlockA(): statementList(new ListA()) {};
+    BlockA(ListA *ss): statementList(ss) {};
+    ListA *getStatementList() { return statementList; };
+    virtual void accept(Visitor& v);
+};
+class BlockStatementA : public StatementA {
+    BlockA *block;
+public:
+    BlockStatementA(): block(new BlockA()) {};
+    BlockStatementA(BlockA *b): block(b) {};
+    BlockA *getBlock() { return block; };
+    virtual void accept(Visitor& v);
+};
+
 class IfStatementA : public StatementA {
     ExpressionA *expression;
     StatementA *statement1;
     StatementA *statement2;
 public:
-    IfStatementA(ExpressionA *e, StatementA *s1): expression(e), statement1(s1), statement2(0) {};
     IfStatementA(ExpressionA *e, StatementA *s1, StatementA *s2): expression(e), statement1(s1), statement2(s2) {};
+    IfStatementA(ExpressionA *e, StatementA *s1): IfStatementA(e, s1, new EmptyStatementA()) {};
     ExpressionA *getExpression() { return expression; };
     StatementA *getStatement1() { return statement1; };
     StatementA *getStatement2() { return statement2; };
@@ -431,29 +453,7 @@ public:
     virtual void accept(Visitor& v);
 };
 
-class BlockA : public AST {
-    ListA *statementList;
-public:
-    BlockA(): statementList(new ListA()) {};
-    BlockA(ListA *ss): statementList(ss) {};
-    ListA *getStatementList() { return statementList; };
-    virtual void accept(Visitor& v);
-};
 
-class BlockStatementA : public StatementA {
-    BlockA *block;
-public:
-    BlockStatementA(BlockA *b): block(b) {};
-    BlockA *getBlock() { return block; };
-    virtual void accept(Visitor& v);
-};
-
-class EmptyStatementA : public StatementA {
-
-public:
-    EmptyStatementA() {};
-    virtual void accept(Visitor& v);
-};
 
 class NewArrayA : public AST {
     TypeA *type;

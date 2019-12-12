@@ -36,7 +36,7 @@ void PrinterV::visit(NullLitA* a) {
 
 void PrinterV::visit(NameA* a) {
     indent();
-    cout << "NameA" << a->getName() << endl;
+    cout << "NameA: " << a->getName() << endl;
     ++d;
     --d;
 }
@@ -221,7 +221,9 @@ void PrinterV::visit(IfStatementA* a) {
     ++d;
     a->getExpression()->accept(*this);
     a->getStatement1()->accept(*this);
-    a->getStatement2()->accept(*this);
+    if (a->getStatement2() != nullptr) {
+        a->getStatement2()->accept(*this);
+    }
     --d;
 }
 void PrinterV::visit(ExpressionStatementA* a) {

@@ -411,7 +411,7 @@ statement_list
 
 statement
     : SEMICOLON {
-        yyerror(" $$ =new EmptyStatement() ");
+        yydebug(" $$ =new EmptyStatement() ");
         $$ = new EmptyStatementA();
     }
     | type_decl var_decl_list SEMICOLON {
@@ -420,11 +420,11 @@ statement
     }
     | IF OP expr CP statement
             %prec LOWEST {
-            yyerror(" $$ = new IfStatementA($3, $5, NULL); ");
-            $$ = new IfStatementA($3, $5, NULL);
+            yydebug(" $$ = new IfStatementA($3, $5, NULL); ");
+            $$ = new IfStatementA($3, $5);
     }
     | IF OP expr CP statement ELSE statement {
-        yyerror(" $$ = new IfStatementA($3, $5, $7); ");
+        yydebug(" $$ = new IfStatementA($3, $5, $7); ");
         $$ = new IfStatementA($3, $5, $7);
     }
     | expr SEMICOLON {
@@ -432,31 +432,31 @@ statement
         $$ = new ExpressionStatementA($1);
     }
     | WHILE OP expr CP statement {
-        yyerror(" $$ = new WhileStatement(new symbolTable(), $3, $5); ");
+        yydebug(" $$ = new WhileStatement(new symbolTable(), $3, $5); ");
         $$ = new WhileStatementA($3, $5);
     }
     | RETURN SEMICOLON {
-        yyerror(" $$ = new ReturnStatement(NULL); ");
+        yydebug(" $$ = new ReturnStatement(NULL); ");
         $$ = new ReturnStatementA(NULL);
     }
     | RETURN expr SEMICOLON {
-        yyerror(" $$ = new ReturnStatement($2); ");
+        yydebug(" $$ = new ReturnStatement($2); ");
         $$ = new ReturnStatementA($2);
     }
     | CONTINUE SEMICOLON {
-        yyerror(" $$ = new ContinueStatement(); ");
+        yydebug(" $$ = new ContinueStatement(); ");
         $$ = new ContinueStatementA();
     }
     | BREAK SEMICOLON {
-        yyerror(" $$ = new BreakStatement(); ");
+        yydebug(" $$ = new BreakStatement(); ");
         $$ = new BreakStatementA();
     }
     | block {
-        yyerror(" $$ = new Block($1); ");
+        yydebug(" $$ = new Block($1); ");
         $$ = new BlockStatementA($1);
     }
     | SUPER actual_args SEMICOLON {
-        yyerror(" $$ = new SuperStatementA($2); ");
+        yydebug(" $$ = new SuperStatementA($2); ");
         $$ = new SuperStatementA($2);
     }
 
@@ -710,6 +710,9 @@ int main(int argc, char **argv) {
 
     cout << "\n===[FINALIZING]===\n";
     cout << "\n";
+
+    // TheModule->print(errs(), nullptr);
+
     // cout << "Main Register: " << start->getMain()->getReg() << "\n";
     // cout << "Main BasicBlock: " << start->getMain()->getBB() << "\n";
 
@@ -740,7 +743,6 @@ int main(int argc, char **argv) {
         errs() << Error;
         return 1;
     }
-
     auto CPU = "generic";
     auto Features = "";
 

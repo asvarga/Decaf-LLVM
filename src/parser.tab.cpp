@@ -1968,7 +1968,7 @@ yyreduce:
   case 50:
 #line 413 "parser.ypp"
     {
-        yyerror(" $$ =new EmptyStatement() ");
+        yydebug(" $$ =new EmptyStatement() ");
         (yyval.statementA) = new EmptyStatementA();
     }
 #line 1975 "parser.tab.cpp"
@@ -1986,8 +1986,8 @@ yyreduce:
   case 52:
 #line 422 "parser.ypp"
     {
-            yyerror(" $$ = new IfStatementA($3, $5, NULL); ");
-            (yyval.statementA) = new IfStatementA((yyvsp[-2].expressionA), (yyvsp[0].statementA), NULL);
+            yydebug(" $$ = new IfStatementA($3, $5, NULL); ");
+            (yyval.statementA) = new IfStatementA((yyvsp[-2].expressionA), (yyvsp[0].statementA));
     }
 #line 1993 "parser.tab.cpp"
     break;
@@ -1995,7 +1995,7 @@ yyreduce:
   case 53:
 #line 426 "parser.ypp"
     {
-        yyerror(" $$ = new IfStatementA($3, $5, $7); ");
+        yydebug(" $$ = new IfStatementA($3, $5, $7); ");
         (yyval.statementA) = new IfStatementA((yyvsp[-4].expressionA), (yyvsp[-2].statementA), (yyvsp[0].statementA));
     }
 #line 2002 "parser.tab.cpp"
@@ -2013,7 +2013,7 @@ yyreduce:
   case 55:
 #line 434 "parser.ypp"
     {
-        yyerror(" $$ = new WhileStatement(new symbolTable(), $3, $5); ");
+        yydebug(" $$ = new WhileStatement(new symbolTable(), $3, $5); ");
         (yyval.statementA) = new WhileStatementA((yyvsp[-2].expressionA), (yyvsp[0].statementA));
     }
 #line 2020 "parser.tab.cpp"
@@ -2022,7 +2022,7 @@ yyreduce:
   case 56:
 #line 438 "parser.ypp"
     {
-        yyerror(" $$ = new ReturnStatement(NULL); ");
+        yydebug(" $$ = new ReturnStatement(NULL); ");
         (yyval.statementA) = new ReturnStatementA(NULL);
     }
 #line 2029 "parser.tab.cpp"
@@ -2031,7 +2031,7 @@ yyreduce:
   case 57:
 #line 442 "parser.ypp"
     {
-        yyerror(" $$ = new ReturnStatement($2); ");
+        yydebug(" $$ = new ReturnStatement($2); ");
         (yyval.statementA) = new ReturnStatementA((yyvsp[-1].expressionA));
     }
 #line 2038 "parser.tab.cpp"
@@ -2040,7 +2040,7 @@ yyreduce:
   case 58:
 #line 446 "parser.ypp"
     {
-        yyerror(" $$ = new ContinueStatement(); ");
+        yydebug(" $$ = new ContinueStatement(); ");
         (yyval.statementA) = new ContinueStatementA();
     }
 #line 2047 "parser.tab.cpp"
@@ -2049,7 +2049,7 @@ yyreduce:
   case 59:
 #line 450 "parser.ypp"
     {
-        yyerror(" $$ = new BreakStatement(); ");
+        yydebug(" $$ = new BreakStatement(); ");
         (yyval.statementA) = new BreakStatementA();
     }
 #line 2056 "parser.tab.cpp"
@@ -2058,7 +2058,7 @@ yyreduce:
   case 60:
 #line 454 "parser.ypp"
     {
-        yyerror(" $$ = new Block($1); ");
+        yydebug(" $$ = new Block($1); ");
         (yyval.statementA) = new BlockStatementA((yyvsp[0].blockA));
     }
 #line 2065 "parser.tab.cpp"
@@ -2067,7 +2067,7 @@ yyreduce:
   case 61:
 #line 458 "parser.ypp"
     {
-        yyerror(" $$ = new SuperStatementA($2); ");
+        yydebug(" $$ = new SuperStatementA($2); ");
         (yyval.statementA) = new SuperStatementA((yyvsp[-1].listA));
     }
 #line 2074 "parser.tab.cpp"
@@ -2775,6 +2775,9 @@ int main(int argc, char **argv) {
 
     cout << "\n===[FINALIZING]===\n";
     cout << "\n";
+
+    // TheModule->print(errs(), nullptr);
+
     // cout << "Main Register: " << start->getMain()->getReg() << "\n";
     // cout << "Main BasicBlock: " << start->getMain()->getBB() << "\n";
 
@@ -2805,7 +2808,6 @@ int main(int argc, char **argv) {
         errs() << Error;
         return 1;
     }
-
     auto CPU = "generic";
     auto Features = "";
 

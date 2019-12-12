@@ -261,7 +261,7 @@ void CodeGenV::visit(IfStatementA* a) {
     // Emit then value.
     Builder.SetInsertPoint(ThenBB);
     a->getStatement1()->accept(*this);
-    Value *ThenV = a->getStatement1()->getReg();
+    // Value *ThenV = a->getStatement1()->getReg();
     Builder.CreateBr(MergeBB);
     // Codegen of 'Then' can change the current block, update ThenBB for the PHI.
     ThenBB = Builder.GetInsertBlock();
@@ -270,7 +270,7 @@ void CodeGenV::visit(IfStatementA* a) {
     TheFunction->getBasicBlockList().push_back(ElseBB);
     Builder.SetInsertPoint(ElseBB);
     a->getStatement2()->accept(*this);
-    Value *ElseV = a->getStatement2()->getReg();
+    // Value *ElseV = a->getStatement2()->getReg();
     Builder.CreateBr(MergeBB);
     // codegen of 'Else' can change the current block, update ElseBB for the PHI.
     ElseBB = Builder.GetInsertBlock();
@@ -278,11 +278,10 @@ void CodeGenV::visit(IfStatementA* a) {
     // Emit merge block.
     TheFunction->getBasicBlockList().push_back(MergeBB);
     Builder.SetInsertPoint(MergeBB);
-    PHINode *PN = Builder.CreatePHI(Type::getInt64Ty(TheContext), 2, "iftmp");
-    // Value *dummy = 
+    // PHINode *PN = Builder.CreatePHI(Type::getInt64Ty(TheContext), 2, "iftmp");
     // PN->addIncoming(ThenV, ThenBB);
     // PN->addIncoming(ElseV, ElseBB);
-    a->setReg(PN);
+    // a->setReg(PN);
 }
 void CodeGenV::visit(ExpressionStatementA* a) {
     indent(a->getDepth()); cout << "ExpressionStatementA\n";
