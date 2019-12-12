@@ -244,9 +244,45 @@ void CodeGenV::visit(LocalA* a) {
 
 void CodeGenV::visit(IfStatementA* a) {
     indent(a->getDepth()); cout << "IfStatementA\n";
+
+    // Emit if value.
     a->getExpression()->accept(*this);
+    Value* CondV = a->getExpression()->getReg();
+    CondV = Builder.CreateICmpNE(CondV, ConstantInt::get(Type::getInt64Ty(TheContext), 0), "ifcond");
+    // current function
+    Function *TheFunction = Builder.GetInsertBlock()->getParent();
+    // Create blocks for the then and else cases.  Insert the 'then' block at the
+    // end of the function.
+    BasicBlock *ThenBB = BasicBlock::Create(TheContext, "then", TheFunction);
+    BasicBlock *ElseBB = BasicBlock::Create(TheContext, "else");
+    BasicBlock *MergeBB = BasicBlock::Create(TheContext, "ifcont");
+    Builder.CreateCondBr(CondV, ThenBB, ElseBB);
+
+    // Emit then value.
+    Builder.SetInsertPoint(ThenBB);
     a->getStatement1()->accept(*this);
+    Value *ThenV = a->getStatement1()->getReg();
+    Builder.CreateBr(MergeBB);
+    // Codegen of 'Then' can change the current block, update ThenBB for the PHI.
+    ThenBB = Builder.GetInsertBlock();
+    
+    // Emit else block.
+    TheFunction->getBasicBlockList().push_back(ElseBB);
+    Builder.SetInsertPoint(ElseBB);
     a->getStatement2()->accept(*this);
+    Value *ElseV = a->getStatement2()->getReg();
+    Builder.CreateBr(MergeBB);
+    // codegen of 'Else' can change the current block, update ElseBB for the PHI.
+    ElseBB = Builder.GetInsertBlock();
+
+    // Emit merge block.
+    TheFunction->getBasicBlockList().push_back(MergeBB);
+    Builder.SetInsertPoint(MergeBB);
+    PHINode *PN = Builder.CreatePHI(Type::getInt64Ty(TheContext), 2, "iftmp");
+    // Value *dummy = 
+    // PN->addIncoming(ThenV, ThenBB);
+    // PN->addIncoming(ElseV, ElseBB);
+    a->setReg(PN);
 }
 void CodeGenV::visit(ExpressionStatementA* a) {
     indent(a->getDepth()); cout << "ExpressionStatementA\n";
@@ -367,19 +403,19 @@ void CodeGenV::visit(OpExpressionA* a) {
         }
         else if (op == ">")
         {
-            a->setReg(Builder.CreateFCmpUGT(L, R, "gcmptmp"));
+            a->setReg(Builder.CreateICmpUGT(L, R, "gcmptmp"));
         }
         else if (op == ">=")
         {
-            a->setReg(Builder.CreateFCmpUGE(L, R, "geqcmptmp"));
+            a->setReg(Builder.CreateICmpUGE(L, R, "geqcmptmp"));
         }
         else if (op == "<")
         {
-            a->setReg(Builder.CreateFCmpULT(L, R, "lcmptmp"));
+            a->setReg(Builder.CreateICmpULT(L, R, "lcmptmp"));
         }
         else if (op == "<=")
         {
-            a->setReg(Builder.CreateFCmpULE(L, R, "leqcmptmp"));
+            a->setReg(Builder.CreateICmpULE(L, R, "leqcmptmp"));
         }
         else if (op == "!=")
         {
@@ -387,7 +423,7 @@ void CodeGenV::visit(OpExpressionA* a) {
         }
         else if (op == "==")
         {
-            a->setReg(Builder.CreateICmpEQ(L, R, "neqcmptmp"));
+            a->setReg(Builder.CreateICmpEQ(L, R, "eqcmptmp"));
         }
         else if (op == "&&")
         {
@@ -395,7 +431,7 @@ void CodeGenV::visit(OpExpressionA* a) {
         }
         else if (op == "||")
         {
-            a->setReg(Builder.CreateOr(L, R, "landtmp"));
+            a->setReg(Builder.CreateOr(L, R, "lortmp"));
         }
 
         else

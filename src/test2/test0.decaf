@@ -8,13 +8,25 @@ class Aaa {
         IO.putChar(32);  // ' '
         int x = IO.getInt();
 
-        IO.putChar(120); // 'x'
-        IO.putChar(42);  // '*'
-        IO.putChar(120); // 'x'
-        IO.putChar(32);  // ' '
-        IO.putChar(61);  // '='
-        IO.putChar(32);  // ' '
-        IO.putInt(x*x);
+        // IO.putChar(120); // 'x'
+        // IO.putChar(42);  // '*'
+        // IO.putChar(120); // 'x'
+        // IO.putChar(32);  // ' '
+        // IO.putChar(61);  // '='
+        // IO.putChar(32);  // ' '
+        // IO.putInt(x*x);
+        // IO.putChar(10);  // newline
+
+        if (x%2) {
+            IO.putChar(111); // 'o'
+            IO.putChar(100); // 'd'
+            IO.putChar(100); // 'd'
+        } else {
+            IO.putChar(101); // 'e'
+            IO.putChar(118); // 'v'
+            IO.putChar(101); // 'e'
+            IO.putChar(110); // 'n'
+        }
         IO.putChar(10);  // newline
     }
 }

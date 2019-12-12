@@ -14,5 +14,7 @@ int main() {
 
     int x;
     scanf("%d",&x);
-    return x;
+    // return x;
+
+    return x%2;
 }
