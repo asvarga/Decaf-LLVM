@@ -335,7 +335,9 @@ void CodeGenV::visit(BreakStatementA* a) {
 
 void CodeGenV::visit(BlockA* a) {
     indent(a->getDepth()); cout << "BlockA\n";
+    currSymTab->enterScope();
     a->getStatementList()->accept(*this);
+    currSymTab->leaveScope();
 }
 
 void CodeGenV::visit(BlockStatementA* a) {

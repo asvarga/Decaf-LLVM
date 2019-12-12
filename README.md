@@ -6,7 +6,7 @@ A compiler for Brown's [CS126](http://cs.brown.edu/courses/cs126/) by [Alex Varg
 
 ```
 $ cd [PathToDecaf]/src
-$ make compiler
+$ make
 ```
 
 ## Running a Program
