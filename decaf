@@ -7,8 +7,14 @@ if __name__== "__main__":
     flags = [arg for arg in sys.argv if arg[0] == '-']
     nonflags = [arg for arg in sys.argv if arg[0] != '-']
 
-    thisDir = os.path.dirname(nonflags[0])
+    thisFile = nonflags[0]
+    while True:
+        try: thisFile = os.readlink(thisFile)
+        except: break
+    thisDir = os.path.dirname(thisFile)
     filename, ext = os.path.splitext(nonflags[1])
+
+    
 
     comp = '-c' in flags or '--comp' in flags or '--compile' in flags
     link = '-l' in flags or '--link' in flags

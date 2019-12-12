@@ -11,7 +11,8 @@ $ make compiler
 
 ## Running a Program
 
-Once the compiler is `make`d, the `decaf` python script will compile and run your program.
+Once the compiler is `make`'d, the `decaf` python script will compile and run your program.
+
 It takes the optional flags `-c`, `-l`, `-r` for restricting to compilation/linking/running respectively.
 
 ```
@@ -19,7 +20,9 @@ $ cd [PathToDecaf]
 $ ./decaf [PathToProgram]
 ```
 
-Alternatively, you can add `[PathToDecaf]` to you $PATH and then Decaf files with hashbangs can be run like:
+Alternatively, you can add `[PathToDecaf]` to your $PATH or add a symlink to the `decaf` python script.
+
+Then `.decaf` files with hashbangs can be run like:
 
 ```
 $ cd [PathToDecaf]/src/test2
