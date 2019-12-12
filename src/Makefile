@@ -8,21 +8,13 @@ compiler: parser
 
 # TESTS #
 adder: compiler
-	../build/parser test/adder.decaf
-	clang decafruntime.c ../build/main.o -o ../build/main
-	../build/main
+	../decaf test/adder
 empty: compiler
-	../build/parser test2/emptyClasses.decaf
-	clang decafruntime.c ../build/main.o -o ../build/main
-	../build/main
+	../decaf test2/emptyClasses
 hello: compiler
-	../build/parser test2/helloWorld.decaf
-	clang decafruntime.c ../build/main.o -o ../build/main
-	../build/main
+	../decaf test2/helloWorld
 test0: compiler
-	../build/parser test2/test0.decaf
-	clang decafruntime.c ../build/main.o -o ../build/main
-	../build/main
+	../decaf test2/test0
 
 .PHONY: clean
 

@@ -1,0 +1,27 @@
+#!/usr/bin/env python3
+
+import sys
+import os
+
+if __name__== "__main__":
+    flags = [arg for arg in sys.argv if arg[0] == '-']
+    nonflags = [arg for arg in sys.argv if arg[0] != '-']
+
+    thisDir = os.path.dirname(nonflags[0])
+    filename, ext = os.path.splitext(nonflags[1])
+
+    comp = '-c' in flags or '-comp' in flags or '-compile' in flags
+    link = '-l' in flags or '-link' in flags
+    run = '-r' in flags or '-run' in flags
+    if not (comp or link or run): comp = link = run = True
+
+    if comp:
+        os.system(f"{thisDir}/build/parser {filename}.decaf")
+    if link:
+        os.system(f"clang {thisDir}/src/decafruntime.c {filename}.o -o {filename}")
+    if run:
+        os.system(f"{filename}")
+
+
+
+

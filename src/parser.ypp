@@ -751,7 +751,8 @@ int main(int argc, char **argv) {
 
     TheModule->setDataLayout(TheTargetMachine->createDataLayout());
 
-    auto Filename = "../build/main.o";
+    string Filename(argv[1]);
+    Filename = Filename.substr(0, Filename.size()-5)+"o";
     std::error_code EC;
     raw_fd_ostream dest(Filename, EC, sys::fs::OF_None);
 
