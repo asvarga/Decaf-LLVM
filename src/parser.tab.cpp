@@ -2761,7 +2761,7 @@ void yyerror(string s)
 }
 
 void yydebug(string s) {
-    cout << "\t" << s << "\n";
+    // cout << "\t" << s << "\n";
 }
 
 int main(int argc, char **argv) {

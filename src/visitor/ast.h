@@ -89,7 +89,9 @@ public:
 class StrLitA : public LitA {
     string value;
 public:
-    StrLitA(string v): value(v) {};
+    StrLitA(string v) {
+        value = v.substr(1, v.size()-2);
+    };
     string getValue() { return value; }
     virtual void accept(Visitor& v);
 };

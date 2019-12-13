@@ -14,7 +14,6 @@ if __name__== "__main__":
     thisDir = os.path.dirname(thisFile)
     filename, ext = os.path.splitext(nonflags[1])
 
-    
 
     comp = '-c' in flags or '--comp' in flags or '--compile' in flags
     link = '-l' in flags or '--link' in flags

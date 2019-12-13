@@ -3,6 +3,7 @@
 
 #include <list>
 #include "symbolTable.h"
+// #include "../decaf_runtime.h"
 
 using namespace llvm;
 using namespace llvm::sys;
@@ -41,17 +42,23 @@ public:
         // TODO: declare rest of externs
         // TODO: put in IO class
 
+        // putChar external declaration
+        Type *putCharReturnType = Type::getVoidTy(TheContext);
+        std::vector<Type*> putCharArgTypes(1, Type::getInt8Ty(TheContext));
+        FunctionType *putCharFT = FunctionType::get(putCharReturnType, putCharArgTypes, false);
+        PutCharFunction = Function::Create(putCharFT, Function::ExternalLinkage, "IO$putChar", TheModule.get()); 
+
         // putInt external declaration
         Type *putIntReturnType = Type::getVoidTy(TheContext);
         std::vector<Type*> putIntArgTypes(1, Type::getInt64Ty(TheContext));
         FunctionType *putIntFT = FunctionType::get(putIntReturnType, putIntArgTypes, false);
         PutIntFunction = Function::Create(putIntFT, Function::ExternalLinkage, "IO$putInt", TheModule.get()); 
 
-        // putChar external declaration
-        Type *putCharReturnType = Type::getVoidTy(TheContext);
-        std::vector<Type*> putCharArgTypes(1, Type::getInt8Ty(TheContext));
-        FunctionType *putCharFT = FunctionType::get(putCharReturnType, putCharArgTypes, false);
-        PutCharFunction = Function::Create(putCharFT, Function::ExternalLinkage, "IO$putChar", TheModule.get()); 
+        // putString external declaration
+        Type *putStringReturnType = Type::getVoidTy(TheContext);
+        std::vector<Type*> putStringArgTypes(1, Type::getInt8PtrTy(TheContext));    // char*
+        FunctionType *putStringFT = FunctionType::get(putStringReturnType, putStringArgTypes, false);
+        PutStringFunction = Function::Create(putStringFT, Function::ExternalLinkage, "IO$putString", TheModule.get()); 
 
         // peek external declaration
         Type *peekReturnType = Type::getInt8Ty(TheContext);

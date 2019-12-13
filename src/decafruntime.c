@@ -92,10 +92,15 @@ IO$putInt(int v)
 
 
 
+// void
+// IO$putString(String s)
+// {
+//    printf("%s",s->contents);
+// }
 void
-IO$putString(String s)
+IO$putString(char* s)
 {
-   printf("%s",s->contents);
+   printf("%s", s);
 }
 
 
@@ -214,7 +219,7 @@ doAlloc(int typ,int ndim,int dim,va_list ap)
 
 // extern void _$DecafMain(ARRAY);
 extern int _$DecafMain();
-extern int main();
+// extern int main();
 
 int main(int argc,char ** argv)
 {	

@@ -2,6 +2,7 @@
 
 void CodeGenV::visit(StrLitA* a) {
     indent(a->getDepth()); cout << "StrLitA: " << a->getValue() << "\n";
+    a->setReg(Builder.CreateGlobalStringPtr(StringRef(a->getValue())));
 }
 void CodeGenV::visit(CharLitA* a) {
     indent(a->getDepth()); cout << "CharLitA: " << a->getValue() << endl ;
@@ -521,15 +522,18 @@ void CodeGenV::visit(MethodCallExprA* a) {
     a->getName()->accept(*this);
     a->getArgs()->accept(*this);
     // TODO: this is a total hack, also getType is wack
-    if (a->getName()->getName() == "putInt") {
-        std::vector<Value *> putIntArgsV(1, a->getArgs()->getASTs().front()->getReg());
-        Builder.CreateCall(PutIntFunction, putIntArgsV, "calltmp");
-    } else if (a->getName()->getName() == "putChar") {
+    if (a->getName()->getName() == "putChar") {
         std::vector<Value *> putCharArgsV(1, a->getArgs()->getASTs().front()->getReg());
-        Builder.CreateCall(PutCharFunction, putCharArgsV, "calltmp");
+        Builder.CreateCall(PutCharFunction, putCharArgsV, "putchartmp");
+    } else if (a->getName()->getName() == "putInt") {
+        std::vector<Value *> putIntArgsV(1, a->getArgs()->getASTs().front()->getReg());
+        Builder.CreateCall(PutIntFunction, putIntArgsV, "putinttmp");
+    } else if (a->getName()->getName() == "putString") {
+        std::vector<Value *> putStringArgsV(1, a->getArgs()->getASTs().front()->getReg());
+        Builder.CreateCall(PutStringFunction, putStringArgsV, "putstringtmp");
     } else if (a->getName()->getName() == "getInt") {
         std::vector<Value *> getIntArgsV;
-        a->setReg(Builder.CreateCall(GetIntFunction, getIntArgsV, "calltmp"));
+        a->setReg(Builder.CreateCall(GetIntFunction, getIntArgsV, "getinttmp"));
     }
 }
 

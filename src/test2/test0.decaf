@@ -3,22 +3,15 @@
 class Aaa {
     // public static void main (String[] argv) {
     public static void main (int a, int b) {
-        IO.putChar(120); // 'x'
-        IO.putChar(32);  // ' '
-        IO.putChar(61);  // '='
-        IO.putChar(32);  // ' '
+        IO.putString("x = ");
         int x = IO.getInt();
-
         if (x%2) {
-            IO.putChar(111); // 'o'
-            IO.putChar(100); // 'd'
-            IO.putChar(100); // 'd'
+            IO.putInt(x);
+            IO.putString(" is odd");
         } else {
-            IO.putChar(101); // 'e'
-            IO.putChar(118); // 'v'
-            IO.putChar(101); // 'e'
-            IO.putChar(110); // 'n'
+            IO.putInt(x);
+            IO.putString(" is even");
         }
-        IO.putChar(10);  // newline
+        IO.putChar('\n');
     }
 }
