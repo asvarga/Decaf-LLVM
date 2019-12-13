@@ -1,2 +1,8 @@
 .vscode/
 build/
+
+# ignore non-decaf files in test and test2
+test/*
+!test/*.decaf
+test2/*
+!test2/*.decaf

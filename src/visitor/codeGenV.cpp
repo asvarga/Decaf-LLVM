@@ -36,6 +36,7 @@ void CodeGenV::visit(NameA* a) {
         case 5: break;
         case 6:
             a->setReg(currSymTab->getGlobal(name));
+            // cout << a->getReg() << endl;
             break;
         default:
             a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 1234));    // TODO:
@@ -55,6 +56,9 @@ void CodeGenV::visit(PrimTypeA* a) {
         a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 0));
     } else if (name == "void") {
         a->setIRType(Type::getVoidTy(TheContext));
+    } else if (name == "char") {
+        a->setIRType(Type::getInt64Ty(TheContext));
+        a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 32));  // space
     } else {
         Print("type unimplemented: " + name);
     }
@@ -524,20 +528,20 @@ void CodeGenV::visit(MethodCallExprA* a) {
     // TODO: this is a total hack, also getType is wack
     if (a->getName()->getName() == "putChar") {
         std::vector<Value *> putCharArgsV(1, a->getArgs()->getASTs().front()->getReg());
-        Builder.CreateCall(PutCharFunction, putCharArgsV, "putchartmp");
+        a->setReg(Builder.CreateCall(PutCharFunction, putCharArgsV, "putchartmp"));
     } else if (a->getName()->getName() == "putInt") {
         std::vector<Value *> putIntArgsV(1, a->getArgs()->getASTs().front()->getReg());
-        Builder.CreateCall(PutIntFunction, putIntArgsV, "putinttmp");
+        a->setReg(Builder.CreateCall(PutIntFunction, putIntArgsV, "putinttmp"));
     } else if (a->getName()->getName() == "putString") {
         std::vector<Value *> putStringArgsV(1, a->getArgs()->getASTs().front()->getReg());
-        Builder.CreateCall(PutStringFunction, putStringArgsV, "putstringtmp");
+        a->setReg(Builder.CreateCall(PutStringFunction, putStringArgsV, "putstringtmp"));
     } else if (a->getName()->getName() == "peek") {
         std::vector<Value *> peekArgsV;
         a->setReg(Builder.CreateCall(PeekFunction, peekArgsV, "peektmp"));
     } else if (a->getName()->getName() == "getChar") {
         std::vector<Value *> getCharArgsV;
         a->setReg(Builder.CreateCall(GetCharFunction, getCharArgsV, "getchartmp"));
-    } else if (a->getName()->getName() == "getChar") {
+    } else if (a->getName()->getName() == "getInt") {
         std::vector<Value *> getIntArgsV;
         a->setReg(Builder.CreateCall(GetIntFunction, getIntArgsV, "getinttmp"));
     } else if (a->getName()->getName() == "getLine") {

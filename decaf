@@ -31,8 +31,8 @@ if __name__== "__main__":
         vprint(f"status: {status}")
         if status: sys.exit(status)
     if link:
-        vprint(f"clang {thisDir}/src/decafruntime.c {filename}.o -o {filename}")
-        status = os.system(f"clang {thisDir}/src/decafruntime.c {filename}.o -o {filename}")
+        vprint(f"clang {thisDir}/src/decafruntime.c {filename}.o -o {filename} && rm {filename}.o")
+        status = os.system(f"clang {thisDir}/src/decafruntime.c {filename}.o -o {filename} && rm {filename}.o")
         vprint(f"status: {status}")
         if status: sys.exit(status)
     if run:
