@@ -189,9 +189,9 @@ extern int yydebug;
     UNRECOG_ERROR = 309,
     TYPER_INT = 310,
     VOID = 311,
-    UMINUS = 312,
-    UPLUS = 313,
-    LOWEST = 314
+    LOWEST = 312,
+    UMINUS = 313,
+    UPLUS = 314
   };
 #endif
 
@@ -481,7 +481,7 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  5
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   477
+#define YYLAST   519
 
 /* YYNTOKENS -- Number of terminals.  */
 #define YYNTOKENS  60
@@ -568,10 +568,10 @@ static const char *const yytname[] =
   "EQEQ", "GEQ", "EQ", "NEQ", "LAND", "LOR", "PLUS", "MINUS", "TIMES",
   "DIV", "MOD", "NOT", "OP", "CP", "OB", "CB", "OC", "CC", "COMMA", "DOT",
   "SEMICOLON", "IDENTIFIER", "NILL", "BOOLEAN", "INTEGER", "STRING",
-  "CHAR", "UNRECOG_ERROR", "TYPER_INT", "VOID", "UMINUS", "UPLUS",
-  "LOWEST", "$accept", "class_list", "single_class", "super",
-  "member_list", "member", "field", "modifier_list", "method_decl", "ctor",
-  "modifier", "formal_args", "formal_arg_list", "formal_arg", "type_decl",
+  "CHAR", "UNRECOG_ERROR", "TYPER_INT", "VOID", "LOWEST", "UMINUS",
+  "UPLUS", "$accept", "class_list", "single_class", "super", "member_list",
+  "member", "field", "modifier_list", "method_decl", "ctor", "modifier",
+  "formal_args", "formal_arg_list", "formal_arg", "type_decl",
   "bracket_list", "primitive_type", "var_decl_list", "var_decl",
   "var_decl_id", "block", "statement_list", "statement", "expr", "primary",
   "new_array_expr", "dimension_list", "dimension", "non_new_array_expr",
@@ -609,23 +609,23 @@ static const yytype_int16 yypact[] =
 {
        1,   -39,    10,     1,     0,  -173,  -173,   -34,    98,    -8,
     -173,  -173,  -173,  -173,  -173,  -173,  -173,  -173,  -173,  -173,
-       6,     9,    20,  -173,   145,  -173,  -173,   215,     7,  -173,
-     248,   228,    52,  -173,  -173,     6,    43,  -173,    23,     6,
-    -173,    14,    54,   -17,  -173,    53,  -173,  -173,    71,    68,
-      44,    85,  -173,    52,     6,    73,    80,    52,  -173,    77,
-     204,    84,  -173,  -173,   232,  -173,    86,    83,    93,    92,
-     253,   157,    50,  -173,   104,   204,   204,   204,   204,  -173,
-    -173,    19,  -173,  -173,  -173,  -173,  -173,    44,  -173,   103,
-     136,   278,   102,  -173,   111,  -173,  -173,  -173,  -173,    52,
-    -173,  -173,  -173,  -173,   112,   120,   440,  -173,  -173,  -173,
-    -173,   204,   120,   111,  -173,   302,   183,   117,   113,   204,
-     440,   440,   440,   389,   183,  -173,  -173,   121,  -173,  -173,
+       6,     3,    20,  -173,   145,  -173,  -173,   215,     7,  -173,
+     248,   228,    18,  -173,  -173,     6,    43,  -173,     8,     6,
+    -173,     2,    21,   -17,  -173,     9,  -173,  -173,    23,    52,
+      44,    85,  -173,    18,     6,    48,    24,    18,  -173,    51,
+     204,    69,  -173,  -173,   232,  -173,    72,    73,    74,    91,
+     253,   157,    50,  -173,    92,   204,   204,   204,   204,  -173,
+    -173,    19,  -173,  -173,  -173,  -173,  -173,    44,  -173,    96,
+     136,   278,    97,  -173,   108,  -173,  -173,  -173,  -173,    18,
+    -173,  -173,  -173,  -173,   102,   111,   440,  -173,  -173,  -173,
+    -173,   204,   111,   108,  -173,   302,   183,   110,   112,   204,
+    -173,  -173,  -173,   389,   183,  -173,  -173,   113,  -173,  -173,
      204,   204,   204,   204,   204,   204,   204,   204,   204,   204,
-     204,   204,   204,   204,  -173,   119,   204,  -173,  -173,   406,
-    -173,   111,  -173,  -173,  -173,  -173,   348,   131,   134,  -173,
-     423,  -173,   326,  -173,   292,   292,   292,    18,   292,   147,
-      18,    34,   147,   316,   316,   257,   257,   257,   134,   370,
-     136,  -173,   204,  -173,  -173,   136,  -173,  -173,   172,  -173,
+     204,   204,   204,   204,  -173,   117,   204,  -173,  -173,   406,
+    -173,   108,  -173,  -173,  -173,  -173,   348,   127,   129,  -173,
+     423,  -173,   326,  -173,   249,   249,   249,   482,   249,   440,
+     482,   468,   454,    90,    90,  -173,  -173,  -173,   129,   370,
+     136,  -173,   204,  -173,  -173,   136,  -173,  -173,   165,  -173,
     -173,   136,  -173
 };
 
@@ -659,10 +659,10 @@ static const yytype_uint8 yydefact[] =
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int16 yypgoto[] =
 {
-    -173,   177,  -173,  -173,    22,  -173,  -173,   154,  -173,  -173,
-    -173,   -14,   118,  -173,    -2,   138,   127,   -33,  -173,   149,
-     -30,   110,  -172,   -60,  -173,  -173,  -109,   -48,  -173,  -173,
-    -173,  -173,   -71,    29
+    -173,   170,  -173,  -173,    22,  -173,  -173,   149,  -173,  -173,
+    -173,   -14,   114,  -173,    -2,   124,   130,   -33,  -173,   131,
+     -30,   104,  -172,   -60,  -173,  -173,  -109,   -48,  -173,  -173,
+    -173,  -173,   -71,    15
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
@@ -683,37 +683,37 @@ static const yytype_int16 yytable[] =
        5,   115,    60,   190,    10,   120,   121,   122,   123,   192,
       28,    53,    36,    98,    61,    57,   103,   102,    28,    50,
       11,    12,    13,   125,    14,    30,    15,    16,    17,    18,
-      99,   152,   181,     8,    34,    31,   147,   135,    38,   137,
-     138,   149,    45,    33,   127,    39,   156,   125,   124,   160,
-     -32,    58,    50,   135,   162,    56,   138,   -32,    20,   148,
+      99,   152,   181,     8,    34,    31,   147,    33,    38,    58,
+      56,   149,    45,    62,   127,    39,   156,   125,   124,   160,
+     -32,    51,    50,    63,   162,    38,    59,   -32,    20,   148,
      164,   165,   166,   167,   168,   169,   170,   171,   172,   173,
      174,   175,   176,   177,    38,    38,   179,   184,    67,   116,
-      68,    54,    65,    69,    70,    51,   117,    62,    71,    59,
+      68,    54,    65,    69,    70,   100,   117,    64,    71,    65,
       72,    15,    16,    17,    18,    73,    74,   187,    11,    12,
-      13,    63,    14,    64,    15,    16,    17,    18,    75,    76,
-     100,    38,   156,    77,    78,    65,   107,    61,    51,    79,
-     109,   111,    80,    81,    82,    83,    84,    85,    86,    67,
-     110,    68,    19,   119,    69,    70,    20,   128,   145,    71,
-     146,    72,    15,    16,    17,    18,    73,    74,   117,   124,
-     159,    15,    16,    17,    18,   158,    70,   178,   163,    75,
-      76,   183,   104,   116,    77,    78,   135,    73,   191,    51,
-       6,    37,   108,    80,    81,    82,    83,    84,    85,    86,
-      75,    76,    70,    35,   101,    77,    78,   113,   104,    66,
-     129,     0,     0,    73,   114,   105,    82,    83,    84,    85,
-      86,   189,     0,    70,     0,     0,    75,    76,     0,   104,
+      13,   107,    14,    61,    15,    16,    17,    18,    75,    76,
+     109,   110,   156,    77,    78,   141,   142,   143,    51,    79,
+     111,   119,    80,    81,    82,    83,    84,    85,    86,    67,
+     128,    68,    19,   145,    69,    70,    20,   146,   117,    71,
+     124,    72,    15,    16,    17,    18,    73,    74,   158,   159,
+     163,    15,    16,    17,    18,   178,    70,   183,   116,    75,
+      76,   191,   104,     6,    77,    78,    37,    73,   108,    51,
+     101,    66,     0,    80,    81,    82,    83,    84,    85,    86,
+      75,    76,    70,    35,   129,    77,    78,   189,   104,     0,
+     113,     0,     0,    73,   114,   105,    82,    83,    84,    85,
+      86,     0,     0,    70,     0,     0,    75,    76,     0,   104,
        0,    77,    78,   155,    73,    11,    12,    13,     0,    14,
        0,   105,    82,    83,    84,    85,    86,    75,    76,     0,
        0,     0,    77,    78,    15,    16,    17,    18,    15,    16,
       17,    18,   105,    82,    83,    84,    85,    86,    11,    12,
       13,     0,    14,     0,    15,    16,    17,    18,    46,    15,
-      16,    17,    18,     0,     0,     0,    47,     0,     0,     0,
-      47,   130,   131,   132,   133,   134,   135,   136,   137,   138,
-     139,   140,    44,     0,     0,     0,    20,     0,     0,     0,
+      16,    17,    18,   -33,   -33,   -33,    47,   -33,     0,     0,
+      47,     0,   139,   140,   141,   142,   143,     0,     0,     0,
+       0,     0,    44,     0,     0,     0,    20,     0,     0,     0,
        0,   112,   130,   131,   132,   133,   134,   135,   136,   137,
-     138,   139,   140,   141,   142,   143,   -33,   -33,   -33,   133,
-     -33,   135,   136,   137,   138,   144,   130,   131,   132,   133,
+     138,   139,   140,   141,   142,   143,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,   144,   130,   131,   132,   133,
      134,   135,   136,   137,   138,   139,   140,   141,   142,   143,
-     130,   131,   132,   133,   134,   135,   136,   137,   138,   154,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,   154,
      130,   131,   132,   133,   134,   135,   136,   137,   138,   139,
      140,   141,   142,   143,     0,     0,     0,     0,   186,     0,
        0,   182,   130,   131,   132,   133,   134,   135,   136,   137,
@@ -726,7 +726,11 @@ static const yytype_int16 yytable[] =
      140,   141,   142,   143,     0,     0,   180,   130,   131,   132,
      133,   134,   135,   136,   137,   138,   139,   140,   141,   142,
      143,     0,     0,   185,   130,   131,   132,   133,   134,   135,
-     136,   137,   138,   139,   140,   141,   142,   143
+     136,   137,   138,   139,   140,   141,   142,   143,   130,   131,
+     132,   133,   134,     0,   136,   137,     0,   139,   140,   141,
+     142,   143,   130,   131,   132,   133,   134,     0,   136,     0,
+       0,   139,   140,   141,   142,   143,   130,   131,   132,     0,
+     134,     0,     0,     0,     0,   139,   140,   141,   142,   143
 };
 
 static const yytype_int16 yycheck[] =
@@ -735,37 +739,37 @@ static const yytype_int16 yycheck[] =
        0,    71,    29,   185,    48,    75,    76,    77,    78,   191,
       22,    35,    24,    53,    41,    39,    59,    57,    30,    31,
       10,    11,    12,    81,    14,    43,    16,    17,    18,    19,
-      54,   112,   151,    43,    22,    39,    94,    29,    41,    31,
-      32,   111,    30,    44,    87,    48,   116,   105,    39,   119,
-      41,    47,    64,    29,   124,    42,    32,    48,    48,    99,
+      54,   112,   151,    43,    22,    39,    94,    44,    41,    47,
+      42,   111,    30,    44,    87,    48,   116,   105,    39,   119,
+      41,    43,    64,    40,   124,    41,    45,    48,    48,    99,
      130,   131,   132,   133,   134,   135,   136,   137,   138,   139,
      140,   141,   142,   143,    41,    41,   146,   158,     3,    39,
-       5,    48,    48,     8,     9,    43,    46,    44,    13,    45,
+       5,    48,    48,     8,     9,    47,    46,    45,    13,    48,
       15,    16,    17,    18,    19,    20,    21,   178,    10,    11,
-      12,    40,    14,    45,    16,    17,    18,    19,    33,    34,
-      47,    41,   182,    38,    39,    48,    42,    41,    43,    44,
-      47,    39,    47,    48,    49,    50,    51,    52,    53,     3,
-      47,     5,    44,    39,     8,     9,    48,    44,    46,    13,
-      39,    15,    16,    17,    18,    19,    20,    21,    46,    39,
-      47,    16,    17,    18,    19,    48,     9,    48,    47,    33,
-      34,    40,    15,    39,    38,    39,    29,    20,     6,    43,
-       3,    27,    64,    47,    48,    49,    50,    51,    52,    53,
-      33,    34,     9,    48,    56,    38,    39,    70,    15,    50,
-      90,    -1,    -1,    20,    47,    48,    49,    50,    51,    52,
-      53,   182,    -1,     9,    -1,    -1,    33,    34,    -1,    15,
+      12,    42,    14,    41,    16,    17,    18,    19,    33,    34,
+      47,    47,   182,    38,    39,    35,    36,    37,    43,    44,
+      39,    39,    47,    48,    49,    50,    51,    52,    53,     3,
+      44,     5,    44,    46,     8,     9,    48,    39,    46,    13,
+      39,    15,    16,    17,    18,    19,    20,    21,    48,    47,
+      47,    16,    17,    18,    19,    48,     9,    40,    39,    33,
+      34,     6,    15,     3,    38,    39,    27,    20,    64,    43,
+      56,    50,    -1,    47,    48,    49,    50,    51,    52,    53,
+      33,    34,     9,    48,    90,    38,    39,   182,    15,    -1,
+      70,    -1,    -1,    20,    47,    48,    49,    50,    51,    52,
+      53,    -1,    -1,     9,    -1,    -1,    33,    34,    -1,    15,
       -1,    38,    39,    40,    20,    10,    11,    12,    -1,    14,
       -1,    48,    49,    50,    51,    52,    53,    33,    34,    -1,
       -1,    -1,    38,    39,    16,    17,    18,    19,    16,    17,
       18,    19,    48,    49,    50,    51,    52,    53,    10,    11,
       12,    -1,    14,    -1,    16,    17,    18,    19,    40,    16,
-      17,    18,    19,    -1,    -1,    -1,    48,    -1,    -1,    -1,
-      48,    24,    25,    26,    27,    28,    29,    30,    31,    32,
-      33,    34,    44,    -1,    -1,    -1,    48,    -1,    -1,    -1,
+      17,    18,    19,    24,    25,    26,    48,    28,    -1,    -1,
+      48,    -1,    33,    34,    35,    36,    37,    -1,    -1,    -1,
+      -1,    -1,    44,    -1,    -1,    -1,    48,    -1,    -1,    -1,
       -1,    48,    24,    25,    26,    27,    28,    29,    30,    31,
-      32,    33,    34,    35,    36,    37,    24,    25,    26,    27,
-      28,    29,    30,    31,    32,    47,    24,    25,    26,    27,
+      32,    33,    34,    35,    36,    37,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    47,    24,    25,    26,    27,
       28,    29,    30,    31,    32,    33,    34,    35,    36,    37,
-      24,    25,    26,    27,    28,    29,    30,    31,    32,    47,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    47,
       24,    25,    26,    27,    28,    29,    30,    31,    32,    33,
       34,    35,    36,    37,    -1,    -1,    -1,    -1,    42,    -1,
       -1,    45,    24,    25,    26,    27,    28,    29,    30,    31,
@@ -778,7 +782,11 @@ static const yytype_int16 yycheck[] =
       34,    35,    36,    37,    -1,    -1,    40,    24,    25,    26,
       27,    28,    29,    30,    31,    32,    33,    34,    35,    36,
       37,    -1,    -1,    40,    24,    25,    26,    27,    28,    29,
-      30,    31,    32,    33,    34,    35,    36,    37
+      30,    31,    32,    33,    34,    35,    36,    37,    24,    25,
+      26,    27,    28,    -1,    30,    31,    -1,    33,    34,    35,
+      36,    37,    24,    25,    26,    27,    28,    -1,    30,    -1,
+      -1,    33,    34,    35,    36,    37,    24,    25,    26,    -1,
+      28,    -1,    -1,    -1,    -1,    33,    34,    35,    36,    37
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
@@ -1528,7 +1536,7 @@ yyreduce:
         yydebug(" $$ = $2; $$->addf($1); ");
         (yyval.startA) = (yyvsp[0].startA); (yyval.startA)->addf((yyvsp[-1].classA));
     }
-#line 1532 "parser.tab.cpp"
+#line 1540 "parser.tab.cpp"
     break;
 
   case 3:
@@ -1538,7 +1546,7 @@ yyreduce:
         (yyval.startA) = new StartA(); (yyval.startA)->addf((yyvsp[0].classA));
         start = (yyval.startA);
     }
-#line 1542 "parser.tab.cpp"
+#line 1550 "parser.tab.cpp"
     break;
 
   case 4:
@@ -1547,7 +1555,7 @@ yyreduce:
         yydebug(" $$ = new ClassA($2, new SuperA( \"Object\"); ");
         (yyval.classA) = new ClassA((yyvsp[-2].s), new SuperA("Object"));
     }
-#line 1551 "parser.tab.cpp"
+#line 1559 "parser.tab.cpp"
     break;
 
   case 5:
@@ -1556,7 +1564,7 @@ yyreduce:
         yydebug(" $$ = new ClassA($2, new SuperA(\"Object\"), $4); ");
         (yyval.classA) = new ClassA((yyvsp[-3].s), new SuperA("Object"), (yyvsp[-1].listA));
     }
-#line 1560 "parser.tab.cpp"
+#line 1568 "parser.tab.cpp"
     break;
 
   case 6:
@@ -1565,7 +1573,7 @@ yyreduce:
         yydebug(" $$ = new ClassA($2, $3, $5); ");
         (yyval.classA) = new ClassA((yyvsp[-4].s), (yyvsp[-3].superA), (yyvsp[-1].listA));
     }
-#line 1569 "parser.tab.cpp"
+#line 1577 "parser.tab.cpp"
     break;
 
   case 7:
@@ -1574,7 +1582,7 @@ yyreduce:
         yydebug(" $$ = new ClassA( $2, $3); ");
         (yyval.classA) = new ClassA((yyvsp[-3].s), (yyvsp[-2].superA));
     }
-#line 1578 "parser.tab.cpp"
+#line 1586 "parser.tab.cpp"
     break;
 
   case 8:
@@ -1583,7 +1591,7 @@ yyreduce:
         yydebug(" $$ = new SuperA($2); ");
         (yyval.superA) = new SuperA((yyvsp[0].s));
      }
-#line 1587 "parser.tab.cpp"
+#line 1595 "parser.tab.cpp"
     break;
 
   case 9:
@@ -1592,7 +1600,7 @@ yyreduce:
         yydebug(" $$ = $2; $$->addf($1); ");
         (yyval.listA) = (yyvsp[0].listA); (yyval.listA)->addf((yyvsp[-1].ast));
     }
-#line 1596 "parser.tab.cpp"
+#line 1604 "parser.tab.cpp"
     break;
 
   case 10:
@@ -1601,7 +1609,7 @@ yyreduce:
         yydebug(" $$ = new ListA(); $$->addf($1); ");
         (yyval.listA) = new ListA(); (yyval.listA)->addf((yyvsp[0].ast));
     }
-#line 1605 "parser.tab.cpp"
+#line 1613 "parser.tab.cpp"
     break;
 
   case 11:
@@ -1610,7 +1618,7 @@ yyreduce:
         yydebug(" $$ = $1; ");
         (yyval.ast) = (yyvsp[0].listA);
     }
-#line 1614 "parser.tab.cpp"
+#line 1622 "parser.tab.cpp"
     break;
 
   case 12:
@@ -1619,7 +1627,7 @@ yyreduce:
         yydebug(" $$ = $1; ");
         (yyval.ast) = (yyvsp[0].methodA);
     }
-#line 1623 "parser.tab.cpp"
+#line 1631 "parser.tab.cpp"
     break;
 
   case 13:
@@ -1628,7 +1636,7 @@ yyreduce:
         yydebug(" $$ = $1; ");
         (yyval.ast) = (yyvsp[0].constructorA);
     }
-#line 1632 "parser.tab.cpp"
+#line 1640 "parser.tab.cpp"
     break;
 
   case 14:
@@ -1641,7 +1649,7 @@ yyreduce:
             (yyval.listA)->addb(new FieldA((yyvsp[-3].listA), (yyvsp[-2].typeA), static_cast<VarDeclA*>(field)));
         }
     }
-#line 1645 "parser.tab.cpp"
+#line 1653 "parser.tab.cpp"
     break;
 
   case 15:
@@ -1656,7 +1664,7 @@ yyreduce:
             (yyval.listA)->addb(new FieldA(list, (yyvsp[-2].typeA), static_cast<VarDeclA*>(field)));
         }
     }
-#line 1660 "parser.tab.cpp"
+#line 1668 "parser.tab.cpp"
     break;
 
   case 16:
@@ -1665,7 +1673,7 @@ yyreduce:
         yydebug(" $$ = $2; $$->addf($1); ");
         (yyval.listA) = (yyvsp[0].listA); (yyval.listA)->addf((yyvsp[-1].modifierA));
     }
-#line 1669 "parser.tab.cpp"
+#line 1677 "parser.tab.cpp"
     break;
 
   case 17:
@@ -1674,7 +1682,7 @@ yyreduce:
         yydebug(" $$ = new ListA(); $$->addf($1); ");
         (yyval.listA) = new ListA(); (yyval.listA)->addf((yyvsp[0].modifierA));
     }
-#line 1678 "parser.tab.cpp"
+#line 1686 "parser.tab.cpp"
     break;
 
   case 18:
@@ -1683,7 +1691,7 @@ yyreduce:
         yydebug(" $$ = new MethodA($1, $2, $3, $4, new MethodBodyA($4, $5->getStatementList())); ");
         (yyval.methodA) = new MethodA((yyvsp[-4].listA), (yyvsp[-3].typeA), (yyvsp[-2].s), (yyvsp[-1].listA), new MethodBodyA((yyvsp[-1].listA), (yyvsp[0].blockA)->getStatementList()));
     }
-#line 1687 "parser.tab.cpp"
+#line 1695 "parser.tab.cpp"
     break;
 
   case 19:
@@ -1692,7 +1700,7 @@ yyreduce:
         yydebug(" $$ = new MethodA($1, $2, $3, new MethodBodyA($3, $4->getStatementList())); ");
         (yyval.methodA) = new MethodA((yyvsp[-3].typeA), (yyvsp[-2].s), (yyvsp[-1].listA), new MethodBodyA((yyvsp[-1].listA), (yyvsp[0].blockA)->getStatementList()));
     }
-#line 1696 "parser.tab.cpp"
+#line 1704 "parser.tab.cpp"
     break;
 
   case 20:
@@ -1701,7 +1709,7 @@ yyreduce:
         yydebug(" $$ = new ConstructorA(new ClassTypeA(new NameA($2, 1)), $1, new MethodBodyA($3, $4->getStatementList())); ");
         (yyval.constructorA) = new ConstructorA(new ClassTypeA(new NameA((yyvsp[-2].s), 1)), (yyvsp[-3].listA), new MethodBodyA((yyvsp[-1].listA), (yyvsp[0].blockA)->getStatementList()));
     }
-#line 1705 "parser.tab.cpp"
+#line 1713 "parser.tab.cpp"
     break;
 
   case 21:
@@ -1710,7 +1718,7 @@ yyreduce:
         yydebug(" $$ = new ConstructorA(new ClassTypeA(new NameA($1, 1)), new MethodBodyA($2, $3->getStatementList())); ");
         (yyval.constructorA) = new ConstructorA(new ClassTypeA(new NameA((yyvsp[-2].s), 1)), new MethodBodyA((yyvsp[-1].listA), (yyvsp[0].blockA)->getStatementList()));
     }
-#line 1714 "parser.tab.cpp"
+#line 1722 "parser.tab.cpp"
     break;
 
   case 22:
@@ -1719,7 +1727,7 @@ yyreduce:
         yydebug(" $$ = new ModifierA(\"static\"); ");
         (yyval.modifierA) = new ModifierA("static");
     }
-#line 1723 "parser.tab.cpp"
+#line 1731 "parser.tab.cpp"
     break;
 
   case 23:
@@ -1728,7 +1736,7 @@ yyreduce:
         yydebug(" $$ = new ModifierA(\"public\"); ");
         (yyval.modifierA) = new ModifierA("public");
     }
-#line 1732 "parser.tab.cpp"
+#line 1740 "parser.tab.cpp"
     break;
 
   case 24:
@@ -1737,7 +1745,7 @@ yyreduce:
         yydebug(" $$ = new ModifierA(\"private\"); ");
         (yyval.modifierA) = new ModifierA("private");
     }
-#line 1741 "parser.tab.cpp"
+#line 1749 "parser.tab.cpp"
     break;
 
   case 25:
@@ -1746,7 +1754,7 @@ yyreduce:
         yydebug(" $$ = new ModifierA(\"protected\"); ");
         (yyval.modifierA) = new ModifierA("protected");
     }
-#line 1750 "parser.tab.cpp"
+#line 1758 "parser.tab.cpp"
     break;
 
   case 26:
@@ -1755,7 +1763,7 @@ yyreduce:
         yydebug(" $$ = $2; ");
         (yyval.listA) = (yyvsp[-1].listA);
     }
-#line 1759 "parser.tab.cpp"
+#line 1767 "parser.tab.cpp"
     break;
 
   case 27:
@@ -1764,7 +1772,7 @@ yyreduce:
         yydebug(" $$ = new ListA(); ");
         (yyval.listA) = new ListA();
     }
-#line 1768 "parser.tab.cpp"
+#line 1776 "parser.tab.cpp"
     break;
 
   case 28:
@@ -1773,7 +1781,7 @@ yyreduce:
         yydebug(" $$ = $3; $$->addf($1); ");
         (yyval.listA) = (yyvsp[0].listA); (yyval.listA)->addf((yyvsp[-2].formalA));
     }
-#line 1777 "parser.tab.cpp"
+#line 1785 "parser.tab.cpp"
     break;
 
   case 29:
@@ -1782,7 +1790,7 @@ yyreduce:
         yydebug(" $$ = new ListA(); $$->addf($1); ");
         (yyval.listA) = new ListA(); (yyval.listA)->addf((yyvsp[0].formalA));
     }
-#line 1786 "parser.tab.cpp"
+#line 1794 "parser.tab.cpp"
     break;
 
   case 30:
@@ -1791,7 +1799,7 @@ yyreduce:
         yydebug(" $$ = new FormalA($1, $2);");
         (yyval.formalA) = new FormalA((yyvsp[-1].typeA), (yyvsp[0].s));
     }
-#line 1795 "parser.tab.cpp"
+#line 1803 "parser.tab.cpp"
     break;
 
   case 31:
@@ -1800,7 +1808,7 @@ yyreduce:
         yydebug(" $$ = $1; ");
         (yyval.typeA) = (yyvsp[0].primTypeA);
     }
-#line 1804 "parser.tab.cpp"
+#line 1812 "parser.tab.cpp"
     break;
 
   case 32:
@@ -1809,7 +1817,7 @@ yyreduce:
         yydebug(" $$ = new ClassTypeA(new NameA($1, 1)); ");
         (yyval.typeA) = new ClassTypeA(new NameA((yyvsp[0].s), 1));
     }
-#line 1813 "parser.tab.cpp"
+#line 1821 "parser.tab.cpp"
     break;
 
   case 33:
@@ -1818,7 +1826,7 @@ yyreduce:
         yydebug(" $$ = new ArrayTypeA($1, $2); ");
         (yyval.typeA) = new ArrayTypeA((yyvsp[-1].typeA), (yyvsp[0].i));
     }
-#line 1822 "parser.tab.cpp"
+#line 1830 "parser.tab.cpp"
     break;
 
   case 34:
@@ -1827,7 +1835,7 @@ yyreduce:
         yydebug(" $$ = ++$3; ");
         (yyval.i) = ++(yyvsp[0].i);
     }
-#line 1831 "parser.tab.cpp"
+#line 1839 "parser.tab.cpp"
     break;
 
   case 35:
@@ -1836,7 +1844,7 @@ yyreduce:
         yydebug(" $$ = 1; ");
         (yyval.i) = 1;
     }
-#line 1840 "parser.tab.cpp"
+#line 1848 "parser.tab.cpp"
     break;
 
   case 36:
@@ -1845,7 +1853,7 @@ yyreduce:
         yydebug(" $$ = new PrimTypeA(new NameA($1, 1)); ");
         (yyval.primTypeA) = new PrimTypeA(new NameA((yyvsp[0].s), 1));
     }
-#line 1849 "parser.tab.cpp"
+#line 1857 "parser.tab.cpp"
     break;
 
   case 37:
@@ -1854,7 +1862,7 @@ yyreduce:
         yydebug(" $$ = new PrimTypeA(new NameA($1, 1)); ");
         (yyval.primTypeA) = new PrimTypeA(new NameA((yyvsp[0].s), 1));
     }
-#line 1858 "parser.tab.cpp"
+#line 1866 "parser.tab.cpp"
     break;
 
   case 38:
@@ -1863,7 +1871,7 @@ yyreduce:
         yydebug(" $$ = new PrimTypeA(new NameA($1, 1)); ");
         (yyval.primTypeA) = new PrimTypeA(new NameA((yyvsp[0].s), 1));
     }
-#line 1867 "parser.tab.cpp"
+#line 1875 "parser.tab.cpp"
     break;
 
   case 39:
@@ -1872,7 +1880,7 @@ yyreduce:
         yydebug(" $$ = new PrimTypeA(new NameA($1, 1)); ");
         (yyval.primTypeA) = new PrimTypeA(new NameA((yyvsp[0].s), 1));
     }
-#line 1876 "parser.tab.cpp"
+#line 1884 "parser.tab.cpp"
     break;
 
   case 40:
@@ -1881,7 +1889,7 @@ yyreduce:
         yydebug(" $$ = $3; $$->addf($1); ");
         (yyval.listA) = (yyvsp[0].listA); (yyval.listA)->addf((yyvsp[-2].varDeclA));
     }
-#line 1885 "parser.tab.cpp"
+#line 1893 "parser.tab.cpp"
     break;
 
   case 41:
@@ -1890,7 +1898,7 @@ yyreduce:
         yydebug(" $$ = new StartA(); $$->addf($1); ");
         (yyval.listA) = new ListA(); (yyval.listA)->addf((yyvsp[0].varDeclA));
     }
-#line 1894 "parser.tab.cpp"
+#line 1902 "parser.tab.cpp"
     break;
 
   case 42:
@@ -1899,7 +1907,7 @@ yyreduce:
         yydebug(" $$ = new VarDeclA($1, $3); ");
         (yyval.varDeclA) = new VarDeclA((yyvsp[-2].s), (yyvsp[0].expressionA));
     }
-#line 1903 "parser.tab.cpp"
+#line 1911 "parser.tab.cpp"
     break;
 
   case 43:
@@ -1908,7 +1916,7 @@ yyreduce:
         yydebug(" $$ = new VarDeclA($1); ");
         (yyval.varDeclA) = new VarDeclA((yyvsp[0].s));
     }
-#line 1912 "parser.tab.cpp"
+#line 1920 "parser.tab.cpp"
     break;
 
   case 44:
@@ -1917,7 +1925,7 @@ yyreduce:
         yyerror(" $$ = $1+\"[]\"; ");
         (yyval.s) = (yyvsp[-2].s);
     }
-#line 1921 "parser.tab.cpp"
+#line 1929 "parser.tab.cpp"
     break;
 
   case 45:
@@ -1926,7 +1934,7 @@ yyreduce:
         yydebug(" $$ = $1; ");
         (yyval.s) = (yyvsp[0].s);
     }
-#line 1930 "parser.tab.cpp"
+#line 1938 "parser.tab.cpp"
     break;
 
   case 46:
@@ -1935,7 +1943,7 @@ yyreduce:
         yydebug(" $$ = new BlockA($2); ");
             (yyval.blockA) = new BlockA((yyvsp[-1].listA));
         }
-#line 1939 "parser.tab.cpp"
+#line 1947 "parser.tab.cpp"
     break;
 
   case 47:
@@ -1944,7 +1952,7 @@ yyreduce:
         yydebug(" $$ = new BlockA(); ");
         (yyval.blockA) = new BlockA();
     }
-#line 1948 "parser.tab.cpp"
+#line 1956 "parser.tab.cpp"
     break;
 
   case 48:
@@ -1953,7 +1961,7 @@ yyreduce:
         yydebug(" $$ = $2; $$->addf($1); ");
         (yyval.listA) = (yyvsp[0].listA); (yyval.listA)->addf((yyvsp[-1].statementA));
     }
-#line 1957 "parser.tab.cpp"
+#line 1965 "parser.tab.cpp"
     break;
 
   case 49:
@@ -1962,7 +1970,7 @@ yyreduce:
         yydebug(" $$ = new ListA(); $$->addf($1); ");
         (yyval.listA) = new ListA(); (yyval.listA)->addf((yyvsp[0].statementA));
     }
-#line 1966 "parser.tab.cpp"
+#line 1974 "parser.tab.cpp"
     break;
 
   case 50:
@@ -1971,7 +1979,7 @@ yyreduce:
         yydebug(" $$ =new EmptyStatement() ");
         (yyval.statementA) = new EmptyStatementA();
     }
-#line 1975 "parser.tab.cpp"
+#line 1983 "parser.tab.cpp"
     break;
 
   case 51:
@@ -1980,7 +1988,7 @@ yyreduce:
         yydebug(" $$ = new DeclStatementA($1, $2); ");
         (yyval.statementA) = new DeclStatementA((yyvsp[-2].typeA), (yyvsp[-1].listA));
     }
-#line 1984 "parser.tab.cpp"
+#line 1992 "parser.tab.cpp"
     break;
 
   case 52:
@@ -1989,7 +1997,7 @@ yyreduce:
             yydebug(" $$ = new IfStatementA($3, $5, NULL); ");
             (yyval.statementA) = new IfStatementA((yyvsp[-2].expressionA), (yyvsp[0].statementA));
     }
-#line 1993 "parser.tab.cpp"
+#line 2001 "parser.tab.cpp"
     break;
 
   case 53:
@@ -1998,7 +2006,7 @@ yyreduce:
         yydebug(" $$ = new IfStatementA($3, $5, $7); ");
         (yyval.statementA) = new IfStatementA((yyvsp[-4].expressionA), (yyvsp[-2].statementA), (yyvsp[0].statementA));
     }
-#line 2002 "parser.tab.cpp"
+#line 2010 "parser.tab.cpp"
     break;
 
   case 54:
@@ -2007,7 +2015,7 @@ yyreduce:
         yydebug(" $$ = new ExpressionStatementA($1); ");
         (yyval.statementA) = new ExpressionStatementA((yyvsp[-1].expressionA));
     }
-#line 2011 "parser.tab.cpp"
+#line 2019 "parser.tab.cpp"
     break;
 
   case 55:
@@ -2016,7 +2024,7 @@ yyreduce:
         yydebug(" $$ = new WhileStatement(new symbolTable(), $3, $5); ");
         (yyval.statementA) = new WhileStatementA((yyvsp[-2].expressionA), (yyvsp[0].statementA));
     }
-#line 2020 "parser.tab.cpp"
+#line 2028 "parser.tab.cpp"
     break;
 
   case 56:
@@ -2025,7 +2033,7 @@ yyreduce:
         yydebug(" $$ = new ReturnStatement(NULL); ");
         (yyval.statementA) = new ReturnStatementA(NULL);
     }
-#line 2029 "parser.tab.cpp"
+#line 2037 "parser.tab.cpp"
     break;
 
   case 57:
@@ -2034,7 +2042,7 @@ yyreduce:
         yydebug(" $$ = new ReturnStatement($2); ");
         (yyval.statementA) = new ReturnStatementA((yyvsp[-1].expressionA));
     }
-#line 2038 "parser.tab.cpp"
+#line 2046 "parser.tab.cpp"
     break;
 
   case 58:
@@ -2043,7 +2051,7 @@ yyreduce:
         yydebug(" $$ = new ContinueStatement(); ");
         (yyval.statementA) = new ContinueStatementA();
     }
-#line 2047 "parser.tab.cpp"
+#line 2055 "parser.tab.cpp"
     break;
 
   case 59:
@@ -2052,7 +2060,7 @@ yyreduce:
         yydebug(" $$ = new BreakStatement(); ");
         (yyval.statementA) = new BreakStatementA();
     }
-#line 2056 "parser.tab.cpp"
+#line 2064 "parser.tab.cpp"
     break;
 
   case 60:
@@ -2061,7 +2069,7 @@ yyreduce:
         yydebug(" $$ = new Block($1); ");
         (yyval.statementA) = new BlockStatementA((yyvsp[0].blockA));
     }
-#line 2065 "parser.tab.cpp"
+#line 2073 "parser.tab.cpp"
     break;
 
   case 61:
@@ -2070,7 +2078,7 @@ yyreduce:
         yydebug(" $$ = new SuperStatementA($2); ");
         (yyval.statementA) = new SuperStatementA((yyvsp[-1].listA));
     }
-#line 2074 "parser.tab.cpp"
+#line 2082 "parser.tab.cpp"
     break;
 
   case 62:
@@ -2079,7 +2087,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
         }
-#line 2083 "parser.tab.cpp"
+#line 2091 "parser.tab.cpp"
     break;
 
   case 63:
@@ -2088,7 +2096,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2092 "parser.tab.cpp"
+#line 2100 "parser.tab.cpp"
     break;
 
   case 64:
@@ -2097,7 +2105,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2101 "parser.tab.cpp"
+#line 2109 "parser.tab.cpp"
     break;
 
   case 65:
@@ -2106,7 +2114,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2110 "parser.tab.cpp"
+#line 2118 "parser.tab.cpp"
     break;
 
   case 66:
@@ -2115,7 +2123,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2119 "parser.tab.cpp"
+#line 2127 "parser.tab.cpp"
     break;
 
   case 67:
@@ -2124,7 +2132,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2128 "parser.tab.cpp"
+#line 2136 "parser.tab.cpp"
     break;
 
   case 68:
@@ -2133,7 +2141,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2137 "parser.tab.cpp"
+#line 2145 "parser.tab.cpp"
     break;
 
   case 69:
@@ -2142,7 +2150,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2146 "parser.tab.cpp"
+#line 2154 "parser.tab.cpp"
     break;
 
   case 70:
@@ -2151,7 +2159,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2155 "parser.tab.cpp"
+#line 2163 "parser.tab.cpp"
     break;
 
   case 71:
@@ -2160,7 +2168,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2164 "parser.tab.cpp"
+#line 2172 "parser.tab.cpp"
     break;
 
   case 72:
@@ -2169,7 +2177,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2173 "parser.tab.cpp"
+#line 2181 "parser.tab.cpp"
     break;
 
   case 73:
@@ -2178,7 +2186,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2182 "parser.tab.cpp"
+#line 2190 "parser.tab.cpp"
     break;
 
   case 74:
@@ -2187,7 +2195,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2191 "parser.tab.cpp"
+#line 2199 "parser.tab.cpp"
     break;
 
   case 75:
@@ -2196,7 +2204,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[-2].expressionA), (yyvsp[0].expressionA));
     }
-#line 2200 "parser.tab.cpp"
+#line 2208 "parser.tab.cpp"
     break;
 
   case 76:
@@ -2205,7 +2213,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($1, $2); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[0].expressionA));
     }
-#line 2209 "parser.tab.cpp"
+#line 2217 "parser.tab.cpp"
     break;
 
   case 77:
@@ -2214,7 +2222,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($1, $2); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[0].expressionA));
     }
-#line 2218 "parser.tab.cpp"
+#line 2226 "parser.tab.cpp"
     break;
 
   case 78:
@@ -2223,7 +2231,7 @@ yyreduce:
         yydebug(" $$ = new OpExpressionA($1, $2); ");
         (yyval.expressionA) = new OpExpressionA((yyvsp[-1].s), (yyvsp[0].expressionA));
     }
-#line 2227 "parser.tab.cpp"
+#line 2235 "parser.tab.cpp"
     break;
 
   case 79:
@@ -2232,7 +2240,7 @@ yyreduce:
         yydebug(" $$ = $1; ");
         (yyval.expressionA) = (yyvsp[0].primaryExprA);
     }
-#line 2236 "parser.tab.cpp"
+#line 2244 "parser.tab.cpp"
     break;
 
   case 80:
@@ -2241,7 +2249,7 @@ yyreduce:
         yyerror(" $$ = $1 ");
         (yyval.primaryExprA) = new PrimaryArrayA((yyvsp[0].newArrayA));
     }
-#line 2245 "parser.tab.cpp"
+#line 2253 "parser.tab.cpp"
     break;
 
   case 81:
@@ -2250,7 +2258,7 @@ yyreduce:
         yydebug(" $$ = $1; ");
         (yyval.primaryExprA) = new NonArrayPrimaryA((yyvsp[0].expressionA));
     }
-#line 2254 "parser.tab.cpp"
+#line 2262 "parser.tab.cpp"
     break;
 
   case 82:
@@ -2259,7 +2267,7 @@ yyreduce:
         yydebug(" $$ = $1; ");
         (yyval.primaryExprA) = new NameA((yyvsp[0].s), 6);
     }
-#line 2263 "parser.tab.cpp"
+#line 2271 "parser.tab.cpp"
     break;
 
   case 83:
@@ -2268,7 +2276,7 @@ yyreduce:
         yydebug(" new NewArrayA( new NameA($2), $3) ");
         new NewArrayA( new ClassTypeA(new NameA((yyvsp[-1].s), 2)), (yyvsp[0].listA));
     }
-#line 2272 "parser.tab.cpp"
+#line 2280 "parser.tab.cpp"
     break;
 
   case 84:
@@ -2277,7 +2285,7 @@ yyreduce:
         yydebug("new newArrayA($2, $3);");
         new NewArrayA((yyvsp[-1].primTypeA), (yyvsp[0].listA));
     }
-#line 2281 "parser.tab.cpp"
+#line 2289 "parser.tab.cpp"
     break;
 
   case 85:
@@ -2289,7 +2297,7 @@ yyreduce:
 
 
     }
-#line 2293 "parser.tab.cpp"
+#line 2301 "parser.tab.cpp"
     break;
 
   case 86:
@@ -2299,7 +2307,7 @@ yyreduce:
         (yyval.listA) = new ListA();
         (yyval.listA)->addf((yyvsp[0].dimensionA));
     }
-#line 2303 "parser.tab.cpp"
+#line 2311 "parser.tab.cpp"
     break;
 
   case 87:
@@ -2308,7 +2316,7 @@ yyreduce:
         yydebug(" $$ = new DimensionA($2); ");
         (yyval.dimensionA) = new DimensionA((yyvsp[-1].expressionA));
     }
-#line 2312 "parser.tab.cpp"
+#line 2320 "parser.tab.cpp"
     break;
 
   case 88:
@@ -2317,7 +2325,7 @@ yyreduce:
         yydebug(" $$ = $1; ");
         (yyval.expressionA) = (yyvsp[0].litA);
     }
-#line 2321 "parser.tab.cpp"
+#line 2329 "parser.tab.cpp"
     break;
 
   case 89:
@@ -2326,7 +2334,7 @@ yyreduce:
         yydebug(" $$ = new ThisExprA(); ");
         (yyval.expressionA) = new ThisExprA();
     }
-#line 2330 "parser.tab.cpp"
+#line 2338 "parser.tab.cpp"
     break;
 
   case 90:
@@ -2335,7 +2343,7 @@ yyreduce:
         yydebug(" $$ = $2; ");
         (yyval.expressionA) = (yyvsp[-1].expressionA);
     }
-#line 2339 "parser.tab.cpp"
+#line 2347 "parser.tab.cpp"
     break;
 
   case 91:
@@ -2344,7 +2352,7 @@ yyreduce:
         yydebug(" $$ = new NewObjExprA(new NameA($2), $3); ");
         (yyval.expressionA) = new NewObjExprA(new NameA((yyvsp[-1].s), 2), (yyvsp[0].listA));
     }
-#line 2348 "parser.tab.cpp"
+#line 2356 "parser.tab.cpp"
     break;
 
   case 92:
@@ -2353,7 +2361,7 @@ yyreduce:
         yydebug(" $$ = new ThisCallExprA($1, $2); ");
         (yyval.expressionA) = new ThisCallExprA(new NameA((yyvsp[-1].s), 2), (yyvsp[0].listA));
     }
-#line 2357 "parser.tab.cpp"
+#line 2365 "parser.tab.cpp"
     break;
 
   case 93:
@@ -2362,7 +2370,7 @@ yyreduce:
         yydebug(" $$ = new MethodCallExprA($1, $3, $4); ");
         (yyval.expressionA) = new MethodCallExprA((yyvsp[-3].primaryExprA), new NameA((yyvsp[-1].s), 3), (yyvsp[0].listA));
     }
-#line 2366 "parser.tab.cpp"
+#line 2374 "parser.tab.cpp"
     break;
 
   case 94:
@@ -2371,7 +2379,7 @@ yyreduce:
         yydebug(" $$ = new SuperCallExprA($3, $4); ");
         (yyval.expressionA) = new SuperCallExprA(new NameA((yyvsp[-1].s), 3), (yyvsp[0].listA));
     }
-#line 2375 "parser.tab.cpp"
+#line 2383 "parser.tab.cpp"
     break;
 
   case 95:
@@ -2380,7 +2388,7 @@ yyreduce:
         yydebug(" $$ = $1; ");
         (yyval.expressionA) = (yyvsp[0].arrayRefA);
     }
-#line 2384 "parser.tab.cpp"
+#line 2392 "parser.tab.cpp"
     break;
 
   case 96:
@@ -2389,7 +2397,7 @@ yyreduce:
         yydebug(" $$ = $1; ");
         (yyval.expressionA) = (yyvsp[0].expressionA);
     }
-#line 2393 "parser.tab.cpp"
+#line 2401 "parser.tab.cpp"
     break;
 
   case 97:
@@ -2398,7 +2406,7 @@ yyreduce:
         yydebug(" $$ = new FieldExprA($1, new NameA($3, 6));");
         (yyval.expressionA) = new FieldExprA((yyvsp[-2].primaryExprA), new NameA((yyvsp[0].s), 5));
     }
-#line 2402 "parser.tab.cpp"
+#line 2410 "parser.tab.cpp"
     break;
 
   case 98:
@@ -2407,7 +2415,7 @@ yyreduce:
         yydebug(" $$ = new SuperfieldExpr($3); ");
         (yyval.expressionA) = new SuperFieldExprA(new NameA((yyvsp[0].s), 5));
     }
-#line 2411 "parser.tab.cpp"
+#line 2419 "parser.tab.cpp"
     break;
 
   case 99:
@@ -2416,7 +2424,7 @@ yyreduce:
         yydebug(" $$ = new ArrayRefA(new NameA($1, 1), $2); ");
         (yyval.arrayRefA) = new ArrayRefA(new NameA((yyvsp[-1].s), 1), (yyvsp[0].dimensionA));
     }
-#line 2420 "parser.tab.cpp"
+#line 2428 "parser.tab.cpp"
     break;
 
   case 100:
@@ -2425,25 +2433,25 @@ yyreduce:
         yydebug(" $$ = new ArrayRefA($1, $2); ");
         (yyval.arrayRefA) = new ArrayRefA((yyvsp[-1].expressionA), (yyvsp[0].dimensionA));
     }
-#line 2429 "parser.tab.cpp"
+#line 2437 "parser.tab.cpp"
     break;
 
   case 101:
 #line 640 "parser.ypp"
     {
-        yyerror(" $$ = new NullLiteral(); ");
+        yydebug(" $$ = new NullLiteral(); ");
         (yyval.litA) = new NullLitA();
     }
-#line 2438 "parser.tab.cpp"
+#line 2446 "parser.tab.cpp"
     break;
 
   case 102:
 #line 644 "parser.ypp"
     {
-        yyerror(" $$ = new BoolLiteral($1); ");
+        yydebug(" $$ = new BoolLiteral($1); ");
         (yyval.litA) = new BoolLitA((yyvsp[0].b));
     }
-#line 2447 "parser.tab.cpp"
+#line 2455 "parser.tab.cpp"
     break;
 
   case 103:
@@ -2452,16 +2460,16 @@ yyreduce:
         yydebug(" $$ = new IntLitA($1); ");
         (yyval.litA) = new IntLitA((yyvsp[0].i));
     }
-#line 2456 "parser.tab.cpp"
+#line 2464 "parser.tab.cpp"
     break;
 
   case 104:
 #line 652 "parser.ypp"
     {
-        yyerror(" $$ = new CharLitA($1); ");
+        yydebug(" $$ = new CharLitA($1); ");
         (yyval.litA) = new CharLitA((yyvsp[0].c));
     }
-#line 2465 "parser.tab.cpp"
+#line 2473 "parser.tab.cpp"
     break;
 
   case 105:
@@ -2470,7 +2478,7 @@ yyreduce:
         yydebug(" $$ = new StrLitA($1); ");
         (yyval.litA) = new StrLitA((yyvsp[0].s));
     }
-#line 2474 "parser.tab.cpp"
+#line 2482 "parser.tab.cpp"
     break;
 
   case 106:
@@ -2479,7 +2487,7 @@ yyreduce:
         yydebug(" $$ = $2 ");
         (yyval.listA) = (yyvsp[-1].listA);
     }
-#line 2483 "parser.tab.cpp"
+#line 2491 "parser.tab.cpp"
     break;
 
   case 107:
@@ -2488,7 +2496,7 @@ yyreduce:
         yydebug(" $$ = ListA(); ");
         (yyval.listA) = new ListA();
     }
-#line 2492 "parser.tab.cpp"
+#line 2500 "parser.tab.cpp"
     break;
 
   case 108:
@@ -2498,7 +2506,7 @@ yyreduce:
         (yyval.listA) = (yyvsp[0].listA);
         (yyval.listA)->addf((yyvsp[-2].expressionA));
     }
-#line 2502 "parser.tab.cpp"
+#line 2510 "parser.tab.cpp"
     break;
 
   case 109:
@@ -2508,11 +2516,11 @@ yyreduce:
         (yyval.listA) = new ListA();
         (yyval.listA)->addf((yyvsp[0].expressionA));
     }
-#line 2512 "parser.tab.cpp"
+#line 2520 "parser.tab.cpp"
     break;
 
 
-#line 2516 "parser.tab.cpp"
+#line 2524 "parser.tab.cpp"
 
       default: break;
     }
@@ -2753,7 +2761,7 @@ void yyerror(string s)
 }
 
 void yydebug(string s) {
-    // cout << "\t" << s << "\n";
+    cout << "\t" << s << "\n";
 }
 
 int main(int argc, char **argv) {

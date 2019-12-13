@@ -92,16 +92,16 @@ StartA* start;
 // %left EQEQ NEQ
 // %precedence UMINUS
 
-%precedence NOT UMINUS UPLUS
-%left       TIMES DIV MOD
-%left       PLUS MINUS
-%nonassoc   LESS GREATER LEQ GEQ
-%left       EQEQ NEQ
-%left       LAND
-%left       LOR
-%right      EQ
-%right      IF
 %right      LOWEST
+%right      IF
+%right      EQ
+%left       LOR
+%left       LAND
+%left       EQEQ NEQ
+%nonassoc   LESS GREATER LEQ GEQ
+%left       PLUS MINUS
+%left       TIMES DIV MOD
+%precedence NOT UMINUS UPLUS
 
 %union{
     char*       s;
@@ -638,11 +638,11 @@ array_expr
 
 literal
     : NILL {
-        yyerror(" $$ = new NullLiteral(); ");
+        yydebug(" $$ = new NullLiteral(); ");
         $$ = new NullLitA();
     }
     | BOOLEAN {
-        yyerror(" $$ = new BoolLiteral($1); ");
+        yydebug(" $$ = new BoolLiteral($1); ");
         $$ = new BoolLitA($1);
     }
     | INTEGER {
@@ -650,7 +650,7 @@ literal
         $$ = new IntLitA($1);
     }
     | CHAR {
-        yyerror(" $$ = new CharLitA($1); ");
+        yydebug(" $$ = new CharLitA($1); ");
         $$ = new CharLitA($1);
     }
     | STRING {
@@ -688,7 +688,7 @@ void yyerror(string s)
 }
 
 void yydebug(string s) {
-    // cout << "\t" << s << "\n";
+    cout << "\t" << s << "\n";
 }
 
 int main(int argc, char **argv) {

@@ -462,14 +462,15 @@ void CodeGenV::visit(OpExpressionA* a) {
         {
             a->setReg(Builder.CreateOr(L, R, "lortmp"));
         }
-        // else if (op == "=")
-        // {
+        else if (op == "=")
+        {
+            LogErrorV("Variable mutation is unimplemented");
         //     // a->setReg(Builder.CreateOr(L, R, "lortmp"));
         //     // cout << L << endl;
         //     // cout << R << endl;
         //     // FIXME: partial hack:
         //     // currSymTab->setLocal(e1->getName()->getName(), R);
-        // }
+        }
 
         else
         {

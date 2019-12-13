@@ -103,9 +103,9 @@ extern int yydebug;
     UNRECOG_ERROR = 309,
     TYPER_INT = 310,
     VOID = 311,
-    UMINUS = 312,
-    UPLUS = 313,
-    LOWEST = 314
+    LOWEST = 312,
+    UMINUS = 313,
+    UPLUS = 314
   };
 #endif
 

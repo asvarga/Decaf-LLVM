@@ -29,145 +29,145 @@ CHAR_SLASH          "'"\\[^nt]"'"
 
 %%
     /* Key Words*/
-"break"     { /* std::cout << "BREAK: " << yytext << "\n"; */
+"break"     { // std::cout << "BREAK: " << yytext << "\n";
                 yylval.s = strdup(yytext); return BREAK; }
-"class"     { /* std::cout << "CLASS: " << yytext << "\n"; */
+"class"     { // std::cout << "CLASS: " << yytext << "\n";
                 yylval.s = strdup(yytext); return CLASS; }
-"continue"  { /* std::cout << "CONTINUE: " << yytext << "\n"; */
+"continue"  { // std::cout << "CONTINUE: " << yytext << "\n";
                 yylval.s = strdup(yytext); return CONTINUE; }
-"else"      { /* std::cout << "ELSE: " << yytext << "\n"; */
+"else"      { // std::cout << "ELSE: " << yytext << "\n";
                 yylval.s = strdup(yytext); return ELSE; }
-"extends"   { /* std::cout << "EXTENDS: " << yytext << "\n"; */
+"extends"   { // std::cout << "EXTENDS: " << yytext << "\n";
                 yylval.s = strdup(yytext); return EXTENDS; }
-"if"        { /* std::cout << "IF: " << yytext << "\n"; */
+"if"        { // std::cout << "IF: " << yytext << "\n";
                 yylval.s = strdup(yytext); return IF; }
-"new"       { /* std::cout << "NEW: " << yytext << "\n"; */
+"new"       { // std::cout << "NEW: " << yytext << "\n";
                 yylval.s = strdup(yytext); return NEW; }
-"null"      { /* std::cout << "NILL: " << yytext << "\n"; */
+"null"      { // std::cout << "NILL: " << yytext << "\n";
                 yylval.s = strdup(yytext); return NILL; }
-"private"   { /* std::cout << "PRIVATE: " << yytext << "\n"; */
+"private"   { // std::cout << "PRIVATE: " << yytext << "\n";
                 yylval.s = strdup(yytext); return PRIVATE; }
-"protected" { /* std::cout << "PROTECTED: " << yytext << "\n"; */
+"protected" { // std::cout << "PROTECTED: " << yytext << "\n";
                 yylval.s = strdup(yytext); return PROTECTED; }
-"public"    { /* std::cout << "PUBLIC: " << yytext << "\n"; */
+"public"    { // std::cout << "PUBLIC: " << yytext << "\n";
                 yylval.s = strdup(yytext); return PUBLIC; }
-"return"    { /* std::cout << "RETURN: " << yytext << "\n"; */
+"return"    { // std::cout << "RETURN: " << yytext << "\n";
                 yylval.s = strdup(yytext); return RETURN; }
-"static"    { /* std::cout << "STATIC: " << yytext << "\n"; */
+"static"    { // std::cout << "STATIC: " << yytext << "\n";
                 yylval.s = strdup(yytext); return STATIC; }
-"super"     { /* std::cout << "SUPER: " << yytext << "\n"; */
+"super"     { // std::cout << "SUPER: " << yytext << "\n";
                 yylval.s = strdup(yytext); return SUPER; }
-"this"      { /* std::cout << "THIS: " << yytext << "\n"; */
+"this"      { // std::cout << "THIS: " << yytext << "\n";
                 yylval.s = strdup(yytext); return THIS; }
-"while"     { /* std::cout << "WHILE: " << yytext << "\n"; */
+"while"     { // std::cout << "WHILE: " << yytext << "\n";
                 yylval.s = strdup(yytext); return WHILE; }
 
     /* Forbidden Words*/
-"abstract"      { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"abstract"      { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"byte"          { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"byte"          { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"case"          { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"case"          { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"catch"         { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"catch"         { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"const"         { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"const"         { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"default"       { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"default"       { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"do"            { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"do"            { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"double"        { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"double"        { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"final"         { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"final"         { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"finally"       { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"finally"       { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"for"           { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"for"           { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"implements"    { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"implements"    { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"import"        { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"import"        { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"instanceof"    { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"instanceof"    { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"interface"     { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"interface"     { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"long"          { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"long"          { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"native"        { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"native"        { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"goto"          { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"goto"          { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"package"       { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"package"       { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"short"         { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"short"         { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"switch"        { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"switch"        { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"synchronized"  { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"synchronized"  { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"throw"         { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"throw"         { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"throws"        { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"throws"        { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"transient"     { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"transient"     { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"try"           { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"try"           { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"volatile"      { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"volatile"      { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"byvalue"       { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"byvalue"       { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"cast"          { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"cast"          { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"generic"       { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"generic"       { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"inner"         { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"inner"         { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"none"          { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"none"          { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"operator"      { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"operator"      { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"outer"         { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"outer"         { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"rest"          { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"rest"          { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"var"           { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"var"           { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"float"         { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"float"         { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"~"             { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"~"             { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"?"             { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"?"             { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-":"             { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+":"             { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"++"            { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"++"            { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"--"            { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"--"            { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"&"             { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"&"             { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"|"             { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"|"             { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"^"             { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"^"             { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"<<"            { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"<<"            { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-">>"            { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+">>"            { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-">>>"           { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+">>>"           { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"^=="           { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"^=="           { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"%="            { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"%="            { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-"<<="           { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+"<<="           { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-">>="           { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+">>="           { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
-">>>="          { /* std::cout << "FORBIDDEN: " << yytext << "\n"; */
+">>>="          { // std::cout << "FORBIDDEN: " << yytext << "\n";
                     return FORBIDDEN; }
 
 
@@ -180,85 +180,87 @@ CHAR_SLASH          "'"\\[^nt]"'"
 
 
     /* Operator and Separator */
-"<="               { /* std::cout << "LEQ: " << yytext << "\n"; */
+"<="               { // std::cout << "LEQ: " << yytext << "\n";
                         yylval.s = strdup(yytext);return LEQ; }
-"<"                { /* std::cout << "LESS: " << yytext << "\n"; */
+"<"                { // std::cout << "LESS: " << yytext << "\n";
                         yylval.s = strdup(yytext);return LESS; }
-">="               { /* std::cout << "GEQ: " << yytext << "\n"; */
+">="               { // std::cout << "GEQ: " << yytext << "\n";
                         yylval.s = strdup(yytext);return GEQ; }
-">"                { /* std::cout << "GREATER: " << yytext << "\n"; */
+">"                { // std::cout << "GREATER: " << yytext << "\n";
                         yylval.s = strdup(yytext);return GREATER; }
-"=="               { /* std::cout << "EQEQ: " << yytext << "\n"; */
+"=="               { // std::cout << "EQEQ: " << yytext << "\n";
                         yylval.s = strdup(yytext);return EQEQ; }
-"="                { /* std::cout << "EQ: " << yytext << "\n"; */
+"="                { // std::cout << "EQ: " << yytext << "\n";
                         yylval.s = strdup(yytext);return EQ; }
-"!="               { /* std::cout << "NEQ: " << yytext << "\n"; */
+"!="               { // std::cout << "NEQ: " << yytext << "\n";
                         yylval.s = strdup(yytext);return NEQ; }
-"&&"               { /* std::cout << "LAND: " << yytext << "\n"; */
+"&&"               { // std::cout << "LAND: " << yytext << "\n";
                         yylval.s = strdup(yytext);return LAND; }
-"||"               { /* std::cout << "LOR: " << yytext << "\n"; */
+"||"               { // std::cout << "LOR: " << yytext << "\n";
                         yylval.s = strdup(yytext);return LOR; }
-"+"                { /* std::cout << "PLUS: " << yytext << "\n"; */
+"+"                { // std::cout << "PLUS: " << yytext << "\n";
                         yylval.s = strdup(yytext);return PLUS; }
-"-"                { /* std::cout << "MINUS: " << yytext << "\n"; */
+"-"                { // std::cout << "MINUS: " << yytext << "\n";
                         yylval.s = strdup(yytext);return MINUS; }
-"*"                { /* std::cout << "TIMES: " << yytext << "\n"; */
+"*"                { // std::cout << "TIMES: " << yytext << "\n";
                         yylval.s = strdup(yytext);return TIMES; }
-"/"                { /* std::cout << "DIV: " << yytext << "\n"; */
+"/"                { // std::cout << "DIV: " << yytext << "\n";
                         yylval.s = strdup(yytext);return DIV; }
-"%"                { /* std::cout << "MOD: " << yytext << "\n"; */
+"%"                { // std::cout << "MOD: " << yytext << "\n";
                         yylval.s = strdup(yytext);return MOD; }
-"!"                { /* std::cout << "NOT: " << yytext << "\n"; */
+"!"                { // std::cout << "NOT: " << yytext << "\n";
                         yylval.s = strdup(yytext);return NOT; }
-"("                { /* std::cout << "OP: " << yytext << "\n"; */
+"("                { // std::cout << "OP: " << yytext << "\n";
                         yylval.s = strdup(yytext);return OP; }
-")"                { /* std::cout << "CP: " << yytext << "\n"; */
+")"                { // std::cout << "CP: " << yytext << "\n";
                         yylval.s = strdup(yytext);return CP; }
-"["                { /* std::cout << "OB: " << yytext << "\n"; */
+"["                { // std::cout << "OB: " << yytext << "\n";
                         yylval.s = strdup(yytext);return OB; }
-"]"                { /* std::cout << "CB: " << yytext << "\n"; */
+"]"                { // std::cout << "CB: " << yytext << "\n";
                         yylval.s = strdup(yytext);return CB; }
-"{"                { /* std::cout << "OC: " << yytext << "\n"; */
+"{"                { // std::cout << "OC: " << yytext << "\n";
                         yylval.s = strdup(yytext);return OC; }
-"}"                { /* std::cout << "CC: " << yytext << "\n"; */
+"}"                { // std::cout << "CC: " << yytext << "\n";
                         yylval.s = strdup(yytext);return CC; }
-","                { /* std::cout << "COMMA: " << yytext << "\n"; */
+","                { // std::cout << "COMMA: " << yytext << "\n";
                         yylval.s = strdup(yytext);return COMMA; }
-"."                { /* std::cout << "DOT: " << yytext << "\n"; */
+"."                { // std::cout << "DOT: " << yytext << "\n";
                         yylval.s = strdup(yytext);return DOT; }
-";"                { /* std::cout << "SEMICOLON: " << yytext << "\n"; */
+";"                { // std::cout << "SEMICOLON: " << yytext << "\n";
                         yylval.s = strdup(yytext);return SEMICOLON; }
 
 
     /*Primitive Types*/
-"void"          { /* std::cout << "TYPE_VOID: " << yytext << "\n"; */
+"void"          { // std::cout << "TYPE_VOID: " << yytext << "\n";
                     yylval.s = strdup(yytext); return TYPE_VOID; }
-"int"           { /* std::cout << "TYPE_INT: " << yytext << "\n"; */
+"int"           { // std::cout << "TYPE_INT: " << yytext << "\n";
                     yylval.s = strdup(yytext); return TYPE_INT; }
-"boolean"       { /* std::cout << "TYPE_BOOL: " << yytext << "\n"; */
+"boolean"       { // std::cout << "TYPE_BOOL: " << yytext << "\n";
                     yylval.s = strdup(yytext); return TYPE_BOOL; }
-"char"          { /* std::cout << "TYPE_CHAR: " << yytext << "\n"; */
+"char"          { // std::cout << "TYPE_CHAR: " << yytext << "\n";
                     yylval.s = strdup(yytext); return TYPE_CHAR; }
 
     /* Literal Types */
-"true|false"        { /* std::cout << "BOOLEAN: " << yytext << "\n"; */
+"true|false"        { // std::cout << "BOOLEAN: " << yytext << "\n";
                         yylval.b = (strcmp(yytext, "true")==0); return BOOLEAN; }
-{IDENTIFIER}        { /* std::cout << "IDENTIFIER: " << yytext << "\n"; */
+{IDENTIFIER}        { // std::cout << "IDENTIFIER: " << yytext << "\n";
                         yylval.s = strdup(yytext); return IDENTIFIER; }
-{INTEGER}           { /* std::cout << "INTEGER: " << yytext << "\n"; */
+{INTEGER}           { // std::cout << "INTEGER: " << yytext << "\n";
                         yylval.i = atoi(yytext); return INTEGER; }
-{STRING}            { /* std::cout << "STRING: " << yytext << "\n"; */
+{STRING}            { // std::cout << "STRING: " << yytext << "\n";
                         yylval.s = strdup(yytext); return STRING; }
-{BEG_STRING}        { /* std::cout << "STRING: " << yytext << "\n"; */
+{BEG_STRING}        { // std::cout << "STRING: " << yytext << "\n";
                         yylval.s = strdup(yytext); return STRING; }
-{CHAR}              { /* std::cout << "CHAR: " << yytext << "\n"; */
-                        yylval.c = yytext[0]; return STRING; }
-{CHAR_SLASH}        { /* std::cout << "CHAR: " << yytext << "\n"; */
-                        yylval.c = yytext[0]; return STRING; }
+{CHAR}              { // std::cout << "CHAR: " << yytext << "\n";
+                        yylval.c = yytext[1]; return CHAR; }
+"'\\n'"             { // std::cout << "CHAR: " << yytext << "\n";
+                        yylval.c = '\n'; return CHAR; }
+"'\\t'"             { // std::cout << "CHAR: " << yytext << "\n";
+                        yylval.c = '\t'; return CHAR; }
 
 
     /* Default rule (error) */
-.                   { /* std::cout << "UNRECOG_ERROR: " << yytext << "\n"; */
+.                   { // std::cout << "UNRECOG_ERROR: " << yytext << "\n";
                         return UNRECOG_ERROR; }
 
 %%
