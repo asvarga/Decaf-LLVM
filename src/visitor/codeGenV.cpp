@@ -212,6 +212,7 @@ void CodeGenV::visit(MethodA* a) {
     Builder.CreateRet(nullptr); // c++ nullptr = llvm void
 
     verifyFunction(*TheFunction);
+    // TheFPM->run(*TheFunction);   // TODO: uncomment for optimizations
 }
 
 void CodeGenV::visit(ConstructorA* a) {
@@ -461,6 +462,14 @@ void CodeGenV::visit(OpExpressionA* a) {
         {
             a->setReg(Builder.CreateOr(L, R, "lortmp"));
         }
+        // else if (op == "=")
+        // {
+        //     // a->setReg(Builder.CreateOr(L, R, "lortmp"));
+        //     // cout << L << endl;
+        //     // cout << R << endl;
+        //     // FIXME: partial hack:
+        //     // currSymTab->setLocal(e1->getName()->getName(), R);
+        // }
 
         else
         {

@@ -12,7 +12,8 @@ using namespace llvm::sys;
 static LLVMContext TheContext;
 static IRBuilder<> Builder(TheContext);
 static std::unique_ptr<Module> TheModule = make_unique<Module>("START", TheContext);
-static std::map<std::string, Value *> NamedValues;
+// static std::map<std::string, Value *> NamedValues;
+static std::unique_ptr<legacy::FunctionPassManager> TheFPM;
 
 /// extern ///
 Function *PutCharFunction;
