@@ -78,6 +78,11 @@ public:
         FunctionType *getIntFT = FunctionType::get(getIntReturnType, getIntArgTypes, false);
         GetIntFunction = Function::Create(getIntFT, Function::ExternalLinkage, "IO$getInt", TheModule.get()); 
 
+        // getLine external declaration
+        Type *getLineReturnType = Type::getInt8PtrTy(TheContext);    //char*
+        std::vector<Type*> getLineArgTypes;
+        FunctionType *getLineFT = FunctionType::get(getLineReturnType, getLineArgTypes, false);
+        GetLineFunction = Function::Create(getLineFT, Function::ExternalLinkage, "IO$getLine", TheModule.get()); 
 
     }
     void LogErrorV(const char *s) {

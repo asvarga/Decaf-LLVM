@@ -531,9 +531,18 @@ void CodeGenV::visit(MethodCallExprA* a) {
     } else if (a->getName()->getName() == "putString") {
         std::vector<Value *> putStringArgsV(1, a->getArgs()->getASTs().front()->getReg());
         Builder.CreateCall(PutStringFunction, putStringArgsV, "putstringtmp");
-    } else if (a->getName()->getName() == "getInt") {
+    } else if (a->getName()->getName() == "peek") {
+        std::vector<Value *> peekArgsV;
+        a->setReg(Builder.CreateCall(PeekFunction, peekArgsV, "peektmp"));
+    } else if (a->getName()->getName() == "getChar") {
+        std::vector<Value *> getCharArgsV;
+        a->setReg(Builder.CreateCall(GetCharFunction, getCharArgsV, "getchartmp"));
+    } else if (a->getName()->getName() == "getChar") {
         std::vector<Value *> getIntArgsV;
         a->setReg(Builder.CreateCall(GetIntFunction, getIntArgsV, "getinttmp"));
+    } else if (a->getName()->getName() == "getLine") {
+        std::vector<Value *> getLineArgsV;
+        a->setReg(Builder.CreateCall(GetLineFunction, getLineArgsV, "getlinetmp"));
     }
 }
 

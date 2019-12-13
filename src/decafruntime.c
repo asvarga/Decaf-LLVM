@@ -98,7 +98,7 @@ IO$putInt(int v)
 //    printf("%s",s->contents);
 // }
 void
-IO$putString(char* s)
+IO$putString(char *s)
 {
    printf("%s", s);
 }
@@ -144,6 +144,19 @@ IO$getInt()
 
 //    return _$CreateString(buf);
 // }
+
+char*
+IO$getLine()
+{
+   char *buffer;
+   size_t n = 1024;
+   buffer = malloc(n);
+   getline(&buffer, &n, stdin);
+   return buffer;
+}
+
+
+
 
 
 
