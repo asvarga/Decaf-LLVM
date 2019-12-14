@@ -9,6 +9,7 @@
 - method calls
 - class stuff
 - mutable variables
+- types
 - bugs
     - strings with \n or \t
 
