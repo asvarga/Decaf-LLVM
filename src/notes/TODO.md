@@ -2,7 +2,7 @@
 
 ## TODO
 
-- fix mutable vars in conditions
+- fix test1 bug
 - fields
 
 - *REMEMBER TO*

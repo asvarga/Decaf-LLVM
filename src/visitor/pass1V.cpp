@@ -81,6 +81,9 @@ void Pass1V::visit(ArrayTypeA* a) {
     ++d;
     a->getType()->accept(*this);
     --d;
+
+    // TODO:
+    a->setIRType(a->getType()->getIRType());
 }
 
 void Pass1V::visit(ClassTypeA* a) {
@@ -92,7 +95,7 @@ void Pass1V::visit(ClassTypeA* a) {
     --d;
 
     string name = a->getName()->getName();
-    if (name == "string") {
+    if (name == "string" or name == "String") {
         a->setIRType(Type::getInt8PtrTy(TheContext));
     } else {
         // Print("type not found: " + name);

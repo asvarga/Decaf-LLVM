@@ -3,13 +3,12 @@
 // mutable variable tests
 
 class Aaa {
-    // public static void main (String[] argv) {
-    public static void main () {
+    public static void main (String[] argv) {
         IO.putString("Start the countdown at: ");
         int x = IO.getInt();
         endl();
 
-        while (x > 0) {        // TODO: while
+        while (x > 0) {
             IO.putInt(x);
             IO.putChar('\n');
             x = x-1;

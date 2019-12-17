@@ -60,4 +60,6 @@ public:
     virtual void visit(NullLitA* a);
     virtual void visit(ModifierA* a);
     virtual void visit(ThisExprA* a);
+
+    virtual void visit(AssignmentA* a);
 };

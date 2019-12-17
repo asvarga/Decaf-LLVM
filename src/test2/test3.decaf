@@ -3,10 +3,10 @@
 // string tests
 
 class Aaa {
-    public static void main () {
+    public static void main (String[] argv) {
         IO.putString("My name is ");
         char c = IO.peek();
-        string name = IO.getLine();
+        String name = IO.getLine();
         IO.putString("Hello ");
         IO.putChar(c); IO.putChar('-');
         IO.putChar(c); IO.putChar('-');

@@ -3,8 +3,7 @@
 // Inputs ints and prints :) until a 0 is entered
 
 class Aaa {
-    // public static void main (String[] argv) {
-    public static void main (int a, int b) {
+    public static void main (String[] argv) {
         while (IO.getInt()) {
             IO.putString(":)");
             IO.putChar('\n');

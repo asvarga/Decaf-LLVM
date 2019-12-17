@@ -3,7 +3,7 @@
 // method tests
 
 class Aaa {
-    public static void main () {
+    public static void main (String[] argv) {
         putPairLn(1, 10);
         putPairLn(2, 10);
         putPairLn(3, 10);

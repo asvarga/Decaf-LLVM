@@ -82,13 +82,14 @@ void CodeGenV::visit(PrimTypeA* a) {
 void CodeGenV::visit(ArrayTypeA* a) {
     indent(a->getDepth()); cout << "ArrayTypeA: dim " << a->getDim() << "\n";
     a->getType()->accept(*this);
+    // TODO:
 }
 
 void CodeGenV::visit(ClassTypeA* a) {
     indent(a->getDepth()); cout << "ClassTypeA: " << a->getName()->getName() << "\n";
     // a->getName()->accept(*this);
     string name = a->getName()->getName();
-    if (name == "string") {
+    if (name == "string" or name == "String") {
         // a->setIRType(Type::getInt8PtrTy(TheContext));
         // a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 0));
     } else {

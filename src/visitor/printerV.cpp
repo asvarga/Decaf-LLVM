@@ -421,3 +421,12 @@ void PrinterV::visit(InitializerA* a) {
     ++d;
     --d;
 }
+
+void PrinterV::visit(AssignmentA* a) {
+    indent();
+    cout << "AssignmentA\n";
+    ++d;
+    a->getLHS()->accept(*this);
+    a->getRHS()->accept(*this);
+    --d;
+}
