@@ -79,3 +79,4 @@ void NullLitA::accept(Visitor& v) { v.visit(this); }
 void ModifierA::accept(Visitor& v) { v.visit(this); }
 void ThisExprA::accept(Visitor& v) { v.visit(this); }
 
+void AssignmentA::accept(Visitor& v) { v.visit(this); }

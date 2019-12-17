@@ -35,12 +35,25 @@ void CodeGenV::visit(NameA* a) {
         case 4: break;
         case 5: break;
         case 6:
-            a->setReg(currSymTab->getGlobal(name));
-            // cout << a->getReg() << endl;
+            // a->setReg(currSymTab->getGlobal(name));
+            AllocaInst *alloca = currSymTab->getGlobal(name);
+            a->setReg(Builder.CreateLoad(alloca, a->getName()));
             break;
-        default:
-            a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 1234));    // TODO:
+        // default:
+        //     a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 1234));    // TODO:
     }
+}
+
+void CodeGenV::visit(AssignmentA* a) {
+    indent(a->getDepth()); cout << "AssignmentA\n";
+
+    a->getLHS()->accept(*this);
+    AllocaInst *alloca = currSymTab->getGlobal(a->getLHS()->getName());
+    
+    a->getRHS()->accept(*this);
+    Value *reg = a->getRHS()->getReg();
+
+    a->setReg(Builder.CreateStore(reg, alloca));
 }
 
 void CodeGenV::visit(TypeA* a) {
@@ -70,8 +83,15 @@ void CodeGenV::visit(ArrayTypeA* a) {
 }
 
 void CodeGenV::visit(ClassTypeA* a) {
-    indent(a->getDepth()); cout << "ClassTypeA: " << a->getName() << "\n";
-    a->getName()->accept(*this);
+    indent(a->getDepth()); cout << "ClassTypeA: " << a->getName()->getName() << "\n";
+    // a->getName()->accept(*this);
+    string name = a->getName()->getName();
+    if (name == "string") {
+        // a->setIRType(Type::getInt8PtrTy(TheContext));
+        // a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 0));
+    } else {
+        Print("type not found: " + name);
+    }
 }
 
 void CodeGenV::visit(StatementA* a) {
@@ -156,7 +176,14 @@ void CodeGenV::visit(VarDeclA* a) {
     // a->getName()->accept(*this);
     a->getExpression()->accept(*this);
     Value *reg = a->getExpression()->getReg();
-    currSymTab->declareLocal(a->getName(), reg);
+
+    AllocaInst *alloca = Builder.CreateAlloca(currType, 0, a->getName());
+    if (reg != nullptr) {
+        Builder.CreateStore(reg, alloca);
+    }
+
+    // do this after visiting expression
+    currSymTab->declareLocal(a->getName(), alloca);
 }
 
 void CodeGenV::visit(FieldA* a) {
@@ -251,18 +278,22 @@ void CodeGenV::visit(FormalA* a) {
     if (a->getInd() >= 0) { cout << a->getInd() << ". "; }
     cout << "FormalA: " << a->getName() << "\n";
 
-    a->getType()->accept(*this);
-    
     int ind = a->getInd();
-    Value *v = currMethod->getArgVal(ind);
-    currSymTab->declareLocal(a->getName(), v);
-    v->setName(a->getName());
+    Value *reg = currMethod->getArgVal(ind);
+    reg->setName(a->getName());
+
+    a->getType()->accept(*this);
+    AllocaInst *alloca = Builder.CreateAlloca(a->getType()->getIRType(), 0, "a_"+a->getName());
+    Builder.CreateStore(reg, alloca);
+
+    currSymTab->declareLocal(a->getName(), alloca);
 }
 
 void CodeGenV::visit(DeclStatementA* a) {
     indent(a->getDepth()); cout << "DeclStatementA\n";
     a->getType()->accept(*this);
     currType = a->getType()->getIRType();
+    cout << currType << endl;
     a->getLocalList()->accept(*this);
 }
 
@@ -554,7 +585,7 @@ void CodeGenV::visit(ThisCallExprA* a) {
 
 void CodeGenV::visit(MethodCallExprA* a) {
     indent(a->getDepth()); cout << "MethodCallExprA\n";
-    a->getType()->accept(*this);
+    // a->getType()->accept(*this);
     a->getName()->accept(*this);
 
     a->getArgs()->accept(*this);
@@ -601,3 +632,4 @@ void CodeGenV::visit(SuperFieldExprA* a) {
 void CodeGenV::visit(InitializerA* a) {
     indent(a->getDepth()); cout << "InitializerA\n";
 }
+

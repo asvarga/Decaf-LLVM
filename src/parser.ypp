@@ -156,7 +156,7 @@ StartA* start;
 %type<modifierA>        modifier
 %type<newArrayA>        new_array_expr
 %type<primaryExprA>     primary
-%type<s>            var_decl_id
+%type<s>                var_decl_id
 
 
 %%
@@ -459,13 +459,18 @@ statement
         yydebug(" $$ = new SuperStatementA($2); ");
         $$ = new SuperStatementA($2);
     }
+    | IDENTIFIER EQ expr {
+        yydebug(" $$ = new AssignmentA($1, $3); ");
+        $$ = new AssignmentA(new NameA($1, 0), $3);
+    }
 
 expr
-    : expr EQ expr {
-        yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
-        $$ = new OpExpressionA($2, $1, $3);
-        }
-    | expr GREATER expr {
+    // : expr EQ expr {
+    //     yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
+    //     $$ = new OpExpressionA($2, $1, $3);
+    // }
+    // | 
+    : expr GREATER expr {
         yydebug(" $$ = new OpExpressionA($2, $1, $3); ");
         $$ = new OpExpressionA($2, $1, $3);
     }

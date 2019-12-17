@@ -7,7 +7,7 @@ bool Scope::hasSymbol(string name)
     auto it = localSymbols.find(name);
     return localSymbols.end() != it;
 }
-Value* Scope::getValue(string name)
+AllocaInst* Scope::getValue(string name)
 {
     if (hasSymbol(name))
     {
@@ -19,7 +19,7 @@ Value* Scope::getValue(string name)
         return nullptr;
     }
 }
-void Scope::declareVar(string name, Value* value)
+void Scope::declareVar(string name, AllocaInst* value)
 {
 
     localSymbols.insert({name, value});
@@ -29,7 +29,7 @@ void Scope::declareVar(string name, Value* value)
 // {
 //     localSymbols.insert({name, ConstantInt::get(Type::getInt64Ty(TheContext), 0)});
 // }
-void Scope::setValue(string name, Value* value)
+void Scope::setValue(string name, AllocaInst* value)
 {
     if (hasSymbol(name))
     {
@@ -46,7 +46,7 @@ void Scope::setValue(string name, Value* value)
 
 
 // Set value of symbol in current scope.
-void SymbolTable::setLocal(string name, Value* value)
+void SymbolTable::setLocal(string name, AllocaInst* value)
 {
     this->scopes.front()->setValue(name, value);
 }
@@ -56,12 +56,12 @@ bool SymbolTable::isLocal(string name)
     return this->scopes.front()->hasSymbol(name);
 }
 // Get the value of symbol in current scope
-Value* SymbolTable::getLocal(string name)
+AllocaInst* SymbolTable::getLocal(string name)
 {
     return this->scopes.front()->getValue(name);
 }
 // Declare symbol in current scope
-void SymbolTable::declareLocal(string name, Value* value) {
+void SymbolTable::declareLocal(string name, AllocaInst* value) {
     if (!isLocal(name))
     {
         this->scopes.front()->declareVar(name, value);
@@ -84,7 +84,7 @@ bool SymbolTable::isGlobal(string name)
     return false;
 }
 //returns value for the symbol closest to the current scope
-Value * SymbolTable::getGlobal(std::string name)
+AllocaInst * SymbolTable::getGlobal(std::string name)
 {
     for(auto scope : scopes)
     {

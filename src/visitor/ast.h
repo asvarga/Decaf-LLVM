@@ -45,17 +45,24 @@ class FieldA;
 /// ASTs ///
 
 class AST {
-    Value *reg;     // TODO: move somewhere more specific?
-    BasicBlock *bb; // TODO: move somewhere more specific?
-    Function *func; // TODO: move somewhere more specific?
+    // can use either a register or alloca
+    Value *reg;     
+    AllocaInst *alloca;
+
+    BasicBlock *bb; 
+    Function *func; 
     int depth = 0;
     AST *parent;
     int ind = -1;    // index if in list
 public:
     AST() {};
     AST(Function *f): func(f) {};
-    Value *getReg() { return reg; }
+
+    Value *getReg() { return (reg != nullptr) ? reg : alloca; }
+    AllocaInst *getAlloca() { return alloca; }
     void setReg(Value *r) { reg = r; }
+    void setReg(AllocaInst *r) { alloca = r; }
+
     BasicBlock *getBB() { return bb; }
     void setBB(BasicBlock *b) { bb = b; }
     Function *getFunc() { return func; }
@@ -342,11 +349,17 @@ public:
     ListA *getArgs() { return args; }
     MethodBodyA *getMethodBody() { return methodbody; };
     SymbolTable *getSymbolTable() { return symbolTable; };
-    Value *lookup(string name) { return symbolTable->getGlobal(name); }
+    AllocaInst *lookup(string name) { return symbolTable->getGlobal(name); }
     void setClass(ClassA *c) { clas = c; }
     ClassA *getClass() { return clas; };
     void addArgVal(Value *val) { argVals.push_back(val); }
     Value *getArgVal(int ind) { return argVals[ind]; }
+
+    // AllocaInst *CreateAlloca(Type *t, std::string name) {
+    //     IRBuilder<> TmpB(&this->getFunc()->getEntryBlock(), this->getFunc()->getEntryBlock().begin());
+    //     return TmpB.CreateAlloca(t, 0, name.c_str());
+    // }
+
     virtual void accept(Visitor& v);
 };
 
@@ -628,7 +641,15 @@ public:
     virtual void accept(Visitor& v);
 };
 
-
+class AssignmentA : public StatementA {
+    NameA *LHS;
+    ExpressionA *RHS;
+public:
+    AssignmentA(NameA *l, ExpressionA *r): LHS(l), RHS(r) {};
+    NameA *getLHS() { return LHS; }
+    ExpressionA *getRHS() { return RHS; }
+    virtual void accept(Visitor& v);
+};
 
 
 
@@ -693,5 +714,7 @@ public:
     virtual void visit(NullLitA* a) = 0;
     virtual void visit(ModifierA* a) = 0;
     virtual void visit(ThisExprA* a) = 0;
+
+    virtual void visit(AssignmentA* a) = 0;
 
 };

@@ -64,12 +64,10 @@ void Pass1V::visit(PrimTypeA* a) {
     string name = a->getName()->getName();
     if (name == "int") {
         a->setIRType(Type::getInt64Ty(TheContext));
-        // a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 0));
     } else if (name == "void") {
         a->setIRType(Type::getVoidTy(TheContext));
     } else if (name == "char") {
         a->setIRType(Type::getInt64Ty(TheContext));
-        // a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 32));  // space
     } else {
         // Print("type unimplemented: " + name);
     }
@@ -92,6 +90,13 @@ void Pass1V::visit(ClassTypeA* a) {
     ++d;
     a->getName()->accept(*this);
     --d;
+
+    string name = a->getName()->getName();
+    if (name == "string") {
+        a->setIRType(Type::getInt8PtrTy(TheContext));
+    } else {
+        // Print("type not found: " + name);
+    }
 }
 
 void Pass1V::visit(StatementA* a) {
@@ -514,5 +519,15 @@ void Pass1V::visit(InitializerA* a) {
     parent = a;
     a->setDepth(d);
     ++d;
+    --d;
+}
+
+void Pass1V::visit(AssignmentA* a) {
+    a->setParent(parent);
+    parent = a;
+    a->setDepth(d);
+    ++d;
+    a->getLHS()->accept(*this);
+    a->getRHS()->accept(*this);
     --d;
 }
