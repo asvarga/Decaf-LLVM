@@ -37,6 +37,8 @@ void CodeGenV::visit(NameA* a) {
         case 6:
             // a->setReg(currSymTab->getGlobal(name));
             AllocaInst *alloca = currSymTab->getGlobal(name);
+            // a->setReg()
+            // a->setReg(Builder.CreateLoad(Type::getInt64Ty(TheContext), alloca, a->getName()));
             a->setReg(Builder.CreateLoad(alloca, a->getName()));
             break;
         // default:
@@ -307,7 +309,7 @@ void CodeGenV::visit(IfStatementA* a) {
     // Emit cond value.
     a->getExpression()->accept(*this);
     Value* CondV = a->getExpression()->getReg();
-    CondV = Builder.CreateICmpNE(CondV, ConstantInt::get(Type::getInt64Ty(TheContext), 0), "ifcond");
+    // CondV = Builder.CreateICmpNE(CondV, ConstantInt::get(Type::getInt64Ty(TheContext), 0), "ifcond");
     // current function
     Function *TheFunction = Builder.GetInsertBlock()->getParent();
     // Create blocks for the then and else cases.  Insert the 'then' block at the
@@ -359,7 +361,7 @@ void CodeGenV::visit(WhileStatementA* a) {
     Builder.SetInsertPoint(CondBB);
     a->getExpression()->accept(*this);
     Value* CondV = a->getExpression()->getReg();
-    CondV = Builder.CreateICmpNE(CondV, ConstantInt::get(Type::getInt64Ty(TheContext), 0), "ifcond");
+    // CondV = Builder.CreateICmpNE(CondV, ConstantInt::get(Type::getInt64Ty(TheContext), 0), "ifcond");
     // Create blocks for the then and else cases.  Insert the 'then' block at the
     // end of the function.
     BasicBlock *ThenBB = BasicBlock::Create(TheContext, "then", TheFunction);

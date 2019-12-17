@@ -5,12 +5,18 @@
 class Aaa {
     // public static void main (String[] argv) {
     public static void main () {
-        IO.putString("x = ");
+        IO.putString("Start the countdown at: ");
         int x = IO.getInt();
-        if (x > 0) {        // TODO: while
-            x = x-1;
+        endl();
+
+        while (x > 0) {        // TODO: while
             IO.putInt(x);
             IO.putChar('\n');
+            x = x-1;
         }
+        IO.putString("Happy New Year!");
+        endl();
     }
+
+    void endl() { IO.putChar('\n'); }
 }
