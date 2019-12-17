@@ -37,6 +37,7 @@ class CodeGenV : public Visitor {
     std::vector<Type*> currArgTypes;
     Type *currType;
     int nameCase;   // decaf-semantics.pdf: page 12
+    // std::vector<CallA*> currCalls; // for handling nested calls
 public:
     CodeGenV() {
         // TODO: declare rest of externs

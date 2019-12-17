@@ -333,7 +333,7 @@ void PrinterV::visit(CallA* a) {
     cout << "CallA: " << a->getName() << "\n";
     ++d;
     a->getName()->accept(*this);
-    a->getExpressionList()->accept(*this);
+    a->getArgs()->accept(*this);
     --d;
 }
 

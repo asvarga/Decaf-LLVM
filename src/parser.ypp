@@ -702,9 +702,13 @@ int main(int argc, char **argv) {
     // start->accept(*(new PrinterV()));
     // cout << "\n";
 
-    cout << "\n===[CODEGEN-ING]===\n";
+    cout << "\n===[PASS1-ING]===\n";
     cout << "\n";
     start->accept(*(new Pass1V()));
+
+
+    cout << "\n===[CODEGEN-ING]===\n";
+    cout << "\n";
 
     // Create a new pass manager attached to it.
     TheFPM = make_unique<legacy::FunctionPassManager>(TheModule.get());

@@ -19,6 +19,10 @@ test1: compiler
 	../decaf test2/test1
 test2: compiler
 	../decaf test2/test2
+test3: compiler
+	../decaf test2/test3
+test4: compiler
+	../decaf test2/test4
 
 .PHONY: clean
 

@@ -7,6 +7,7 @@ class Pass1V : public Visitor {
     StartA *currStart;
     ClassA *currClass;
     MethodA *currMethod;
+    std::vector<Type*> currArgTypes;
 public:
     virtual void visit(StartA* a);
     virtual void visit(ListA* a);

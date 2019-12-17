@@ -1,0 +1,20 @@
+#!/usr/bin/env decaf
+
+// method tests
+
+class Aaa {
+    public static void main () {
+        putPairLn(1, 10);
+        putPairLn(2, 10);
+        putPairLn(3, 10);
+    }
+
+    void putPairLn(int x, int y) {
+        IO.putChar('(');
+        IO.putInt(x);
+        IO.putString(", ");
+        IO.putInt(y);
+        IO.putChar(')');
+        IO.putChar('\n');
+    }
+}

@@ -50,6 +50,7 @@ class AST {
     Function *func; // TODO: move somewhere more specific?
     int depth = 0;
     AST *parent;
+    int ind = -1;    // index if in list
 public:
     AST() {};
     AST(Function *f): func(f) {};
@@ -64,6 +65,9 @@ public:
     void setDepth(int d) { depth = d; }
     AST *getParent() { return parent; }
     void setParent(AST *p) { parent = p; }
+    int getInd() { return ind; }
+    void setInd(int i) { ind = i; }
+
     virtual void accept(Visitor& v) = 0;
 };
 
@@ -319,6 +323,7 @@ class MethodA : public AST {
     MethodBodyA *methodbody;
     SymbolTable *symbolTable;
     ClassA *clas;
+    std::vector<Value *> argVals;
 public:
     MethodA(ListA* ms, TypeA *t, string n, ListA *as, MethodBodyA *m):
         modifiers(ms), type(t), name(n), args(as), methodbody(m) {
@@ -340,6 +345,8 @@ public:
     Value *lookup(string name) { return symbolTable->getGlobal(name); }
     void setClass(ClassA *c) { clas = c; }
     ClassA *getClass() { return clas; };
+    void addArgVal(Value *val) { argVals.push_back(val); }
+    Value *getArgVal(int ind) { return argVals[ind]; }
     virtual void accept(Visitor& v);
 };
 
@@ -511,13 +518,15 @@ public:
     virtual void accept(Visitor& v);
 };
 
-class CallA : public AST {
+class CallA : public ExpressionA {
     NameA *name;
-    ListA *expressionList;
+    ListA *args;
+    // std::vector<Value *> callArgs;
 public:
-    CallA(NameA *n, ListA *es): name(n), expressionList(es) {};
+    CallA(NameA *n, ListA *es): name(n), args(es) {};
     NameA *getName() { return name; };
-    ListA *getExpressionList() { return expressionList; };
+    ListA *getArgs() { return args; };
+    // std::vector<Value *> getCallArgs() { return callArgs; };
     virtual void accept(Visitor& v);
 };
 
@@ -563,35 +572,35 @@ public:
     virtual void accept(Visitor& v);
 };
 
-class ThisCallExprA: public ExpressionA{
-    NameA *name;
-    ListA *args;
+class ThisCallExprA: public CallA {
+    // NameA *name;
+    // ListA *args;
 public:
-    ThisCallExprA(NameA *n, ListA *as): name(n), args(as) {};
-    NameA *getName() { return name; };
-    ListA *getArgs() { return args; };
+    ThisCallExprA(NameA *n, ListA *as): CallA(n, as) {};
+    // NameA *getName() { return name; };
+    // ListA *getArgs() { return args; };
     virtual void accept(Visitor& v);
 };
 
-class MethodCallExprA: public ExpressionA{
+class MethodCallExprA: public CallA {
     PrimaryExprA *type;
-    NameA *name;
-    ListA *args;
+    // NameA *name;
+    // ListA *args;
 public:
-    MethodCallExprA(PrimaryExprA* t, NameA* n, ListA *as): type(t), name(n), args(as) {};
+    MethodCallExprA(PrimaryExprA* t, NameA* n, ListA *as): type(t), CallA(n, as) {};
     PrimaryExprA *getType() { return type; }
-    NameA *getName() { return name; };
-    ListA *getArgs() { return args; };
+    // NameA *getName() { return name; };
+    // ListA *getArgs() { return args; };
     virtual void accept(Visitor& v);
 };
 
-class SuperCallExprA: public ExpressionA{
-    NameA *name;
-    ListA *args;
+class SuperCallExprA: public CallA {
+    // NameA *name;
+    // ListA *args;
 public:
-    SuperCallExprA(NameA *t, ListA *as): name(t), args(as) {};
-    NameA *getName() { return name; };
-    ListA *getArgs() { return args; };
+    SuperCallExprA(NameA *n, ListA *as): CallA(n, as) {};
+    // NameA *getName() { return name; };
+    // ListA *getArgs() { return args; };
     virtual void accept(Visitor& v);
 };
 

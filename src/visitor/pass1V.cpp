@@ -61,6 +61,18 @@ void Pass1V::visit(PrimTypeA* a) {
     a->setDepth(d);
     ++d;
     a->getName()->accept(*this);
+    string name = a->getName()->getName();
+    if (name == "int") {
+        a->setIRType(Type::getInt64Ty(TheContext));
+        // a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 0));
+    } else if (name == "void") {
+        a->setIRType(Type::getVoidTy(TheContext));
+    } else if (name == "char") {
+        a->setIRType(Type::getInt64Ty(TheContext));
+        // a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 32));  // space
+    } else {
+        // Print("type unimplemented: " + name);
+    }
     --d;
 }
 
@@ -112,8 +124,10 @@ void Pass1V::visit(ListA* a) {
     a->setDepth(d);
     ++d;
     deque<AST *> asts = a->getASTs();
+    int ind = 0;
     for (AST *a2 : asts) {
         a2->accept(*this);
+        a2->setInd(ind++);
     }
     --d;
 }
@@ -211,10 +225,26 @@ void Pass1V::visit(MethodA* a) {
 
     ++d;
     a->getModifiers()->accept(*this);
+    // a->getType()->accept(*this);
+    // a->getArgs()->accept(*this);
+
+    // return type
     a->getType()->accept(*this);
-    a->getArgs()->accept(*this);
+    Type *returnType = a->getType()->getIRType();
+    // arg types
+    std::vector<Type*> argTypes;
+    currArgTypes = argTypes;    
+    a->getArgs()->accept(*this);    // populates currArgTypes
+    FunctionType *FT = FunctionType::get(returnType, currArgTypes, false);
+    // make TheFunction
+    string fname = a->getClass()->getName() + "." + a->getName();   // avoid name collision across classes
+    Function *TheFunction = Function::Create(FT, Function::ExternalLinkage, fname, TheModule.get());   
+    a->setFunc(TheFunction);
+
     a->getMethodBody()->accept(*this);
     --d;
+
+    
 }
 
 void Pass1V::visit(ConstructorA* a) {
@@ -234,6 +264,7 @@ void Pass1V::visit(FormalA* a) {
     a->setDepth(d);
     ++d;
     a->getType()->accept(*this);
+    currArgTypes.push_back(a->getType()->getIRType());
     --d;
 }
 
@@ -387,7 +418,7 @@ void Pass1V::visit(CallA* a) {
     a->setDepth(d);
     ++d;
     a->getName()->accept(*this);
-    a->getExpressionList()->accept(*this);
+    a->getArgs()->accept(*this);
     --d;
 }
 

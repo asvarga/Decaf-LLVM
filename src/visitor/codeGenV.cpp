@@ -52,12 +52,12 @@ void CodeGenV::visit(PrimTypeA* a) {
     // a->getName()->accept(*this);
     string name = a->getName()->getName();
     if (name == "int") {
-        a->setIRType(Type::getInt64Ty(TheContext));
+        // a->setIRType(Type::getInt64Ty(TheContext));
         a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 0));
     } else if (name == "void") {
-        a->setIRType(Type::getVoidTy(TheContext));
+        // a->setIRType(Type::getVoidTy(TheContext));
     } else if (name == "char") {
-        a->setIRType(Type::getInt64Ty(TheContext));
+        // a->setIRType(Type::getInt64Ty(TheContext));
         a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 32));  // space
     } else {
         Print("type unimplemented: " + name);
@@ -177,23 +177,40 @@ void CodeGenV::visit(MethodA* a) {
     currSymTab->enterScope();
     
     a->getModifiers()->accept(*this);
-
-    // return type
     a->getType()->accept(*this);
-    Type *returnType = a->getType()->getIRType();
-
-    // arg types
-    std::vector<Type*> argTypes;
-    currArgTypes = argTypes;    
-    a->getArgs()->accept(*this);    // populates currArgTypes
-    FunctionType *FT = FunctionType::get(returnType, currArgTypes, false);
     
-    // make TheFunction
-    string fname = a->getClass()->getName() + "." + a->getName();   // avoid name collision across classes
-    Function *TheFunction = Function::Create(FT, Function::ExternalLinkage, fname, TheModule.get());   
-    a->setFunc(TheFunction);
+
+    // // return type
+    // a->getType()->accept(*this);
+    // Type *returnType = a->getType()->getIRType();
+    // // arg types
+    // std::vector<Type*> argTypes;
+    // currArgTypes = argTypes;    
+    // a->getArgs()->accept(*this);    // populates currArgTypes
+    // FunctionType *FT = FunctionType::get(returnType, currArgTypes, false);
+    // // make TheFunction
+    // string fname = a->getClass()->getName() + "." + a->getName();   // avoid name collision across classes
+    // Function *TheFunction = Function::Create(FT, Function::ExternalLinkage, fname, TheModule.get());   
+    // a->setFunc(TheFunction);
+
+    // a's Function is built by Pass1V 
+    Function *TheFunction = a->getFunc();
     BasicBlock *BB = BasicBlock::Create(TheContext, "entry", TheFunction);
     Builder.SetInsertPoint(BB);
+
+    // TODO: this is bad
+    for (auto &Arg : TheFunction->args()) {
+        a->addArgVal(&Arg);
+    }
+
+    a->getArgs()->accept(*this);
+
+    // for (AST *arg : a->getArgs()->getASTs()) {
+    //     cout << arg->getReg() << endl;
+    // }
+
+    // std::vector<AST*> args = a->getArgs()->getASTs();
+
     
 
     // // call IO$getInt()
@@ -216,6 +233,8 @@ void CodeGenV::visit(MethodA* a) {
     // TODO: segfaults if multiple/no returns
     Builder.CreateRet(nullptr); // c++ nullptr = llvm void
 
+    currSymTab->leaveScope();
+
     verifyFunction(*TheFunction);
     // TheFPM->run(*TheFunction);   // TODO: uncomment for optimizations
 }
@@ -228,12 +247,16 @@ void CodeGenV::visit(ConstructorA* a) {
 }
 
 void CodeGenV::visit(FormalA* a) {
-    indent(a->getDepth()); cout << "FormalA: " << a->getName() << "\n";
+    indent(a->getDepth()); 
+    if (a->getInd() >= 0) { cout << a->getInd() << ". "; }
+    cout << "FormalA: " << a->getName() << "\n";
+
     a->getType()->accept(*this);
-    currArgTypes.push_back(a->getType()->getIRType());
-    if (a->getType()->getReg() != nullptr) {
-        currSymTab->declareLocal(a->getName(), a->getType()->getReg());
-    }   
+    
+    int ind = a->getInd();
+    Value *v = currMethod->getArgVal(ind);
+    currSymTab->declareLocal(a->getName(), v);
+    v->setName(a->getName());
 }
 
 void CodeGenV::visit(DeclStatementA* a) {
@@ -386,7 +409,7 @@ void CodeGenV::visit(NonArrayPrimaryA* a) {
 void CodeGenV::visit(CallA* a) {
     indent(a->getDepth()); cout << "CallA: " << a->getName() << "\n";
     a->getName()->accept(*this);
-    a->getExpressionList()->accept(*this);
+    a->getArgs()->accept(*this);
 }
 
 void CodeGenV::visit(SuperStatementA* a) {
@@ -517,36 +540,44 @@ void CodeGenV::visit(NewObjExprA* a) {
 void CodeGenV::visit(ThisCallExprA* a) {
     indent(a->getDepth()); cout << "ThisCallExprA\n";
     a->getName()->accept(*this);
+    MethodA *m = currClass->getMethod(a->getName()->getName());
+    Function *f = m->getFunc();
+    if (f == nullptr) { LogErrorV("Function undefined"); }
+
     a->getArgs()->accept(*this);
+    std::vector<Value *> callArgs;
+    for (AST *arg : a->getArgs()->getASTs()) {
+        callArgs.push_back(arg->getReg());
+    }
+    a->setReg(Builder.CreateCall(f, callArgs, "calltmp"));
 }
 
 void CodeGenV::visit(MethodCallExprA* a) {
     indent(a->getDepth()); cout << "MethodCallExprA\n";
     a->getType()->accept(*this);
     a->getName()->accept(*this);
+
     a->getArgs()->accept(*this);
+    std::vector<Value *> callArgs;
+    for (AST *arg : a->getArgs()->getASTs()) {
+        callArgs.push_back(arg->getReg());
+    }
+
     // TODO: this is a total hack, also getType is wack
     if (a->getName()->getName() == "putChar") {
-        std::vector<Value *> putCharArgsV(1, a->getArgs()->getASTs().front()->getReg());
-        a->setReg(Builder.CreateCall(PutCharFunction, putCharArgsV, "putchartmp"));
+        a->setReg(Builder.CreateCall(PutCharFunction, callArgs, "putchartmp"));
     } else if (a->getName()->getName() == "putInt") {
-        std::vector<Value *> putIntArgsV(1, a->getArgs()->getASTs().front()->getReg());
-        a->setReg(Builder.CreateCall(PutIntFunction, putIntArgsV, "putinttmp"));
+        a->setReg(Builder.CreateCall(PutIntFunction, callArgs, "putinttmp"));
     } else if (a->getName()->getName() == "putString") {
-        std::vector<Value *> putStringArgsV(1, a->getArgs()->getASTs().front()->getReg());
-        a->setReg(Builder.CreateCall(PutStringFunction, putStringArgsV, "putstringtmp"));
+        a->setReg(Builder.CreateCall(PutStringFunction, callArgs, "putstringtmp"));
     } else if (a->getName()->getName() == "peek") {
-        std::vector<Value *> peekArgsV;
-        a->setReg(Builder.CreateCall(PeekFunction, peekArgsV, "peektmp"));
+        a->setReg(Builder.CreateCall(PeekFunction, callArgs, "peektmp"));
     } else if (a->getName()->getName() == "getChar") {
-        std::vector<Value *> getCharArgsV;
-        a->setReg(Builder.CreateCall(GetCharFunction, getCharArgsV, "getchartmp"));
+        a->setReg(Builder.CreateCall(GetCharFunction, callArgs, "getchartmp"));
     } else if (a->getName()->getName() == "getInt") {
-        std::vector<Value *> getIntArgsV;
-        a->setReg(Builder.CreateCall(GetIntFunction, getIntArgsV, "getinttmp"));
+        a->setReg(Builder.CreateCall(GetIntFunction, callArgs, "getinttmp"));
     } else if (a->getName()->getName() == "getLine") {
-        std::vector<Value *> getLineArgsV;
-        a->setReg(Builder.CreateCall(GetLineFunction, getLineArgsV, "getlinetmp"));
+        a->setReg(Builder.CreateCall(GetLineFunction, callArgs, "getlinetmp"));
     }
 }
 
