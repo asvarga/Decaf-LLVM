@@ -4,11 +4,13 @@
 
 class Aaa {
     // public static void main (String[] argv) {
-    public static void main (int a, int b) {
+    public static void main () {
         IO.putString("x = ");
         int x = IO.getInt();
-        x = x+1;
-        IO.putInt(x);
-        IO.putChar('\n');
+        if (x > 0) {        // TODO: while
+            x = x-1;
+            IO.putInt(x);
+            IO.putChar('\n');
+        }
     }
 }

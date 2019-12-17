@@ -293,7 +293,6 @@ void CodeGenV::visit(DeclStatementA* a) {
     indent(a->getDepth()); cout << "DeclStatementA\n";
     a->getType()->accept(*this);
     currType = a->getType()->getIRType();
-    cout << currType << endl;
     a->getLocalList()->accept(*this);
 }
 

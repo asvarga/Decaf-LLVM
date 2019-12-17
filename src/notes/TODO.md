@@ -2,7 +2,7 @@
 
 ## TODO
 
-- mutable variables
+- fix mutable vars in conditions
 - fields
 
 - *REMEMBER TO*
