@@ -176,7 +176,8 @@ CHAR_SLASH          "'"\\[^nt]"'"
 {SINGLE_COMMENT}            { /* COMMENT */ }
 {COMMENT}               { /* COMMENT */ ; }
 {HASHBANG}               { /* COMMENT */ ; }
-{WHITESPACE}       /* pass */
+{WHITESPACE}       { /* pass */ }
+{NEWLINE}       { /* pass */ }
 
 
     /* Operator and Separator */

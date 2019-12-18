@@ -4,22 +4,22 @@
 
 class Aaa {
     public static void main (String[] argv) {
-        putPairLn(1, 10);
-        putPairLn(2, 10);
-        putPairLn(3, 10);
+        Bbb.putPairLn(1, 10);
+        Bbb.putPairLn(2, 10);
+        Bbb.putPairLn(3, 10);
     }
+}
 
+class Bbb {
     void putPairLn(int x, int y) {
         IO.putChar('(');
         IO.putInt(x);
         IO.putString(", ");
         IO.putInt(y);
         IO.putChar(')');
-        Bbb.endl();
+        endl();
     }
-}
 
-class Bbb {
     void endl() {
         IO.putChar('\n');
     }

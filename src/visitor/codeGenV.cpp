@@ -1,32 +1,32 @@
 #include "codeGenV.h"
 
 void CodeGenV::visit(StrLitA* a) {
-    indent(a->getDepth()); cout << "StrLitA: " << a->getValue() << "\n";
+    // indent(a->getDepth()); // cout << "StrLitA: " << a->getValue() << "\n";
     a->setReg(Builder.CreateGlobalStringPtr(StringRef(a->getValue())));
 }
 void CodeGenV::visit(CharLitA* a) {
-    indent(a->getDepth()); cout << "CharLitA: " << a->getValue() << endl ;
+    // indent(a->getDepth()); // cout << "CharLitA: " << a->getValue() << endl ;
     a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), a->getValue()));
 
 }
 void CodeGenV::visit(IntLitA* a) {
-    indent(a->getDepth()); cout << "IntLitA: " << a->getValue() << "\n";
+    // indent(a->getDepth()); // cout << "IntLitA: " << a->getValue() << "\n";
     a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), a->getValue()));
 }
 
 void CodeGenV::visit(BoolLitA* a) {
-    indent(a->getDepth()); cout << "BoolLitA: " << a->getValue() << endl;
+    // indent(a->getDepth()); // cout << "BoolLitA: " << a->getValue() << endl;
     a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), a->getValue()));
 }
 
 void CodeGenV::visit(NullLitA* a) {
-    indent(a->getDepth()); cout << "NullLitA\n";
+    // indent(a->getDepth()); // cout << "NullLitA\n";
     a->setReg(ConstantInt::get(Type::getInt64Ty(TheContext), 0));
 }
 
 void CodeGenV::visit(NameA* a) {
-    indent(a->getDepth()); 
-    cout << "NameA: " << a->getName() << " (case " << a->getCase() << ")\n";
+    // indent(a->getDepth()); 
+    // cout << "NameA: " << a->getName() << " (case " << a->getCase() << ")\n";
     string name = a->getName();
     switch(a->getCase()) {
         case 1: break;
@@ -47,7 +47,7 @@ void CodeGenV::visit(NameA* a) {
 }
 
 void CodeGenV::visit(AssignmentA* a) {
-    indent(a->getDepth()); cout << "AssignmentA\n";
+    // indent(a->getDepth()); // cout << "AssignmentA\n";
 
     a->getLHS()->accept(*this);
     AllocaInst *alloca = currSymTab->getGlobal(a->getLHS()->getName());
@@ -59,11 +59,11 @@ void CodeGenV::visit(AssignmentA* a) {
 }
 
 void CodeGenV::visit(TypeA* a) {
-    indent(a->getDepth()); cout << "TypeA" << "\n";
+    // indent(a->getDepth()); // cout << "TypeA" << "\n";
 }
 
 void CodeGenV::visit(PrimTypeA* a) {
-    indent(a->getDepth()); cout << "PrimTypeA: " << a->getName()->getName() << "\n";
+    // indent(a->getDepth()); // cout << "PrimTypeA: " << a->getName()->getName() << "\n";
     // a->getName()->accept(*this);
     string name = a->getName()->getName();
     if (name == "int") {
@@ -80,13 +80,13 @@ void CodeGenV::visit(PrimTypeA* a) {
 }
 
 void CodeGenV::visit(ArrayTypeA* a) {
-    indent(a->getDepth()); cout << "ArrayTypeA: dim " << a->getDim() << "\n";
+    // indent(a->getDepth()); // cout << "ArrayTypeA: dim " << a->getDim() << "\n";
     a->getType()->accept(*this);
     // TODO:
 }
 
 void CodeGenV::visit(ClassTypeA* a) {
-    indent(a->getDepth()); cout << "ClassTypeA: " << a->getName()->getName() << "\n";
+    // indent(a->getDepth()); // cout << "ClassTypeA: " << a->getName()->getName() << "\n";
     // a->getName()->accept(*this);
     string name = a->getName()->getName();
     if (name == "string" or name == "String") {
@@ -98,26 +98,26 @@ void CodeGenV::visit(ClassTypeA* a) {
 }
 
 void CodeGenV::visit(StatementA* a) {
-    indent(a->getDepth()); cout << "StatementA\n";
+    // indent(a->getDepth()); // cout << "StatementA\n";
 }
 
 void CodeGenV::visit(PrimaryExprA* a) {
-    indent(a->getDepth()); cout << "PrimaryExprA\n";
+    // indent(a->getDepth()); // cout << "PrimaryExprA\n";
 }
 
 void CodeGenV::visit(ExpressionA* a) {
-    indent(a->getDepth()); cout << "ExpressionA\n";
+    // indent(a->getDepth()); // cout << "ExpressionA\n";
 }
 
 void CodeGenV::visit(ListA* a) {
-    indent(a->getDepth()); cout << "ListA\n";
+    // indent(a->getDepth()); // cout << "ListA\n";
     deque<AST *> asts = a->getASTs();
     for (AST *a2 : asts) {
         a2->accept(*this);
     }
 }
 void CodeGenV::visit(StartA* a) {
-    indent(a->getDepth()); cout << "StartA\n";
+    // indent(a->getDepth()); // cout << "StartA\n";
     currStart = a;
 
     // build IO object
@@ -151,11 +151,11 @@ void CodeGenV::visit(StartA* a) {
 }
 
 void CodeGenV::visit(SuperA* a) {
-    indent(a->getDepth()); cout << "SuperA\n";
+    // indent(a->getDepth()); // cout << "SuperA\n";
 }
 
 void CodeGenV::visit(ClassA* a) {
-    indent(a->getDepth()); cout << "ClassA\n" ;
+    // indent(a->getDepth()); // cout << "ClassA\n" ;
 
     currClass = a;
 
@@ -164,18 +164,18 @@ void CodeGenV::visit(ClassA* a) {
 }
 
 void CodeGenV::visit(MethodBodyA* a) {
-    indent(a->getDepth()); cout << "MethodBodyA\n";
+    // indent(a->getDepth()); // cout << "MethodBodyA\n";
     // a->getFormalList()->accept(*this); // repeated in MethodA
     a->getStatementList()->accept(*this);
 }
 
 void CodeGenV::visit(FieldDeclA* a) {
-    indent(a->getDepth()); cout << "FieldDeclA\n";
+    // indent(a->getDepth()); // cout << "FieldDeclA\n";
     a->getFieldList()->accept(*this);
 }
 
 void CodeGenV::visit(VarDeclA* a) {
-    indent(a->getDepth()); cout << "VarDeclA: " << a->getName() << "\n";
+    // indent(a->getDepth()); // cout << "VarDeclA: " << a->getName() << "\n";
     // a->getName()->accept(*this);
     a->getExpression()->accept(*this);
     Value *reg = a->getExpression()->getReg();
@@ -190,18 +190,18 @@ void CodeGenV::visit(VarDeclA* a) {
 }
 
 void CodeGenV::visit(FieldA* a) {
-    indent(a->getDepth()); cout << "FieldA\n";
+    // indent(a->getDepth()); // cout << "FieldA\n";
     a->getModifers()->accept(*this);
     a->getType()->accept(*this);
     a->getVar()->accept(*this);
 }
 
 void CodeGenV::visit(ModifierA* a) {
-    indent(a->getDepth()); cout << "ModifierA: " << a->getModifier() << endl;
+    // indent(a->getDepth()); // cout << "ModifierA: " << a->getModifier() << endl;
 }
 
 void CodeGenV::visit(MethodA* a) {
-    indent(a->getDepth()); cout << "MethodA\n";
+    // indent(a->getDepth()); // cout << "MethodA\n";
     currMethod = a;
     currSymTab = a->getSymbolTable();
     currSymTab->enterScope();
@@ -236,7 +236,7 @@ void CodeGenV::visit(MethodA* a) {
     a->getArgs()->accept(*this);
 
     // for (AST *arg : a->getArgs()->getASTs()) {
-    //     cout << arg->getReg() << endl;
+    //     // cout << arg->getReg() << endl;
     // }
 
     // std::vector<AST*> args = a->getArgs()->getASTs();
@@ -266,20 +266,20 @@ void CodeGenV::visit(MethodA* a) {
     currSymTab->leaveScope();
 
     verifyFunction(*TheFunction);
-    // TheFPM->run(*TheFunction);   // TODO: uncomment for optimizations
+    TheFPM->run(*TheFunction);   // TODO: uncomment for optimizations
 }
 
 void CodeGenV::visit(ConstructorA* a) {
-    indent(a->getDepth()); cout << "ConstructorA\n";
+    // indent(a->getDepth()); // cout << "ConstructorA\n";
     a->getType()->accept(*this);
     a->getModifers()->accept(*this);
     a->getMethodBody()->accept(*this);
 }
 
 void CodeGenV::visit(FormalA* a) {
-    indent(a->getDepth()); 
-    if (a->getInd() >= 0) { cout << a->getInd() << ". "; }
-    cout << "FormalA: " << a->getName() << "\n";
+    // indent(a->getDepth()); 
+    // if (a->getInd() >= 0) { // cout << a->getInd() << ". "; }
+    // cout << "FormalA: " << a->getName() << "\n";
 
     int ind = a->getInd();
     Value *reg = currMethod->getArgVal(ind);
@@ -293,19 +293,19 @@ void CodeGenV::visit(FormalA* a) {
 }
 
 void CodeGenV::visit(DeclStatementA* a) {
-    indent(a->getDepth()); cout << "DeclStatementA\n";
+    // indent(a->getDepth()); // cout << "DeclStatementA\n";
     a->getType()->accept(*this);
     currType = a->getType()->getIRType();
     a->getLocalList()->accept(*this);
 }
 
 void CodeGenV::visit(LocalA* a) {
-    indent(a->getDepth()); cout << "LocalA\n";
+    // indent(a->getDepth()); // cout << "LocalA\n";
     a->getExpression()->accept(*this);
 }
 
 void CodeGenV::visit(IfStatementA* a) {
-    indent(a->getDepth()); cout << "IfStatementA\n";
+    // indent(a->getDepth()); // cout << "IfStatementA\n";
 
     // Emit cond value.
     a->getExpression()->accept(*this);
@@ -346,12 +346,12 @@ void CodeGenV::visit(IfStatementA* a) {
     // a->setReg(PN);
 }
 void CodeGenV::visit(ExpressionStatementA* a) {
-    indent(a->getDepth()); cout << "ExpressionStatementA\n";
+    // indent(a->getDepth()); // cout << "ExpressionStatementA\n";
     a->getExpression()->accept(*this);
 }
 
 void CodeGenV::visit(WhileStatementA* a) {
-    indent(a->getDepth()); cout << "WhileStatementA\n";
+    // indent(a->getDepth()); // cout << "WhileStatementA\n";
     // a->getExpression()->accept(*this);
     // a->getStatement()->accept(*this);
 
@@ -385,75 +385,75 @@ void CodeGenV::visit(WhileStatementA* a) {
 }
 
 void CodeGenV::visit(ReturnStatementA* a) {
-    indent(a->getDepth()); cout << "ReturnStatementA\n";
+    // indent(a->getDepth()); // cout << "ReturnStatementA\n";
     a->getExpression()->accept(*this);
     Builder.CreateRet(a->getExpression()->getReg());
 }
 void CodeGenV::visit(ContinueStatementA* a) {
-    indent(a->getDepth()); cout << "ContinueStatementA\n";
+    // indent(a->getDepth()); // cout << "ContinueStatementA\n";
 }
 void CodeGenV::visit(BreakStatementA* a) {
-    indent(a->getDepth()); cout << "BreakStatementA\n";
+    // indent(a->getDepth()); // cout << "BreakStatementA\n";
 }
 
 void CodeGenV::visit(BlockA* a) {
-    indent(a->getDepth()); cout << "BlockA\n";
+    // indent(a->getDepth()); // cout << "BlockA\n";
     currSymTab->enterScope();
     a->getStatementList()->accept(*this);
     currSymTab->leaveScope();
 }
 
 void CodeGenV::visit(BlockStatementA* a) {
-    indent(a->getDepth()); cout << "BlockStatementA\n";
+    // indent(a->getDepth()); // cout << "BlockStatementA\n";
     a->getBlock()->accept(*this);
 }
 
 void CodeGenV::visit(EmptyStatementA* a) {
-    indent(a->getDepth()); cout << "EmptyStatementA\n";
+    // indent(a->getDepth()); // cout << "EmptyStatementA\n";
 }
 
 void CodeGenV::visit(NewArrayA* a) {
-    indent(a->getDepth()); cout << "NewArrayA\n";
+    // indent(a->getDepth()); // cout << "NewArrayA\n";
     a->getType()->accept(*this);
     a->getDimList()->accept(*this);
 }
 
 void CodeGenV::visit(DimensionA* a) {
-    indent(a->getDepth()); cout << "DimensionA" << a->getDim() << endl;
+    // indent(a->getDepth()); // cout << "DimensionA" << a->getDim() << endl;
 }
 
 void CodeGenV::visit(ArrayRefA* a) {
-    indent(a->getDepth()); cout << "ArrayRefA\n";
+    // indent(a->getDepth()); // cout << "ArrayRefA\n";
     a->getName()->accept(*this);
     a->getExpression()->accept(*this);
     a->getDim()->accept(*this);
 }
 
 void CodeGenV::visit(PrimaryArrayA* a) {
-    indent(a->getDepth()); cout << "PrimaryArrayA\n";
+    // indent(a->getDepth()); // cout << "PrimaryArrayA\n";
     a->getArray()->accept(*this);
 }
 
 void CodeGenV::visit(NonArrayPrimaryA* a) {
-    indent(a->getDepth()); cout << "NonArrayPrimaryA\n";
+    // indent(a->getDepth()); // cout << "NonArrayPrimaryA\n";
     a->getExpression()->accept(*this);
     a->setReg(a->getExpression()->getReg());
 }
 
 void CodeGenV::visit(CallA* a) {
-    indent(a->getDepth()); cout << "CallA: " << a->getName() << "\n";
+    // indent(a->getDepth()); // cout << "CallA: " << a->getName() << "\n";
     a->getName()->accept(*this);
     a->getArgs()->accept(*this);
 }
 
 void CodeGenV::visit(SuperStatementA* a) {
-    indent(a->getDepth()); cout << "SuperStatementA\n";
+    // indent(a->getDepth()); // cout << "SuperStatementA\n";
     a->getArgs()->accept(*this);
 }
 
 void CodeGenV::visit(OpExpressionA* a) {
-    indent(a->getDepth()); 
-    cout << "OpExpressionA: " << a->getOp() << " (arity " << a->getArity() << ")\n";
+    // indent(a->getDepth()); 
+    // cout << "OpExpressionA: " << a->getOp() << " (arity " << a->getArity() << ")\n";
     nameCase = 6;
     ExpressionA *e1 = a->getExpression1();
     ExpressionA *e2 = a->getExpression2();
@@ -528,8 +528,8 @@ void CodeGenV::visit(OpExpressionA* a) {
         {
             LogErrorV("Variable mutation is unimplemented");
         //     // a->setReg(Builder.CreateOr(L, R, "lortmp"));
-        //     // cout << L << endl;
-        //     // cout << R << endl;
+        //     // // cout << L << endl;
+        //     // // cout << R << endl;
         //     // FIXME: partial hack:
         //     // currSymTab->setLocal(e1->getName()->getName(), R);
         }
@@ -562,17 +562,17 @@ void CodeGenV::visit(OpExpressionA* a) {
 }
 
 void CodeGenV::visit(ThisExprA* a) {
-    indent(a->getDepth()); cout << "ThisExprA\n";
+    // indent(a->getDepth()); // cout << "ThisExprA\n";
 }
 
 void CodeGenV::visit(NewObjExprA* a) {
-    indent(a->getDepth()); cout << "NewObjExprA\n";
+    // indent(a->getDepth()); // cout << "NewObjExprA\n";
     a->getName()->accept(*this);
     a->getExpressionList()->accept(*this);
 }
 
 void CodeGenV::visit(ThisCallExprA* a) {
-    indent(a->getDepth()); cout << "ThisCallExprA\n";
+    // indent(a->getDepth()); // cout << "ThisCallExprA\n";
 
     a->getName()->accept(*this);
     MethodA *m = currClass->getMethod(a->getName()->getName());
@@ -588,9 +588,8 @@ void CodeGenV::visit(ThisCallExprA* a) {
 }
 
 void CodeGenV::visit(MethodCallExprA* a) {
-    indent(a->getDepth()); 
-    cout << "MethodCallExprA: " << a->getSubject()->getName() << "." << a->getName()->getName() << endl;
-    // a->getType()->accept(*this);
+    // indent(a->getDepth()); 
+    // cout << "MethodCallExprA: " << a->getSubject()->getName() << "." << a->getName()->getName() << endl;
     // a->getName()->accept(*this);
 
     // a->getSubject()->accept(*this);
@@ -609,23 +608,23 @@ void CodeGenV::visit(MethodCallExprA* a) {
 }
 
 void CodeGenV::visit(SuperCallExprA* a) {
-    indent(a->getDepth()); cout << "SuperCallExprA\n";
+    // indent(a->getDepth()); // cout << "SuperCallExprA\n";
     a->getName()->accept(*this);
     a->getArgs()->accept(*this);
 }
 
 void CodeGenV::visit(FieldExprA* a) {
-    indent(a->getDepth()); cout << "FieldExprA\n";
+    // indent(a->getDepth()); // cout << "FieldExprA\n";
     a->getType()->accept(*this);
     a->getName()->accept(*this);
 }
 
 void CodeGenV::visit(SuperFieldExprA* a) {
-    indent(a->getDepth()); cout << "SuperFieldExprA\n";
+    // indent(a->getDepth()); // cout << "SuperFieldExprA\n";
     a->getName()->accept(*this);
 }
 
 void CodeGenV::visit(InitializerA* a) {
-    indent(a->getDepth()); cout << "InitializerA\n";
+    // indent(a->getDepth()); // cout << "InitializerA\n";
 }
 

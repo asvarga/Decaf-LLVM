@@ -2763,7 +2763,7 @@ void yydebug(string s) {
 }
 
 int main(int argc, char **argv) {
-    cout << "\n===[PARSING]===\n";
+    // cout << "\n===[PARSING]===\n";
 
     yyin = fopen(argv[1], "r");
 	yyparse();
@@ -2773,13 +2773,13 @@ int main(int argc, char **argv) {
     // start->accept(*(new PrinterV()));
     // cout << "\n";
 
-    cout << "\n===[PASS1-ING]===\n";
-    cout << "\n";
+    // cout << "\n===[PASS1-ING]===\n";
+    // cout << "\n";
     start->accept(*(new Pass1V()));
 
 
-    cout << "\n===[CODEGEN-ING]===\n";
-    cout << "\n";
+    // cout << "\n===[CODEGEN-ING]===\n";
+    // cout << "\n";
 
     // Create a new pass manager attached to it.
     TheFPM = make_unique<legacy::FunctionPassManager>(TheModule.get());
@@ -2791,15 +2791,15 @@ int main(int argc, char **argv) {
     TheFPM->add(createReassociatePass());
     // Eliminate Common SubExpressions.
     TheFPM->add(createGVNPass());
-    // Simplify the control flow graph (deleting unreachable blocks, etc).
-    TheFPM->add(createCFGSimplificationPass());
+    // // Simplify the control flow graph (deleting unreachable blocks, etc).
+    // TheFPM->add(createCFGSimplificationPass());
     TheFPM->doInitialization();
 
     start->accept(*(new CodeGenV()));
-    cout << "\n";
+    // cout << "\n";
 
-    cout << "\n===[FINALIZING]===\n";
-    cout << "\n";
+    // cout << "\n===[FINALIZING]===\n";
+    // cout << "\n";
 
     // TheModule->print(errs(), nullptr);
 
@@ -2808,7 +2808,7 @@ int main(int argc, char **argv) {
 
     // Print out all of the generated code.
     TheModule->print(errs(), nullptr);
-    // cout << "\n";
+    cout << "\n";
 
     if (start->getMain() == nullptr) { 
         fprintf(stderr, "No main method defined"); 
@@ -2870,9 +2870,9 @@ int main(int argc, char **argv) {
 
 
 
-    cout << "\n";
-    cout << "\n===[DONE]===\n";
-    cout << "\n";
+    // cout << "\n";
+    // cout << "\n===[DONE]===\n";
+    // cout << "\n";
 
 
 	return 0;

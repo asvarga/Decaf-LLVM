@@ -1,7 +1,9 @@
+#!/usr/bin/env decaf
 
 class Hello {
-  public static void main(String argv[])
+  public static void main(String[] argv)
   {
-    IO.putString ("hello world!\n");
+    IO.putString ("Hello World!");
+    IO.putChar ('\n');
   }
 }
