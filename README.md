@@ -115,7 +115,7 @@ $ ./test2/test4.decaf
 
 ## About
 
-This compiler uses **flex** and **bison** for parsing, and **LLVM** for code generation. Check out the `Makefile` for details.
+This compiler uses **flex** and **bison** for parsing, and **LLVM** for code generation. See the `Makefile` for details.
 
 The AST and operations on it make heavy use of the visitor pattern. I've done my best to avoid uses of C++'s `dynamic_cast` and all `accept`/`visit` methods have `void` return types. I wouldn't recommend this approach, because it requires delegating all desired pattern matching to the parser, and storing information about variants in AST nodes in somewhat hacky ways. This might be extra performant but is a painful process.
 
@@ -123,6 +123,6 @@ Code generation targets LLVM's IR. A first pass Visitor (`Pass1V`) pins a hodgep
 
 The generated code uses lots of memory loads/stores instead of register operations. This is fine because LLVM provides `createPromoteMemoryToRegisterPass` which is self explanatory, and allows us to keep out code-generating code simpler.
 
-Finally, the generated object files is linked against `decaffuntime.c` which calls the code's `_$DecafMain` method, which itself calls whichever `main` method is found in the decaf file. The generated code is made aware of the runtime's methods through explicit LLVM `declare` statements, rather than using `decaf_runtime.h`.
+Finally, the generated object files is linked against `decaffuntime.c` which calls the code's `_$DecafMain` method, which itself calls whichever `main` method is found in the decaf file. The generated code is made aware of the runtime's methods through explicit LLVM `declare` statements, rather than using `decaf_runtime.h`. See the `decaf` python script for details.
 
 
