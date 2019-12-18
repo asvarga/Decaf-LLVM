@@ -2,7 +2,6 @@
 
 ## TODO
 
-- fix test1 bug
 - fields
 
 - *REMEMBER TO*
@@ -14,4 +13,5 @@
 - types
 - bugs
     - strings with \n or \t
+    - truthiness of values (conditions currently require explicit bools)
 

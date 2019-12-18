@@ -383,7 +383,7 @@ void PrinterV::visit(MethodCallExprA* a) {
     indent();
     cout << "MethodCallExprA\n";
     ++d;
-    a->getType()->accept(*this);
+    a->getSubject()->accept(*this);
     a->getName()->accept(*this);
     a->getArgs()->accept(*this);
     --d;

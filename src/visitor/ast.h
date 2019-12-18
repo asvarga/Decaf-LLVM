@@ -148,6 +148,7 @@ class NameA : public PrimaryExprA {
     int nameCase;
 public:
     NameA(string n, int nc): name(n), nameCase(nc){};
+    NameA(string n): name(n), nameCase(0){};
     string getName() { return name; };
     int getCase() { return nameCase; };
     virtual void accept(Visitor& v);
@@ -596,12 +597,13 @@ public:
 };
 
 class MethodCallExprA: public CallA {
-    PrimaryExprA *type;
+    // PrimaryExprA *type;
+    NameA *subject;
     // NameA *name;
     // ListA *args;
 public:
-    MethodCallExprA(PrimaryExprA* t, NameA* n, ListA *as): type(t), CallA(n, as) {};
-    PrimaryExprA *getType() { return type; }
+    MethodCallExprA(NameA *s, NameA *n, ListA *as): subject(s), CallA(n, as) {};
+    NameA *getSubject() { return subject; }
     // NameA *getName() { return name; };
     // ListA *getArgs() { return args; };
     virtual void accept(Visitor& v);

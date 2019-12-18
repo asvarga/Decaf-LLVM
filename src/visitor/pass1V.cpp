@@ -482,7 +482,7 @@ void Pass1V::visit(MethodCallExprA* a) {
     parent = a;
     a->setDepth(d);
     ++d;
-    a->getType()->accept(*this);
+    a->getSubject()->accept(*this);
     a->getName()->accept(*this);
     a->getArgs()->accept(*this);
     --d;

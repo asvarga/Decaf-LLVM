@@ -352,8 +352,8 @@ void CodeGenV::visit(ExpressionStatementA* a) {
 
 void CodeGenV::visit(WhileStatementA* a) {
     indent(a->getDepth()); cout << "WhileStatementA\n";
-    a->getExpression()->accept(*this);
-    a->getStatement()->accept(*this);
+    // a->getExpression()->accept(*this);
+    // a->getStatement()->accept(*this);
 
     // Emit cond value.
     Function *TheFunction = Builder.GetInsertBlock()->getParent();
@@ -363,6 +363,7 @@ void CodeGenV::visit(WhileStatementA* a) {
     a->getExpression()->accept(*this);
     Value* CondV = a->getExpression()->getReg();
     // CondV = Builder.CreateICmpNE(CondV, ConstantInt::get(Type::getInt64Ty(TheContext), 0), "ifcond");
+    
     // Create blocks for the then and else cases.  Insert the 'then' block at the
     // end of the function.
     BasicBlock *ThenBB = BasicBlock::Create(TheContext, "then", TheFunction);
@@ -572,6 +573,7 @@ void CodeGenV::visit(NewObjExprA* a) {
 
 void CodeGenV::visit(ThisCallExprA* a) {
     indent(a->getDepth()); cout << "ThisCallExprA\n";
+
     a->getName()->accept(*this);
     MethodA *m = currClass->getMethod(a->getName()->getName());
     Function *f = m->getFunc();
@@ -586,32 +588,24 @@ void CodeGenV::visit(ThisCallExprA* a) {
 }
 
 void CodeGenV::visit(MethodCallExprA* a) {
-    indent(a->getDepth()); cout << "MethodCallExprA\n";
+    indent(a->getDepth()); 
+    cout << "MethodCallExprA: " << a->getSubject()->getName() << "." << a->getName()->getName() << endl;
     // a->getType()->accept(*this);
-    a->getName()->accept(*this);
+    // a->getName()->accept(*this);
+
+    // a->getSubject()->accept(*this);
+    ClassA *c = currStart->getClass(a->getSubject()->getName());
+    if (c == nullptr) { LogErrorV("Class undefined"); }
+    MethodA *m = c->getMethod(a->getName()->getName());
+    Function *f = m->getFunc();
+    if (f == nullptr) { LogErrorV("Function undefined"); }
 
     a->getArgs()->accept(*this);
     std::vector<Value *> callArgs;
     for (AST *arg : a->getArgs()->getASTs()) {
         callArgs.push_back(arg->getReg());
     }
-
-    // TODO: this is a total hack, also getType is wack
-    if (a->getName()->getName() == "putChar") {
-        a->setReg(Builder.CreateCall(PutCharFunction, callArgs, "putchartmp"));
-    } else if (a->getName()->getName() == "putInt") {
-        a->setReg(Builder.CreateCall(PutIntFunction, callArgs, "putinttmp"));
-    } else if (a->getName()->getName() == "putString") {
-        a->setReg(Builder.CreateCall(PutStringFunction, callArgs, "putstringtmp"));
-    } else if (a->getName()->getName() == "peek") {
-        a->setReg(Builder.CreateCall(PeekFunction, callArgs, "peektmp"));
-    } else if (a->getName()->getName() == "getChar") {
-        a->setReg(Builder.CreateCall(GetCharFunction, callArgs, "getchartmp"));
-    } else if (a->getName()->getName() == "getInt") {
-        a->setReg(Builder.CreateCall(GetIntFunction, callArgs, "getinttmp"));
-    } else if (a->getName()->getName() == "getLine") {
-        a->setReg(Builder.CreateCall(GetLineFunction, callArgs, "getlinetmp"));
-    }
+    a->setReg(Builder.CreateCall(f, callArgs, "calltmp"));
 }
 
 void CodeGenV::visit(SuperCallExprA* a) {

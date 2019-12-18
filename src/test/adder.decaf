@@ -1,8 +1,7 @@
 #!/usr/bin/env decaf
 
 class Adder {
-  // static public void main (String[] argv)
-  public static void main () 
+  static public void main (String[] argv)
   {
     IO.putString ("enter two integers: ");
     int x = IO.getInt ();

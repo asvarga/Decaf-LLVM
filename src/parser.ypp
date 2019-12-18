@@ -461,7 +461,7 @@ statement
     }
     | IDENTIFIER EQ expr {
         yydebug(" $$ = new AssignmentA($1, $3); ");
-        $$ = new AssignmentA(new NameA($1, 0), $3);
+        $$ = new AssignmentA(new NameA($1), $3);
     }
 
 expr
@@ -604,9 +604,10 @@ non_new_array_expr
         yydebug(" $$ = new ThisCallExprA($1, $2); ");
         $$ = new ThisCallExprA(new NameA($1, 2), $2);
     }
-    | primary DOT IDENTIFIER actual_args {
+    // | primary DOT IDENTIFIER actual_args {
+    | IDENTIFIER DOT IDENTIFIER actual_args {
         yydebug(" $$ = new MethodCallExprA($1, $3, $4); ");
-        $$ = new MethodCallExprA($1, new NameA($3, 3), $4);
+        $$ = new MethodCallExprA(new NameA($1), new NameA($3, 3), $4);
     }
     | SUPER DOT IDENTIFIER actual_args {
         yydebug(" $$ = new SuperCallExprA($3, $4); ");

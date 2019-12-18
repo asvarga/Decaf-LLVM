@@ -15,9 +15,11 @@ class Aaa {
         IO.putString(", ");
         IO.putInt(y);
         IO.putChar(')');
-        endl();
+        Bbb.endl();
     }
+}
 
+class Bbb {
     void endl() {
         IO.putChar('\n');
     }
