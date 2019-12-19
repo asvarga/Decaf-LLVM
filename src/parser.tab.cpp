@@ -2807,8 +2807,8 @@ int main(int argc, char **argv) {
     // cout << "Main BasicBlock: " << start->getMain()->getBB() << "\n";
 
     // Print out all of the generated code.
-    TheModule->print(errs(), nullptr);
-    cout << "\n";
+    // TheModule->print(errs(), nullptr);
+    // cout << "\n";
 
     if (start->getMain() == nullptr) { 
         fprintf(stderr, "No main method defined"); 

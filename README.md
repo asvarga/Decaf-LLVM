@@ -16,6 +16,8 @@ $ cd [PathToDecaf]/src
 $ make
 ```
 
+The compiler should detect and target whichever architecture you are using. I have only tested it on my Mac.
+
 ## Running a Program
 
 Once the compiler is `make`'d, the `decaf` python script will compile and run your program.
@@ -121,8 +123,8 @@ The AST and operations on it make heavy use of the visitor pattern. I've done my
 
 Code generation targets LLVM's IR. A first pass Visitor (`Pass1V`) pins a hodgepodge of various information onto AST nodes, like class and method symbol tables, depth/index values, pointers to parents, etc. These are used by the main visitor (`CodeGenV`) which uses LLVM's `IRBuilder`.
 
-The generated code uses lots of memory loads/stores instead of register operations. This is fine because LLVM provides `createPromoteMemoryToRegisterPass` which is self explanatory, and allows us to keep out code-generating code simpler.
+The generated IR code uses lots of memory loads/stores instead of register operations. This is fine because LLVM provides `createPromoteMemoryToRegisterPass` which is self explanatory, and allows us to keep out code-generating code simpler. There are lines in `parser.ypp` which can be uncommented to print the generated IR code. 
 
-Finally, the generated object files is linked against `decaffuntime.c` which calls the code's `_$DecafMain` method, which itself calls whichever `main` method is found in the decaf file. The generated code is made aware of the runtime's methods through explicit LLVM `declare` statements, rather than using `decaf_runtime.h`. See the `decaf` python script for details.
+Finally, the generated object file is linked against `decaffuntime.c` which calls the code's `_$DecafMain` method, which itself calls whichever `main` method is found in the decaf file. The generated code is made aware of the runtime's methods through explicit LLVM `declare` statements, rather than using `decaf_runtime.h`. See the `decaf` python script for details.
 
 
