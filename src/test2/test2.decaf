@@ -6,16 +6,12 @@ class Aaa {
     public static void main (String[] argv) {
         IO.putString("Start the countdown at: ");
         int x = IO.getInt();
-        // endl();
 
         while (x > 0) {
             IO.putInt(x);
             IO.putChar('\n');
             x = x-1;
         }
-        IO.putString("Happy New Year!");
-        endl();
+        IO.putString("Happy New Year!\n");
     }
-
-    void endl() { IO.putChar('\n'); }
 }

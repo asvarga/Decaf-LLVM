@@ -16,11 +16,6 @@ class Bbb {
         IO.putInt(x);
         IO.putString(", ");
         IO.putInt(y);
-        IO.putChar(')');
-        endl();
-    }
-
-    void endl() {
-        IO.putChar('\n');
+        IO.putString(")\n");
     }
 }

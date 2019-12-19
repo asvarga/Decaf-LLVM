@@ -17,7 +17,7 @@ class Fib {
       IO.putInt (i);
       IO.putString (") = ");
       IO.putInt (fib(i));
-      IO.putChar ('\n');
+      IO.putString ("\n");
       i = i + 1;
     }
   }

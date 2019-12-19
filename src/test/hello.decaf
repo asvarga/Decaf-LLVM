@@ -3,7 +3,6 @@
 class Hello {
   public static void main(String[] argv)
   {
-    IO.putString ("Hello World!");
-    IO.putChar ('\n');
+    IO.putString ("Hello World!\n");
   }
 }

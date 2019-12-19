@@ -3,8 +3,7 @@
 class Adder {
   static public void main (String[] argv)
   {
-    IO.putString ("Enter two integers: ");
-    IO.putChar ('\n');
+    IO.putString ("Enter two integers: \n");
     int x = IO.getInt ();
     int y = IO.getInt ();
 
@@ -13,6 +12,6 @@ class Adder {
     IO.putInt (y);
     IO.putString (" = ");
     IO.putInt (x+y);
-    IO.putChar ('\n');
+    IO.putString ("\n");
   }
 }

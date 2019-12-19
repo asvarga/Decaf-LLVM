@@ -8,6 +8,26 @@
 
 #define YY_DECL extern "C" int yylex()
 
+using namespace std;
+
+void rep(string &s, string sold, string snew) {
+	size_t i = s.find(sold);
+	while(i != string::npos) {
+		s.replace(i, 2, snew);
+		i = s.find(sold, i++);
+	}
+}
+char *escape(char *c) {
+    string s(c);
+    rep(s, "\\n", "\n");
+    rep(s, "\\t", "\t");
+    rep(s, "\\\"", "\"");
+    rep(s, "\\\\", "\\");
+    c = new char[s.length()+1];
+    strcpy(c, s.c_str());
+    return c;
+}
+
 %}
 
 
@@ -20,8 +40,9 @@ COMMENT             ("/*"[^*/]"*/")
 HASHBANG            ("#!"[^\r\n]*)
 IDENTIFIER          ([A-Za-z_][A-Za-z0-9_]*)
 INTEGER             (0|([1-9][0-9]*))
-BEG_STRING          (\"[^"\n]*)
-STRING              ({BEG_STRING}\")
+STRING_ESC          (\\(\\nt\"))              # \ followed by \ or r or n or "
+STRING_CHR          ([^\"\\])                 # anything but " or \
+STRING              (\"(\\[\\nt\"]|[^\"\\])*\")
 OPERATOR            ([-+/*%=.,;!<>()[\]{}:])
 CHAR                "'"[^'\n\\]"'"
 CHAR_SLASH          "'"\\[^nt]"'"
@@ -249,9 +270,7 @@ CHAR_SLASH          "'"\\[^nt]"'"
 {INTEGER}           { // std::cout << "INTEGER: " << yytext << "\n";
                         yylval.i = atoi(yytext); return INTEGER; }
 {STRING}            { // std::cout << "STRING: " << yytext << "\n";
-                        yylval.s = strdup(yytext); return STRING; }
-{BEG_STRING}        { // std::cout << "STRING: " << yytext << "\n";
-                        yylval.s = strdup(yytext); return STRING; }
+                        yylval.s = escape(yytext); return STRING; }
 {CHAR}              { // std::cout << "CHAR: " << yytext << "\n";
                         yylval.c = yytext[1]; return CHAR; }
 "'\\n'"             { // std::cout << "CHAR: " << yytext << "\n";

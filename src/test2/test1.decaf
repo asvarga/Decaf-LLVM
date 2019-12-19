@@ -4,15 +4,10 @@
 
 class Aaa {
     public static void main (String[] argv) {
-        IO.putString("Enter ints, 0 to exit.");
-        endl();
+        IO.putString("Enter ints, 0 to exit.\n");
         while (IO.getInt() != 0) {
-            IO.putString(":)");
-            endl();
+            IO.putString(":)\n");
         }
-        IO.putString(":(");
-        endl();
+        IO.putString(":(\n");
     }
-
-    void endl() { IO.putChar('\n'); }
 }
