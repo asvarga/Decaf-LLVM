@@ -5,7 +5,7 @@
 class Aaa {
     public static void main (String[] argv) {
         IO.putString("Enter ints, 0 to exit.\n");
-        while (IO.getInt() != 0) {
+        while (IO.getInt()) {
             IO.putString(":)\n");
         }
         IO.putString(":(\n");
